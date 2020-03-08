@@ -29,7 +29,7 @@ body {
 .min-width-full {
   margin-right: -1em;
   margin-left: -1em;
-  width: 1355px;
+  /* width: 1355px; */
   overflow: hidden;
 }
 .w-100 {
