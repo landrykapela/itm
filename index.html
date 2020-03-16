@@ -31,84 +31,71 @@
     <title>ITM Tanzania</title>
   </head>
   <body>
-    <header class="flex-row flex-between flex-middle">
-      <img src="images/logo.png" class="logo" alt="ITM logo" />
-      <nav class="flex-row flex-center" id="navigation">
-        <span id="home" class="active">Home</span>
-        <span id="about">About</span>
-        <span id="services">Services</span>
-        <span id="jobs">Jobs</span>
-        <span id="training">Training</span>
-        <span id="news">News & Events</span>
-        <span id="contacts">Contacts</span>
-      </nav>
-    </header>
-    <section
-      id="section_home"
-      class="primary-bg white-text flex-row flex-start shadow w-100 margin-std padding-std view-height-90"
+    <header
+      id="header"
+      class="min-width-full flex-column flex-top flex-start bg-img-header1 full-view-height margin-auto"
     >
-      <img src="images/lady.jpg" class="feature-image" />
-      <div class="flex-column flex-center flex-top">
-        <span class="title-label">
-          Welcome to
-        </span>
-        <p class="focus title">ITM Tanzania</p>
-        <span class="text-left">
-          ITM Tanzania Ltd is the East African division of the ITM AFRICA Group
-          of companies, a respected, multi-faceted service provider to different
-          sectors throughout Africa. </span
-        ><span class="text-left">
-          We provide turn-key solutions to our clients allowing them to focus on
-          their core business as well as increasing their profitability. </span
-        ><span class="text-left">
-          we believe in providing quality, in service delivery beyond
-          expectations, accountability and ownership
-        </span>
-        <span
-          id="about_more"
-          class="white-text buttons flex-row flex-space flex-middle border-white-all round-corner"
-        >
-          More<i class="material-icons">arrow_forward</i></span
-        >
-      </div>
-    </section>
-    <span class="vspacer"></span>
-    <main class="min-width-full bg-img-team full-view-height">
-      <section
-        id="section_about"
-        class=" flex-row flex-center margin-std padding-std margin-std w-100"
-        id="about"
+      <div
+        class="white-bg flex-row flex-between flex-middle w-100 padding-std margin-std"
       >
-        <div
-          class="flex-column flex-center w-75 padding-std white-bg-transparent"
-        >
-          <p class="primary-text focus title">Who We Are</p>
-          <span>
-            <p>
-              ITM Tanzania Ltd is the East African division of the ITM AFRICA
-              Group of companies, a respected, multi-faceted service provider to
-              different sectors throughout Africa.
-            </p>
-            <p>
-              We provide turn-key solutions to our clients allowing them to
-              focus on their core business as well as increasing their
-              profitability.
-            </p>
-            <p>
-              we believe in providing quality, in service delivery beyond
-              expectations, accountability and ownership
-            </p>
+        <img src="images/logo.png" class="logo" alt="ITM logo" />
+        <nav class="flex-row flex-center" id="navigation">
+          <span id="home" class="active">Home</span>
+          <span id="about">About</span>
+          <span id="services">Services</span>
+          <span id="jobs">Jobs</span>
+          <span id="training">Training</span>
+          <span id="news">News & Events</span>
+          <span id="contacts">Contacts</span>
+        </nav>
+      </div>
+      <!-- <div
+        id="section_home"
+        class="primary-bg white-text flex-row flex-start shadow w-100 margin-std padding-std view-height-90"
+      >
+        <img src="images/lady.jpg" class="feature-image" />
+        <div class="flex-column flex-center flex-top">
+          <span class="title-label">
+            Welcome to
+          </span>
+          <p class="focus title">ITM Tanzania</p>
+          <span class="text-left">
+            ITM Tanzania Ltd is the East African division of the ITM AFRICA
+            Group of companies, a respected, multi-faceted service provider to
+            different sectors throughout Africa. </span
+          ><span class="text-left">
+            We provide turn-key solutions to our clients allowing them to focus
+            on their core business as well as increasing their profitability. </span
+          ><span class="text-left">
+            we believe in providing quality, in service delivery beyond
+            expectations, accountability and ownership
           </span>
           <span
             id="about_more"
-            class="primary-text buttons flex-row flex-space flex-middle border-primary-all round-corner"
+            class="white-text buttons flex-row flex-space flex-middle border-white-all round-corner"
           >
             More<i class="material-icons">arrow_forward</i></span
           >
-          <div
-            class="flex-column flex-center transparent w-100 primary-bg"
-          ></div>
         </div>
+      </div> -->
+    </header>
+
+    <span class="vspacer"></span>
+    <main class="full-view-height min-width-full flex-column">
+      <p class="title">Our Clients</p>
+      <section
+        id="section_about"
+        class="w-100 flex-row can-go-right padding-std margin-std"
+        id="about"
+      >
+        <div class="squares "><img src="images/zola.png"></div>
+        <div class="squares "><img src="images/tigo.png"></div>
+        <div class="squares "><img src="images/contour.png"></div>
+        <div class="squares "><img src="images/grazia.png"></div>
+        <!-- <div class="squares accent-bg">item 5</div>
+        <div class="squares white-bg">item 6</div>
+        <div class="squares primary-bg">item 7</div>
+        <div class="squares accent-bg">item 8</div> -->
 
         <!-- <img src="images/lady.jpg" class="feature-image" /> -->
       </section>
@@ -121,19 +108,26 @@
         class="flex-column flex-start white-text padding-std margin-std"
         id="services"
       >
-        <div class="flex-column flex-center">
-          <p class="white-text focus title">What We Do</p>
-
-          <div class="flex-row flex-space flex-middle">
-            <div class=" flex-column flex-space flex-middle ">
-              <span
-                id="service_hr"
+        <div class="flex-column flex-center" id="slider">
+          <div class="flex-row flex-space flex-middle can-slide">
+            <div class="flex-column flex-center flex-middle">
+              <span id="service_hr"
                 class="margin-std large-icons border-white-all white-text flex-row flex-space flex-middle"
-              >
-                <i class="material-icons">people</i></span
-              >
-              <h3>Human Resource Solutions</h3>
+              ><i class="material-icons">people</i></span>
             </div>
+            <div class=" w-50 flex-column flex-center flex-start ">
+              <p class="white-text focus title text-left">
+                Human Resources Solutions
+              </p>
+              <p class="text-left">
+                ITM specializes in optimizing human capital and guaranteeing
+                development continuous human resources. We make sure that the
+                necessary production capacity is available to support and align
+                human resource activities with the objectives of your business.
+              </p>
+            </div>
+          </div>
+          <div class="flex-row flex-space flex-middle hidden">
             <div class=" flex-column flex-space flex-middle ">
               <span
                 id="service_sales"
@@ -141,9 +135,21 @@
               >
                 <i class="material-icons">local_shipping</i></span
               >
-
-              <h3>Sales and Distribution</h3>
             </div>
+            <div class=" w-50 flex-column flex-center flex-start ">
+                <p class="white-text focus title text-left">
+                  Sales and Distribution
+                </p>
+                <p class="text-left">
+                  ITM specializes in optimizing human capital and guaranteeing
+                  development continuous human resources. We make sure that the
+                  necessary production capacity is available to support and
+                  align human resource activities with the objectives of your
+                  business.
+                </p>
+            </div>
+          </div>
+          <div class="flex-row flex-space flex-middle hidden">
             <div class=" flex-column flex-space flex-middle ">
               <span
                 id="service_industrial"
@@ -151,15 +157,28 @@
               >
                 <i class="material-icons">memory</i></span
               >
-              <h3>Industrial Solutions</h3>
+            </div>
+            <div class=" w-50 flex-column flex-center flex-start ">
+                <p class="white-text focus title text-left">
+                  Industrial Solutions
+                </p>
+                <p class="text-left">
+                  ITM specializes in optimizing human capital and guaranteeing
+                  development continuous human resources. We make sure that the
+                  necessary production capacity is available to support and
+                  align human resource activities with the objectives of your
+                  business.
+                </p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    
+    </section>
     </main>
 
     <!-- <span class="vspacer"></span> -->
-    <footer class="flex-row flex-between dark-bg white-text min-width-full ">
+    <footer class="flex-row flex-between bg-img-map dark-bg white-text min-width-full ">
       <div class="flex-column flex-start flex-top margin-std padding-std">
         <h3>
           Links
@@ -181,6 +200,16 @@
         <span>Dar Es Salaam, Tanzania</span>
         <span>E-mail: infotanzania@itmafrica.com</span>
         <span>Phone: +255 737 100 025</span>
+      </div>
+      <div class="flex-column flex-start flex-top margin-std padding-std">
+        <h3>
+          Our Impact
+        </h3>
+        <span>Outsourced Staff: <b>3,200</b></span>
+        <span>Recruitments: <b>10,000</b></span>
+        <span>Partners: <b>50</b></span>
+        <span>People Trained: <b>2,000</b></span>
+        <span>Conducted Trainings: <b>450</b></span>
       </div>
       <div class="flex-column flex-start flex-top margin-std padding-std">
         <h3>

@@ -27,10 +27,61 @@ const scrollToView = targetId => {
 };
 
 //newsletter signup
-const body = document.getElementsByTagName("body")[0];
-if (body) {
-  body.addEventListener("load", event => {
-    let popup = document.getElementById("popup");
-    popup.classList.remove("hidden");
+const body = document.body;
+console.log("path: ", window.location.pathname);
+if (window.location.pathname == "/index.html") {
+  window.addEventListener("load", event => {
+    let header = document.getElementById("header");
+    let bg = "bg-img-header";
+    let index = 1;
+    setInterval(() => {
+      if (index > 4) index = 1;
+      let currentBg = bg + index;
+      let nextBg = bg + (index + 1);
+      if (index == 4) nextBg = bg + 1;
+      console.log("bg: ", currentBg, nextBg);
+      header.classList.add(nextBg);
+      header.classList.remove(currentBg);
+
+      index++;
+    }, 5000);
+
+    let slider = document.getElementById("slider");
+    let children = Array.from(slider.children);
+    console.log("children: ", children);
+    let k = 0;
+
+    // children[k].classList.add("can-slide");
+    setInterval(() => {
+      if (k > 2) {
+        children[2].classList.add("hidden");
+        children[2].classList.remove("can-slide");
+        k = 0;
+        children[k].classList.remove("hidden");
+        children[k].classList.add("can-slide");
+      } else {
+        children[k].classList.add("hidden");
+        children[k].classList.remove("can-slide");
+
+        if (k == 2) {
+          children[0].classList.remove("hidden");
+          children[0].classList.add("can-slide");
+          k = 0;
+        } else {
+          k++;
+          children[k].classList.remove("hidden");
+          children[k].classList.add("can-slide");
+        }
+      }
+    }, 5000);
   });
-} else console.log("no body");
+}
+let testBut = document.getElementById("test");
+let target = document.getElementById("testImg");
+if (testBut) {
+  testBut.addEventListener("click", event => {
+    console.log("testing...");
+    event.preventDefault();
+    target.classList.add("can-go-right");
+  });
+}
