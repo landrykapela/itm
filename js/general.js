@@ -32,45 +32,71 @@ console.log("path: ", window.location.pathname);
 if (window.location.pathname == "/index.html") {
   window.addEventListener("load", event => {
     let header = document.getElementById("header");
+    let details = Array.from(document.getElementById("section_home").children);
     let bg = "bg-img-header";
     let index = 1;
+    let k = 0;
     setInterval(() => {
       if (index > 4) index = 1;
+      k;
       let currentBg = bg + index;
       let nextBg = bg + (index + 1);
-      if (index == 4) nextBg = bg + 1;
-      console.log("bg: ", currentBg, nextBg);
+
+      if (index == 4) {
+        nextBg = bg + 1;
+      }
+
       header.classList.add(nextBg);
       header.classList.remove(currentBg);
 
       index++;
+
+      if (k > 3) {
+        details[3].classList.remove("can-fade");
+        details[3].classList.add("hidden");
+        k = 0;
+        details[k].classList.remove("hidden");
+        details[k].classList.add("can-fade");
+      } else {
+        details[k].classList.remove("can-fade");
+        details[k].classList.add("hidden");
+        if (k == 3) {
+          details[0].classList.add("can-fade");
+          details[0].classList.remove("hidden");
+          k = 0;
+        } else {
+          k++;
+          details[k].classList.add("can-fade");
+          details[k].classList.remove("hidden");
+        }
+      }
     }, 5000);
 
     let slider = document.getElementById("slider");
     let children = Array.from(slider.children);
     console.log("children: ", children);
-    let k = 0;
+    let j = 0;
 
     // children[k].classList.add("can-slide");
     setInterval(() => {
-      if (k > 2) {
+      if (j > 2) {
         children[2].classList.add("hidden");
         children[2].classList.remove("can-slide");
         k = 0;
-        children[k].classList.remove("hidden");
-        children[k].classList.add("can-slide");
+        children[j].classList.remove("hidden");
+        children[j].classList.add("can-slide");
       } else {
-        children[k].classList.add("hidden");
-        children[k].classList.remove("can-slide");
+        children[j].classList.add("hidden");
+        children[j].classList.remove("can-slide");
 
-        if (k == 2) {
+        if (j == 2) {
           children[0].classList.remove("hidden");
           children[0].classList.add("can-slide");
-          k = 0;
+          j = 0;
         } else {
-          k++;
-          children[k].classList.remove("hidden");
-          children[k].classList.add("can-slide");
+          j++;
+          children[j].classList.remove("hidden");
+          children[j].classList.add("can-slide");
         }
       }
     }, 5000);

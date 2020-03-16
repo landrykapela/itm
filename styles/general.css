@@ -393,7 +393,10 @@ header {
   padding: 0.5em;
   margin: 0 auto; */
 }
-
+.copyright {
+  padding: 1em;
+  font-size: 0.7rem;
+}
 main,
 section {
   /* height: calc(100vh - 10em); */
@@ -401,10 +404,11 @@ section {
 }
 .title-tag {
   width: 240px;
-  margin-top: -2em;
+  /* margin-top: -2em; */
   padding: 1em;
-  height: 40px;
   display: block;
+  /* background-image: url("../images/title_tag.png");
+  background-size: cover; */
 }
 .can-go-right {
   overflow-x: hidden;
