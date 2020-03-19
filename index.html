@@ -20,6 +20,18 @@
     />
     <link href="styles/general.css" rel="stylesheet" />
     <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+    />
+    <!-- <link href="glider/glider.css" rel="stylesheet" type="text/css" /> -->
+    <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
@@ -28,12 +40,20 @@
       rel="stylesheet"
     />
     <link rel="icon" href="images/favicon.png" />
+    <!-- Bootstrap CSS
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    /> -->
+
     <title>ITM Tanzania</title>
   </head>
   <body>
     <header
       id="header"
-      class="min-width-full flex-column flex-top flex-start bg-img-header1 full-view-height margin-auto"
+      class="min-width-full flex-column flex-top flex-start full-view-height margin-auto"
     >
       <div
         class="white-bg flex-row flex-between flex-middle w-100 padding-std margin-std"
@@ -50,10 +70,76 @@
         </nav>
       </div>
       <div
-        id="section_home"
-        class="white-text flex-row flex-center w-50 primary-bg-transparent margin-std padding-std view-height-90"
+        class="slider-area slider min-width-full full-view-height primary-bg"
+        id="fader"
+        data-slick='{"slidesToShow":1,"slidesToScroll":1'
       >
-        
+        <div class="full-view-height white-bg">
+          <span class="w-100 wiew-height-90">
+            <div class="flex-column flex-center flex-middle">
+              <span class="title-label">
+                Welcome to
+              </span>
+              <p class="focus title">ITM Tanzania</p>
+              <span class="text-center">
+                ITM Tanzania Ltd is the East African division of the ITM AFRICA
+                Group of companies, a respected, multi-faceted service provider
+                to different sectors throughout Africa.
+              </span>
+              <span
+                id="about_more"
+                class="white-text buttons flex-row flex-space flex-middle border-white-all round-corner"
+              >
+                MORE<i class="material-icons">arrow_forward</i></span
+              >
+            </div>
+          </span>
+        </div>
+        <div class="full-view-height primary-bg">
+          <span class="w-100 wiew-height-90">
+            <div class="flex-column flex-center flex-middle hidden">
+              <p class="focus title">Recruitments</p>
+              <span class="text-center">
+                We specialize in finding and connecting job seekers with the
+                right employers</span
+              >
+              <span
+                id="about_more"
+                class="white-text buttons flex-row flex-space flex-middle border-white-all round-corner"
+              >
+                MORE<i class="material-icons">arrow_forward</i></span
+              >
+            </div>
+          </span>
+        </div>
+        <div class="full-view-height accent-bg">
+          <span class="w-100 wiew-height-90">
+            <div class="flex-column flex-center flex-middle hidden">
+              <p class="focus title">Your Business Partner</p>
+              <span class="text-center">
+                ITM Tanzania Ltd is the East African division of the ITM AFRICA
+                Group of companies, a respected, multi-faceted service provider
+                to different sectors throughout Africa.
+              </span>
+              <span
+                id="about_more"
+                class="white-text buttons flex-row flex-space flex-middle border-white-all round-corner"
+              >
+                MORE<i class="material-icons">arrow_forward</i></span
+              >
+            </div>
+          </span>
+        </div>
+        <!-- <div class="full-view-height bg-img-header4">
+          <span class="w-100 wiew-height-90">
+            4
+          </span>
+        </div> -->
+      </div>
+      <!-- <div
+        id="section_home"
+        class="white-text flex-row flex-center w-100 primary-bg-transparent margin-std padding-std view-height-90"
+      >
         <div class="flex-column flex-center flex-middle can-fade">
           <span class="title-label">
             Welcome to
@@ -62,8 +148,8 @@
           <span class="text-center">
             ITM Tanzania Ltd is the East African division of the ITM AFRICA
             Group of companies, a respected, multi-faceted service provider to
-            different sectors throughout Africa. </span
-          >
+            different sectors throughout Africa.
+          </span>
           <span
             id="about_more"
             class="white-text buttons flex-row flex-space flex-middle border-white-all round-corner"
@@ -72,10 +158,10 @@
           >
         </div>
         <div class="flex-column flex-center flex-middle hidden">
-          
           <p class="focus title">Recruitments</p>
           <span class="text-center">
-            We specialize in finding and connecting job seekers with the right employers</span
+            We specialize in finding and connecting job seekers with the right
+            employers</span
           >
           <span
             id="about_more"
@@ -85,13 +171,12 @@
           >
         </div>
         <div class="flex-column flex-center flex-middle hidden">
-         
           <p class="focus title">Your Business Partner</p>
           <span class="text-center">
             ITM Tanzania Ltd is the East African division of the ITM AFRICA
             Group of companies, a respected, multi-faceted service provider to
-            different sectors throughout Africa. </span
-          >
+            different sectors throughout Africa.
+          </span>
           <span
             id="about_more"
             class="white-text buttons flex-row flex-space flex-middle border-white-all round-corner"
@@ -100,13 +185,12 @@
           >
         </div>
         <div class="flex-column flex-center flex-middle hidden">
-          
           <p class="focus title">Industry Solutions</p>
           <span class="text-left">
             ITM Tanzania Ltd is the East African division of the ITM AFRICA
             Group of companies, a respected, multi-faceted service provider to
-            different sectors throughout Africa. </span
-          >
+            different sectors throughout Africa.
+          </span>
           <span
             id="about_more"
             class="white-text buttons flex-row flex-space flex-middle border-white-all round-corner"
@@ -114,7 +198,7 @@
             MORE<i class="material-icons">arrow_forward</i></span
           >
         </div>
-      </div>
+      </div> -->
     </header>
 
     <span class="vspacer"></span>
@@ -125,10 +209,10 @@
         class="w-100 flex-row can-go-right padding-std margin-std"
         id="about"
       >
-        <div class="squares "><img src="images/zola.png"></div>
-        <div class="squares "><img src="images/tigo.png"></div>
-        <div class="squares "><img src="images/contour.png"></div>
-        <div class="squares "><img src="images/grazia.png"></div>
+        <div class="squares "><img src="images/zola.png" /></div>
+        <div class="squares "><img src="images/tigo.png" /></div>
+        <div class="squares "><img src="images/contour.png" /></div>
+        <div class="squares "><img src="images/grazia.png" /></div>
         <!-- <div class="squares accent-bg">item 5</div>
         <div class="squares white-bg">item 6</div>
         <div class="squares primary-bg">item 7</div>
@@ -139,42 +223,54 @@
     </main>
 
     <!-- <span class="vspacer"></span> -->
-    <main class="min-width-full accent-bg full-view-height">
-      <section
-        id="section_services"
-        class="flex-column flex-start white-text padding-std margin-std"
-        id="services"
-      >
-        <div class="flex-column flex-center" id="slider">
-          <div class="flex-row flex-space flex-middle can-slide">
-            <div class="flex-column flex-center flex-middle">
-              <span id="service_hr"
-                class="margin-std large-icons border-white-all white-text flex-row flex-space flex-middle"
-              ><i class="material-icons">people</i></span>
-            </div>
-            <div class=" w-50 flex-column flex-center flex-start ">
-              <p class="white-text focus title text-left">
-                Human Resources Solutions
-              </p>
-              <p class="text-left">
-                ITM specializes in optimizing human capital and guaranteeing
-                development continuous human resources. We make sure that the
-                necessary production capacity is available to support and align
-                human resource activities with the objectives of your business.
-              </p>
-              <span class="buttons flex-row flex-middle primary-bg round-corner">MORE <i class="material-icons">arrow_forward</i></span>
-            </div>
+    <main class="min-width-full primary-bg white-text">
+      <section id="services" class="primary-bg">
+        <div
+          class="slider-area slider flex-column flex-middle flex-center "
+          id="slider"
+          data-slick='{"slidesToShow":1,"slidesToScroll":1'
+        >
+          <!-- slide 1 -->
+          <div>
+            <span class="flex-row flex-space flex-middle">
+              <div class="flex-column flex-center flex-middle">
+                <span
+                  id="service_hr"
+                  class="margin-std large-icons border-white-all white-text flex-row flex-space flex-middle"
+                  ><i class="material-icons">people</i></span
+                >
+              </div>
+              <div class=" w-50 flex-column flex-center flex-start ">
+                <p class="white-text focus title text-left">
+                  Human Resources Solutions
+                </p>
+                <p class="text-left">
+                  ITM specializes in optimizing human capital and guaranteeing
+                  development continuous human resources. We make sure that the
+                  necessary production capacity is available to support and
+                  align human resource activities with the objectives of your
+                  business.
+                </p>
+                <span
+                  class="button flex-row flex-middle white-bg primary-text round-corner"
+                  >MORE <i class="material-icons">arrow_forward</i></span
+                >
+              </div>
+            </span>
           </div>
-          <div class="flex-row flex-space flex-middle hidden">
-            <div class=" flex-column flex-space flex-middle ">
-              <span
-                id="service_sales"
-                class="margin-std large-icons border-white-all white-text flex-row flex-space flex-middle"
-              >
-                <i class="material-icons">local_shipping</i></span
-              >
-            </div>
-            <div class=" w-50 flex-column flex-center flex-start ">
+
+          <!-- slide 2 -->
+          <div>
+            <span class="flex-row flex-space flex-middle">
+              <div class=" flex-column flex-space flex-middle ">
+                <span
+                  id="service_sales"
+                  class="margin-std large-icons border-white-all white-text flex-row flex-space flex-middle"
+                >
+                  <i class="material-icons">local_shipping</i></span
+                >
+              </div>
+              <div class=" w-50 flex-column flex-center flex-start ">
                 <p class="white-text focus title text-left">
                   Sales and Distribution
                 </p>
@@ -185,19 +281,26 @@
                   align human resource activities with the objectives of your
                   business.
                 </p>
-                <span class="buttons flex-row flex-middle primary-bg round-corner">MORE <i class="material-icons">arrow_forward</i></span>
-            </div>
+                <span
+                  class="button flex-row flex-middle primary-text white-bg round-corner"
+                  >MORE <i class="material-icons">arrow_forward</i></span
+                >
+              </div></span
+            >
           </div>
-          <div class="flex-row flex-space flex-middle hidden">
-            <div class=" flex-column flex-space flex-middle ">
-              <span
-                id="service_industrial"
-                class="margin-std large-icons border-white-all white-text flex-row flex-space flex-middle "
-              >
-                <i class="material-icons">memory</i></span
-              >
-            </div>
-            <div class=" w-50 flex-column flex-center flex-start ">
+
+          <!-- silde 3 -->
+          <div>
+            <span class="flex-row flex-space flex-middle">
+              <div class=" flex-column flex-space flex-middle ">
+                <span
+                  id="service_industrial"
+                  class="margin-std large-icons border-white-all white-text flex-row flex-space flex-middle "
+                >
+                  <i class="material-icons">memory</i></span
+                >
+              </div>
+              <div class=" w-50 flex-column flex-center flex-start ">
                 <p class="white-text focus title text-left">
                   Industrial Solutions
                 </p>
@@ -208,17 +311,21 @@
                   align human resource activities with the objectives of your
                   business.
                 </p>
-                <span class="buttons flex-row flex-middle primary-bg round-corner">MORE <i class="material-icons">arrow_forward</i></span>
-            </div>
+                <span
+                  class="button flex-row flex-middle primary-text white-bg round-corner"
+                  >MORE <i class="material-icons">arrow_forward</i></span
+                >
+              </div>
+            </span>
           </div>
         </div>
-      </div>
-    
-    </section>
+      </section>
     </main>
 
     <!-- <span class="vspacer"></span> -->
-    <footer class="flex-row flex-between bg-img-map dark-bg white-text min-width-full ">
+    <footer
+      class="flex-row flex-between bg-img-map dark-bg white-text min-width-full "
+    >
       <div class="flex-column flex-start flex-top margin-std padding-std">
         <h3>
           Links
@@ -272,7 +379,15 @@
         <span></span>
       </div>
     </footer>
-    <footer class="flex-row flex-space dark-bg white-text min-width-full "><span  class="copyright">2020 &copy;ITM Tanzania Ltd</span><span class="copyright">Developed and maintained by <a target="_blank" href="https://neelansoft.co.tz">Neelansoft Technologies</a></span></footer>
+    <footer class="flex-row flex-space dark-bg white-text min-width-full ">
+      <span class="copyright">2020 &copy;ITM Tanzania Ltd</span
+      ><span class="copyright"
+        >Developed and maintained by
+        <a target="_blank" href="https://neelansoft.co.tz"
+          >Neelansoft Technologies</a
+        ></span
+      >
+    </footer>
     <div
       id="scroll_top"
       class="hidden button-scroll-top round primary-bg white-text flex-center flex-row flex-middle"
@@ -302,6 +417,27 @@
         />
       </form>
     </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script> -->
     <script src="js/general.js"></script>
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
   </body>
 </html>

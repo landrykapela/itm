@@ -134,7 +134,7 @@ body {
 .border-white-top {
   border-top: 1px solid white;
 }
-/* buttons */
+/* button */
 .button-scroll-top {
   position: fixed;
   bottom: 20px;
@@ -153,19 +153,20 @@ body {
 .large-icons i {
   font-size: 3rem;
 }
-.buttons {
+.button {
   margin: 2em 0;
-  width: 80px;
+  min-width: 80px;
+  max-width: 100px;
   padding: 12px 24px;
   cursor: pointer;
   font-weight: bold;
 }
 
-.buttons i {
+.button i {
   margin-left: 1em;
 }
 
-.buttons:hover {
+.button:hover {
   background-color: #7ac7ed;
   border: 2px solid #7ac7ed;
   color: white;
@@ -175,7 +176,7 @@ body {
   border: 2px solid #132a86;
   color: white;
 }
-.buttons.round-corner {
+.button.round-corner {
   border-radius: 25px;
 }
 .round {

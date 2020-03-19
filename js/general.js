@@ -29,85 +29,72 @@ const scrollToView = targetId => {
 //newsletter signup
 const body = document.body;
 console.log("path: ", window.location.pathname);
-if (window.location.pathname == "/index.html") {
-  window.addEventListener("load", event => {
-    let header = document.getElementById("header");
-    let details = Array.from(document.getElementById("section_home").children);
-    let bg = "bg-img-header";
-    let index = 1;
-    let k = 0;
-    setInterval(() => {
-      if (index > 4) index = 1;
-      k;
-      let currentBg = bg + index;
-      let nextBg = bg + (index + 1);
-
-      if (index == 4) {
-        nextBg = bg + 1;
-      }
-
-      header.classList.add(nextBg);
-      header.classList.remove(currentBg);
-
-      index++;
-
-      if (k > 3) {
-        details[3].classList.remove("can-fade");
-        details[3].classList.add("hidden");
-        k = 0;
-        details[k].classList.remove("hidden");
-        details[k].classList.add("can-fade");
-      } else {
-        details[k].classList.remove("can-fade");
-        details[k].classList.add("hidden");
-        if (k == 3) {
-          details[0].classList.add("can-fade");
-          details[0].classList.remove("hidden");
-          k = 0;
-        } else {
-          k++;
-          details[k].classList.add("can-fade");
-          details[k].classList.remove("hidden");
-        }
-      }
-    }, 5000);
-
-    let slider = document.getElementById("slider");
-    let children = Array.from(slider.children);
-    console.log("children: ", children);
-    let j = 0;
-
-    // children[k].classList.add("can-slide");
-    setInterval(() => {
-      if (j > 2) {
-        children[2].classList.add("hidden");
-        children[2].classList.remove("can-slide");
-        k = 0;
-        children[j].classList.remove("hidden");
-        children[j].classList.add("can-slide");
-      } else {
-        children[j].classList.add("hidden");
-        children[j].classList.remove("can-slide");
-
-        if (j == 2) {
-          children[0].classList.remove("hidden");
-          children[0].classList.add("can-slide");
-          j = 0;
-        } else {
-          j++;
-          children[j].classList.remove("hidden");
-          children[j].classList.add("can-slide");
-        }
-      }
-    }, 5000);
+const hideAllSlides = slides => {
+  slides.forEach(slide => {
+    slide.classList.add("hidden");
+    slide.classList.remove("can-slide");
   });
-}
-let testBut = document.getElementById("test");
-let target = document.getElementById("testImg");
-if (testBut) {
-  testBut.addEventListener("click", event => {
-    console.log("testing...");
-    event.preventDefault();
-    target.classList.add("can-go-right");
+};
+const hideSlide = (slides, index) => {
+  if (index > slides.length - 1) {
+    hideAllSlides(slides);
+  } else {
+    slides[index].classList.add("hidden");
+    slides[index].classList.remove("can-slide");
+  }
+};
+const showSlide = (slides, index) => {
+  if (index > slides.length - 1 || index == -1) {
+    slides[0].classList.remove("hidden");
+    slides[0].classList.add("can-slide");
+  } else {
+    slides[index].classList.remove("hidden");
+    slides[index].classList.add("can-slide");
+  }
+  // setTimeout(() => {
+  //   console.log("dismissing...", index);
+  //   slides[index].classList.add("hidden");
+  //   slides[index].classList.remove("can-slide");
+
+  //   if (index < 2) {
+  //     console.log("showing...", index + 1);
+  //     slides[index + 1].classList.remove("hidden");
+  //     slides[index + 1].classList.add("can-slide");
+  //   } else {
+  //     console.log("showing...initial");
+  //     slides[0].classList.remove("hidden");
+  //     slides[0].classList.add("can-slide");
+  //   }
+  // }, 5000);
+};
+const slideShow = (slides, index) => {
+  setTimeout(index => {
+    hideSlide(slides, index - 1);
+    showSlide(slides, index);
+  }, 5000);
+};
+if (
+  window.location.pathname == "/index.html" ||
+  window.location.pathname == "/"
+) {
+  window.addEventListener("load", event => {
+    $("#fader").slick({
+      dots: true,
+      speed: 500,
+      autoplay: true,
+      infinite: true,
+      arrows: true,
+      swipe: true,
+      fade: true
+    });
+
+    $("#slider").slick({
+      dots: true,
+      speed: 500,
+      autoplay: true,
+      infinite: true,
+      arrows: true,
+      swipe: true
+    });
   });
 }
