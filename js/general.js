@@ -85,10 +85,8 @@ const slideShow = (slides, index) => {
     showSlide(slides, index);
   }, 5000);
 };
-if (
-  window.location.pathname == "/index.html" ||
-  window.location.pathname == "/"
-) {
+let paths = window.location.pathname.split("/");
+if (paths[paths.length - 1] == "index.html" || paths[paths.length - 1] == "") {
   window.addEventListener("load", event => {
     $("#slider").slick({
       dots: true,
