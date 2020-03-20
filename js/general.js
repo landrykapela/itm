@@ -78,16 +78,6 @@ if (
   window.location.pathname == "/"
 ) {
   window.addEventListener("load", event => {
-    $("#fader").slick({
-      dots: true,
-      speed: 500,
-      autoplay: true,
-      infinite: true,
-      arrows: true,
-      swipe: true,
-      fade: true
-    });
-
     $("#slider").slick({
       dots: true,
       speed: 500,
@@ -95,6 +85,32 @@ if (
       infinite: true,
       arrows: true,
       swipe: true
+    });
+  });
+}
+
+const logos1 = document.getElementsByClassName("can-go-right");
+const logos2 = document.getElementsByClassName("can-go-left");
+// const logos = logos1.concat(logos2);
+if (logos1) {
+  let items = Array.from(logos1);
+  items.forEach(item => {
+    item.addEventListener("mouseover", event => {
+      item.style.animationPlayState = "paused";
+    });
+    item.addEventListener("mouseout", () => {
+      item.style.animationPlayState = "running";
+    });
+  });
+}
+if (logos2) {
+  let items = Array.from(logos2);
+  items.forEach(item => {
+    item.addEventListener("mouseover", event => {
+      item.style.animationPlayState = "paused";
+    });
+    item.addEventListener("mouseout", () => {
+      item.style.animationPlayState = "running";
     });
   });
 }
