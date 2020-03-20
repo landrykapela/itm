@@ -19,9 +19,27 @@ if (nav) {
       cn.classList.add("active");
       let targetViewId = "section_" + event.target.id;
       console.log(targetViewId);
-      if (targetViewId.toLowerCase() == "section_about") {
-        window.location.pathname = "/about.html";
-      } else scrollToView(targetViewId);
+      switch (targetViewId.toLowerCase()) {
+        case "section_services":
+        case "section_contacts":
+          scrollToView(targetViewId);
+          break;
+        case "section_about":
+          window.location.pathname = "/about.html";
+          break;
+        case "section_events":
+          window.location.pathname = "/events.html";
+          break;
+        case "section_jobs":
+          window.location.pathname = "/jobs.html";
+          break;
+        case "section_home":
+          window.location.pathname = "/index.html";
+          break;
+        case "section_training":
+          window.location = "https://registration.itmafrica.co.tz";
+          break;
+      }
     });
   });
 } else {

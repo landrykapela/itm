@@ -99,8 +99,8 @@ body {
 /* images */
 .feature-image {
   /* border-top-right-radius: 50%; */
-  width: 55%;
-  margin: -2em 2em -2em -2em;
+  max-width: 400px;
+  margin: 2em -2em -2em 2em;
 }
 /* logo */
 .logo {
@@ -113,6 +113,9 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 /* borders */
+.round-corner-top-left {
+  border-top-left-radius: 50%;
+}
 .round-corner {
   border-radius: 10px;
 }
@@ -232,6 +235,9 @@ h5 {
 .title {
   font-size: 2rem;
   margin-bottom: 0.5em;
+}
+.subtitle {
+  font-size: 1.3rem;
 }
 .focus {
   font-weight: bolder;
@@ -454,6 +460,7 @@ section {
   /* background-image: url("../images/title_tag.png");
   background-size: cover; */
 }
+
 .can-go-right {
   overflow-x: hidden;
   animation: goright 5s linear 0s forwards;
