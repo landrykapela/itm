@@ -1,5 +1,12 @@
 // buttons and menus
 //menus
+const popupClose = document.getElementById("close-popup");
+const popup = document.getElementById("popup");
+if (popupClose) {
+  popupClose.addEventListener("click", () => {
+    popup.classList.add("hidden");
+  });
+}
 
 const nav = document.getElementById("navigation");
 if (nav) {
@@ -12,7 +19,27 @@ if (nav) {
       cn.classList.add("active");
       let targetViewId = "section_" + event.target.id;
       console.log(targetViewId);
-      scrollToView(targetViewId);
+      switch (targetViewId.toLowerCase()) {
+        case "section_services":
+        case "section_contacts":
+          scrollToView(targetViewId);
+          break;
+        case "section_about":
+          window.location.pathname = "/about.html";
+          break;
+        case "section_events":
+          window.location.pathname = "/events.html";
+          break;
+        case "section_jobs":
+          window.location.pathname = "/jobs.html";
+          break;
+        case "section_home":
+          window.location.pathname = "/index.html";
+          break;
+        case "section_training":
+          window.location = "https://registration.itmafrica.co.tz";
+          break;
+      }
     });
   });
 } else {
@@ -29,85 +56,90 @@ const scrollToView = targetId => {
 //newsletter signup
 const body = document.body;
 console.log("path: ", window.location.pathname);
-if (window.location.pathname == "/index.html") {
+const hideAllSlides = slides => {
+  slides.forEach(slide => {
+    slide.classList.add("hidden");
+    slide.classList.remove("can-slide");
+  });
+};
+const hideSlide = (slides, index) => {
+  if (index > slides.length - 1) {
+    hideAllSlides(slides);
+  } else {
+    slides[index].classList.add("hidden");
+    slides[index].classList.remove("can-slide");
+  }
+};
+const showSlide = (slides, index) => {
+  if (index > slides.length - 1 || index == -1) {
+    slides[0].classList.remove("hidden");
+    slides[0].classList.add("can-slide");
+  } else {
+    slides[index].classList.remove("hidden");
+    slides[index].classList.add("can-slide");
+  }
+};
+const slideShow = (slides, index) => {
+  setTimeout(index => {
+    hideSlide(slides, index - 1);
+    showSlide(slides, index);
+  }, 5000);
+};
+if (
+  window.location.pathname == "/index.html" ||
+  window.location.pathname == "/"
+) {
   window.addEventListener("load", event => {
-    let header = document.getElementById("header");
-    let details = Array.from(document.getElementById("section_home").children);
-    let bg = "bg-img-header";
-    let index = 1;
-    let k = 0;
-    setInterval(() => {
-      if (index > 4) index = 1;
-      k;
-      let currentBg = bg + index;
-      let nextBg = bg + (index + 1);
+    $("#slider").slick({
+      dots: true,
+      speed: 500,
+      autoplay: true,
+      infinite: true,
+      arrows: true,
+      swipe: true
+    });
 
-      if (index == 4) {
-        nextBg = bg + 1;
-      }
-
-      header.classList.add(nextBg);
-      header.classList.remove(currentBg);
-
-      index++;
-
-      if (k > 3) {
-        details[3].classList.remove("can-fade");
-        details[3].classList.add("hidden");
-        k = 0;
-        details[k].classList.remove("hidden");
-        details[k].classList.add("can-fade");
-      } else {
-        details[k].classList.remove("can-fade");
-        details[k].classList.add("hidden");
-        if (k == 3) {
-          details[0].classList.add("can-fade");
-          details[0].classList.remove("hidden");
-          k = 0;
-        } else {
-          k++;
-          details[k].classList.add("can-fade");
-          details[k].classList.remove("hidden");
-        }
-      }
-    }, 5000);
-
-    let slider = document.getElementById("slider");
-    let children = Array.from(slider.children);
-    console.log("children: ", children);
-    let j = 0;
-
-    // children[k].classList.add("can-slide");
-    setInterval(() => {
-      if (j > 2) {
-        children[2].classList.add("hidden");
-        children[2].classList.remove("can-slide");
-        k = 0;
-        children[j].classList.remove("hidden");
-        children[j].classList.add("can-slide");
-      } else {
-        children[j].classList.add("hidden");
-        children[j].classList.remove("can-slide");
-
-        if (j == 2) {
-          children[0].classList.remove("hidden");
-          children[0].classList.add("can-slide");
-          j = 0;
-        } else {
-          j++;
-          children[j].classList.remove("hidden");
-          children[j].classList.add("can-slide");
-        }
-      }
-    }, 5000);
+    setTimeout(() => {
+      popup.classList.remove("hidden");
+    }, 10000);
   });
 }
-let testBut = document.getElementById("test");
-let target = document.getElementById("testImg");
-if (testBut) {
-  testBut.addEventListener("click", event => {
-    console.log("testing...");
-    event.preventDefault();
-    target.classList.add("can-go-right");
+
+const logos1 = document.getElementsByClassName("can-go-right");
+const logos2 = document.getElementsByClassName("can-go-left");
+// const logos = logos1.concat(logos2);
+if (logos1) {
+  let items = Array.from(logos1);
+  items.forEach(item => {
+    item.addEventListener("mouseover", event => {
+      item.style.animationPlayState = "paused";
+    });
+    item.addEventListener("mouseout", () => {
+      item.style.animationPlayState = "running";
+    });
   });
 }
+if (logos2) {
+  let items = Array.from(logos2);
+  items.forEach(item => {
+    item.addEventListener("mouseover", event => {
+      item.style.animationPlayState = "paused";
+    });
+    item.addEventListener("mouseout", () => {
+      item.style.animationPlayState = "running";
+    });
+  });
+}
+
+const backToTop = document.getElementById("scroll_top");
+if (backToTop) {
+  backToTop.addEventListener("click", () => {
+    scrollToView("navigation");
+  });
+}
+
+window.addEventListener("scroll", e => {
+  if (window.scrollY > 0.75 * window.innerHeight) {
+    backToTop.classList.remove("hidden");
+  } else backToTop.classList.add("hidden");
+});

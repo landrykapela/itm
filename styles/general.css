@@ -8,6 +8,24 @@ body {
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
+#popup {
+  position: fixed;
+  /* width: 500px; */
+  height: 100%;
+  top: 0;
+  z-index: 99999999;
+  text-align: center;
+}
+#close-popup {
+  position: relative;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  text-align: right;
+  margin-top: -50px;
+  margin-left: calc(100% + 50px);
+  padding: 0.25em;
+}
 /* components */
 .form-pop {
   z-index: 9999999;
@@ -15,13 +33,22 @@ body {
   left: 0;
   top: 0;
 }
-.form-pop input[type="text"],
-.form-pop input[type="email"] {
+#popup > form {
+  margin-top: 140px;
+}
+#popup > form input[type="text"],
+#popup > form input[type="email"] {
   width: 80%;
   outline: none;
+  height: 2em;
+  padding: 0.25em 0.5em;
+  margin: 0.5em;
 }
 
 /* sizes */
+.v-100 {
+  height: 100%;
+}
 .full-view-height {
   height: 100vh;
 }
@@ -33,7 +60,7 @@ body {
   margin-left: -1em;
   margin: 0 auto;
   overflow-x: hidden;
-  /* width: 1355px; */
+  width: 1355px;
   overflow: hidden;
 }
 .w-100 {
@@ -72,8 +99,8 @@ body {
 /* images */
 .feature-image {
   /* border-top-right-radius: 50%; */
-  width: 55%;
-  margin: -2em 2em -2em -2em;
+  max-width: 400px;
+  margin: 2em -2em -2em 2em;
 }
 /* logo */
 .logo {
@@ -86,6 +113,9 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 /* borders */
+.round-corner-top-left {
+  border-top-left-radius: 50%;
+}
 .round-corner {
   border-radius: 10px;
 }
@@ -120,7 +150,7 @@ body {
   border-top: 1px solid #7ac7ed;
 }
 .border-white-all {
-  border: 1px solid white;
+  border: 2px solid white;
 }
 .border-white-bottom {
   border-bottom: 1px solid white;
@@ -134,7 +164,7 @@ body {
 .border-white-top {
   border-top: 1px solid white;
 }
-/* buttons */
+/* button */
 .button-scroll-top {
   position: fixed;
   bottom: 20px;
@@ -142,6 +172,11 @@ body {
   z-index: 9999;
   width: 48px;
   height: 48px;
+  background-color: #132a86;
+  cursor: pointer;
+}
+.button-scroll-top:hover {
+  background-color: #7ac7ed;
 }
 .large-icons {
   border-radius: 50%;
@@ -153,19 +188,20 @@ body {
 .large-icons i {
   font-size: 3rem;
 }
-.buttons {
+.button {
   margin: 2em 0;
-  width: 80px;
+  min-width: 80px;
+  max-width: 160px;
   padding: 12px 24px;
   cursor: pointer;
   font-weight: bold;
 }
 
-.buttons i {
+.button i {
   margin-left: 1em;
 }
 
-.buttons:hover {
+.button:hover {
   background-color: #7ac7ed;
   border: 2px solid #7ac7ed;
   color: white;
@@ -175,7 +211,7 @@ body {
   border: 2px solid #132a86;
   color: white;
 }
-.buttons.round-corner {
+.button.round-corner {
   border-radius: 25px;
 }
 .round {
@@ -199,6 +235,9 @@ h5 {
 .title {
   font-size: 2rem;
   margin-bottom: 0.5em;
+}
+.subtitle {
+  font-size: 1.3rem;
 }
 .focus {
   font-weight: bolder;
@@ -229,6 +268,9 @@ h5 {
 .bg-img-team {
   background-image: url("../images/team-image.jpg");
   background-size: cover;
+}
+.black-bg-transparent {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .dark-bg-transparent {
   background-color: rgba(0, 0, 0, 0.342);
@@ -297,6 +339,15 @@ a:visited {
   text-align: justify;
 }
 /* positioning */
+.absolute {
+  position: absolute;
+}
+.absolute-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -362,16 +413,15 @@ nav span.active {
   transform-origin: right top;
 } */
 .squares {
-  padding: 20px;
+  padding: 2px;
   display: block;
   width: 300px;
-  /* height: 200px; */
+  align-content: center;
 }
 
-.squares > div {
-  width: 60px;
-  height: 60px;
-  margin: 10px;
+.squares > img {
+  width: calc(100% - 10px);
+  margin: 5px;
 }
 
 .vspacer {
@@ -388,11 +438,11 @@ nav span.active {
   left: 0;
   top: 0;
 }
-header {
-  /* width: calc(100% - 5em);
+/* header {
+  width: calc(100% - 5em);
   padding: 0.5em;
-  margin: 0 auto; */
-}
+  margin: 0 auto;
+} */
 .copyright {
   padding: 1em;
   font-size: 0.7rem;
@@ -410,12 +460,20 @@ section {
   /* background-image: url("../images/title_tag.png");
   background-size: cover; */
 }
+
 .can-go-right {
   overflow-x: hidden;
   animation: goright 5s linear 0s forwards;
   animation-iteration-count: infinite;
   /* height: 120px; */
 }
+.can-go-left {
+  overflow-x: hidden;
+  animation: goleft 5s linear 0s forwards;
+  animation-iteration-count: infinite;
+  /* height: 120px; */
+}
+
 .can-slide {
   overflow-x: hidden;
   animation: slide 0.5s linear 4s forwards;
@@ -445,6 +503,14 @@ section {
   }
   to {
     margin-left: 100%;
+  }
+}
+@keyframes goleft {
+  from {
+    margin-left: 100%;
+  }
+  to {
+    margin-left: -100px;
   }
 }
 @keyframes slide {
