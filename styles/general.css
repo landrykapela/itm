@@ -8,6 +8,24 @@ body {
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
+#popup {
+  position: fixed;
+  /* width: 500px; */
+  height: 100%;
+  top: 0;
+  z-index: 99999999;
+  text-align: center;
+}
+#close-popup {
+  position: relative;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  text-align: right;
+  margin-top: -50px;
+  margin-left: calc(100% + 50px);
+  padding: 0.25em;
+}
 /* components */
 .form-pop {
   z-index: 9999999;
@@ -15,10 +33,16 @@ body {
   left: 0;
   top: 0;
 }
-.form-pop input[type="text"],
-.form-pop input[type="email"] {
+#popup > form {
+  margin-top: 140px;
+}
+#popup > form input[type="text"],
+#popup > form input[type="email"] {
   width: 80%;
   outline: none;
+  height: 2em;
+  padding: 0.25em 0.5em;
+  margin: 0.5em;
 }
 
 /* sizes */
@@ -36,7 +60,7 @@ body {
   margin-left: -1em;
   margin: 0 auto;
   overflow-x: hidden;
-  /* width: 1355px; */
+  width: 1355px;
   overflow: hidden;
 }
 .w-100 {
@@ -145,6 +169,11 @@ body {
   z-index: 9999;
   width: 48px;
   height: 48px;
+  background-color: #132a86;
+  cursor: pointer;
+}
+.button-scroll-top:hover {
+  background-color: #7ac7ed;
 }
 .large-icons {
   border-radius: 50%;
@@ -159,7 +188,7 @@ body {
 .button {
   margin: 2em 0;
   min-width: 80px;
-  max-width: 100px;
+  max-width: 160px;
   padding: 12px 24px;
   cursor: pointer;
   font-weight: bold;
@@ -233,6 +262,9 @@ h5 {
 .bg-img-team {
   background-image: url("../images/team-image.jpg");
   background-size: cover;
+}
+.black-bg-transparent {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .dark-bg-transparent {
   background-color: rgba(0, 0, 0, 0.342);
