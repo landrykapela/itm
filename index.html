@@ -19,6 +19,8 @@
       content="ITM, ITM Africa, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
     />
     <link href="styles/general.css" rel="stylesheet" />
+    <!-- <link href="styles/general_tablet.css" rel="stylesheet" /> -->
+    <link href="styles/general_mobile.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="slick/slick.css" />
     <!-- // Add the new slick-theme.css if you want the default styling -->
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
@@ -77,12 +79,13 @@
 
     <header
       id="header"
-      class="min-width-full flex-column flex-top flex-start margin-auto"
+      class="min-width-full flex-column flex-top flex-start flex-middle margin-auto"
     >
       <div
         class="white-bg flex-row flex-between flex-middle w-100 padding-std margin-auto"
       >
         <img src="images/logo.png" class="logo" alt="ITM logo" />
+        <span id="menu"><i class="material-icons">menu</i></span>
         <nav class="flex-row flex-center" id="navigation">
           <span id="home" class="active">Home</span>
           <span id="about">About</span>
@@ -239,8 +242,8 @@
     </section>
 
     <!-- <span class="vspacer"></span> -->
-    <main class="min-width-full primary-bg white-text">
-      <section id="section_services" class="primary-bg view-height-90">
+    <main class="min-width-full primary-bg white-text v-100 padding-std">
+      <section id="section_services" class="primary-bg">
         <div
           class="w-100 padding-std margin-auto"
           id="slider"
@@ -261,14 +264,13 @@
                   Human Resources Solutions
                 </p>
                 <p class="text-left">
-                  ITM specializes in optimizing human capital and guaranteeing
-                  development continuous human resources. We make sure that the
-                  necessary production capacity is available to support and
-                  align human resource activities with the objectives of your
-                  business.
+                  We specialize in optimizing human capital, guaranteeing
+                  continuous human resources development. We make sure necessary
+                  production capacity is available to support and align human
+                  resource activities with your business objectives
                 </p>
                 <span
-                  class="button flex-row flex-middle white-bg primary-text round-corner"
+                  class="button flex-row flex-middle white-bg flex-center primary-text round-corner"
                   >MORE <i class="material-icons">arrow_forward</i></span
                 >
                 <span class="vspacer"></span>
@@ -292,14 +294,13 @@
                   Sales and Distribution
                 </p>
                 <p class="text-left">
-                  ITM specializes in optimizing human capital and guaranteeing
-                  development continuous human resources. We make sure that the
-                  necessary production capacity is available to support and
-                  align human resource activities with the objectives of your
-                  business.
+                  We provide various business strategies for companies to help
+                  enhance visibility and boost sales revenues. We conduct
+                  thorough market research to better understand customers’ needs
+                  with the objective of increasing the average revenue per user
                 </p>
                 <span
-                  class="button flex-row flex-middle primary-text white-bg round-corner"
+                  class="button flex-row flex-middle flex-center primary-text white-bg round-corner"
                   >MORE <i class="material-icons">arrow_forward</i></span
                 >
                 <span class="vspacer"></span></div
@@ -329,7 +330,7 @@
                   business.
                 </p>
                 <span
-                  class="button flex-row flex-middle primary-text white-bg round-corner"
+                  class="button flex-row flex-middle flex-center primary-text white-bg round-corner"
                   >MORE <i class="material-icons">arrow_forward</i></span
                 >
                 <span class="vspacer"></span>
@@ -345,7 +346,10 @@
       id="section_contacts"
       class="flex-row flex-between bg-img-map dark-bg white-text min-width-full "
     >
-      <div class="flex-column flex-start flex-top margin-std padding-std">
+      <div
+        class="flex-column flex-start flex-top margin-std padding-std"
+        id="secondary_navigation"
+      >
         <h3>
           Links
         </h3>
@@ -367,7 +371,10 @@
         <span>E-mail: infotanzania@itmafrica.com</span>
         <span>Phone: +255 737 100 025</span>
       </div>
-      <div class="flex-column flex-start flex-top margin-std padding-std">
+      <div
+        class="flex-column flex-start flex-top margin-std padding-std"
+        id="footer-impact"
+      >
         <h3>
           Our Impact
         </h3>
@@ -409,7 +416,7 @@
     </footer>
     <div
       id="scroll_top"
-      class="hidden button-scroll-top round primary-bg white-text flex-center flex-row flex-middle"
+      class="hidden button-scroll-top border-white-all round primary-bg white-text flex-center flex-row flex-middle"
     >
       <i class="material-icons">arrow_upward</i>
     </div>

@@ -1,19 +1,22 @@
-@media only screen and (min-width: 767px) {
+@media only screen and (min-width:481px) and (max-width: 768px) {
   body {
     width: 100%;
+    height: auto;
     background-color: white; /*#132a86;*/
     color: black;
     text-align: center;
     /* padding: 1em 2em; */
-    margin: -1em auto;
+    margin: -2.5em auto;
     font-family: "Open sans", sans-serif;
     scroll-behavior: smooth;
     overflow-x: hidden;
+    overflow-x: scroll;
   }
   #menu {
-    display: none;
+      cursor: pointer;
   }
   #popup {
+    /* display: none; */
     position: fixed;
     width: 100%;
     height: 100%;
@@ -56,58 +59,56 @@
     height: 90vh;
   }
   .min-width-full {
-    margin-right: -1em;
-    margin-left: -1em;
-    margin: 0 -1em;
+    width: calc(100% + 0.5em);
+    margin: 0 -0.25em;
     overflow-x: hidden;
     overflow: hidden;
   }
-  .w-100 {
-    width: calc(100% - 8em);
+  .w-100,
+  .w-75{
+    width: calc(100% - 1em);
   }
-  .w-75 {
-    width: calc(75% - 8em);
-  }
-  .w-50 {
-    width: calc(50% - 8em);
-  }
+  .w-50,
   .w-25 {
-    width: calc(25% - 8em);
+    width: calc(75% - 1em);
   }
-  .w-100-no-padding {
+
+  .w-100-no-padding,
+  .w-75-no-padding,
+  .w-50-no-padding,
+  .w-25-no-padding {
     width: 100%;
   }
-  .w-75-no-padding {
-    width: 75%;
-  }
-  .w-50-no-padding {
-    width: 50%;
-  }
-  .w-25-no-padding {
-    width: 25%;
-  }
   .padding-std {
-    padding: 2em;
+    padding: 0.25em;
   }
   .margin-auto {
-    margin: 0 auto;
+    margin: 2em auto;
   }
   .margin-std {
-    margin: 2em auto;
+    margin: 0.25em auto;
   }
   /* images */
   .feature-image {
     /* border-top-right-radius: 50%; */
-    max-width: 400px;
-    margin: 2em -2em -2em 2em;
+    width: 100%;
+    /* margin: 2em -2em -2em 2em; */
   }
   /* logo */
   .logo {
-    width: 120px;
+    width: 80px;
   }
   /* menu bar */
-  .navigation {
+  #navigation {
+    display: none;
+    margin:0.25em;
   }
+  #navigation span{
+      width:100%;
+  }
+  #secondary_navigation,#footer-impact{
+    display: none;
+}
   .shadow {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
@@ -229,10 +230,10 @@
     font-family: "Monteserrat", sans-serif;
   }
   .title-label {
-    margin-bottom: -3em;
+    margin-bottom: -2em;
   }
   .title {
-    font-size: 2rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5em;
   }
   .subtitle {
@@ -240,7 +241,7 @@
   }
   .focus {
     font-weight: bolder;
-    font-size: 3rem;
+    font-size: 2rem;
   }
   /* colors and backgrounds */
   .bg-img-map {
@@ -329,7 +330,7 @@
     text-align: center;
   }
   .text-left {
-    text-align: left;
+    /* text-align: left; */
   }
   .text-right {
     text-align: right;
@@ -350,6 +351,8 @@
   .flex-row {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 992px;
   }
   .flex-center {
     justify-content: center;
@@ -398,23 +401,11 @@
     font-weight: bold;
   }
   /* layouts */
-  .horizontal-scroll-wrapper {
-    animation: myscroll 5s linear forwards;
-    width: 100%;
-    height: 300px;
-    padding-left: 1000px;
-    border-left: 1px solid red;
-  }
-  /* .horizontal-scroll-wrapper > div {
-  width: 100px;
-  height: 100px;
-  transform: rotate(90deg);
-  transform-origin: right top;
-} */
+
   .squares {
     padding: 2px;
     display: block;
-    width: 300px;
+    width: calc(50% - 4px);
     align-content: center;
   }
 
@@ -442,6 +433,7 @@
   padding: 0.5em;
   margin: 0 auto;
 } */
+
   .copyright {
     padding: 1em;
     font-size: 0.7rem;
@@ -452,26 +444,26 @@
     margin: 0 auto;
   }
   .title-tag {
-    width: 240px;
+    /* width: 240px; */
     /* margin-top: -2em; */
-    padding: 1em;
-    display: block;
+    /* padding: 1em;
+    display: block; */
     /* background-image: url("../images/title_tag.png");
   background-size: cover; */
   }
 
-  .can-go-right {
+  /* .can-go-right {
     overflow-x: hidden;
     animation: goright 5s linear 0s forwards;
     animation-iteration-count: infinite;
-    /* height: 120px; */
-  }
-  .can-go-left {
+    height: 120px;
+  } */
+  /* .can-go-left {
     overflow-x: hidden;
     animation: goleft 5s linear 0s forwards;
     animation-iteration-count: infinite;
     /* height: 120px; */
-  }
+  } */
 
   .can-slide {
     overflow-x: hidden;

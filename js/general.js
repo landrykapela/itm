@@ -157,6 +157,16 @@ if (btnSubmit) {
       .then(response => {
         alert(response.message);
         popup.classList.add("hidden");
+      })
+      .catch(error => {
+        popup.classList.add("hidden");
       });
+  });
+}
+const menuButton = document.getElementById("menu");
+if (menuButton) {
+  menuButton.addEventListener("click", event => {
+    if (nav.style.display === "none") nav.style.display = "flex";
+    else nav.style.display = "none";
   });
 }
