@@ -141,3 +141,22 @@ window.addEventListener("scroll", e => {
     backToTop.classList.remove("hidden");
   } else backToTop.classList.add("hidden");
 });
+
+let btnSubmit = document.getElementById("btnSubmitPopup");
+if (btnSubmit) {
+  btnSubmit.addEventListener("click", event => {
+    let email = document.getElementById("email").value;
+    let name = document.getElementById("name").value;
+    let data = { email: email, name: name };
+    fetch("https://registration.itmafrica.co.tz/admin/verify/index.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(response => {
+        alert(response.message);
+        popup.classList.add("hidden");
+      });
+  });
+}
