@@ -1,9 +1,10 @@
 body {
+  width: 100%;
   background-color: white; /*#132a86;*/
   color: black;
   text-align: center;
   /* padding: 1em 2em; */
-  margin: -1em;
+  margin: -1em auto;
   font-family: "Open sans", sans-serif;
   scroll-behavior: smooth;
   overflow-x: hidden;
