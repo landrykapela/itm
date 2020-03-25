@@ -88,7 +88,9 @@ const slideShow = (slides, index) => {
 let paths = window.location.pathname.split("/");
 if (paths[paths.length - 1] == "index.html" || paths[paths.length - 1] == "") {
   window.addEventListener("load", event => {
-    $("#slider").slick({
+    $("#slider2").slick({
+      slidesToShow: 10,
+      slidesToScroll: 5,
       dots: true,
       speed: 500,
       autoplay: true,

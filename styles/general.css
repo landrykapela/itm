@@ -238,6 +238,9 @@
   .subtitle {
     font-size: 1.3rem;
   }
+  .text-small {
+    font-size: 0.8rem;
+  }
   .focus {
     font-weight: bolder;
     font-size: 3rem;
@@ -247,6 +250,22 @@
     background-image: url("../images/map.png");
     /* background-color: black; */
     background-repeat: repeat;
+  }
+  .bg-service1 {
+    background-image: url("../images/service1.jpg");
+    background-size: cover;
+  }
+  .bg-service2 {
+    background-image: url("../images/service2.jpg");
+    background-size: cover;
+  }
+  .bg-service3 {
+    background-image: url("../images/service3.jpg");
+    background-size: cover;
+  }
+  .bg-service4 {
+    background-image: url("../images/service4.jpg");
+    background-size: cover;
   }
   .bg-img-header1 {
     background-image: url("../images/header1.jpg");
@@ -423,6 +442,9 @@
     margin: 5px;
   }
 
+  .box-list {
+    margin: 1em;
+  }
   .vspacer {
     display: block;
     width: 100%;
@@ -452,8 +474,6 @@
     margin: 0 auto;
   }
   .title-tag {
-    width: 240px;
-    /* margin-top: -2em; */
     padding: 1em;
     display: block;
     /* background-image: url("../images/title_tag.png");
