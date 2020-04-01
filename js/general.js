@@ -21,20 +21,24 @@ if (nav) {
       console.log(targetViewId);
       switch (targetViewId.toLowerCase()) {
         case "section_services":
+          if (window.location.pathname !== "/index.html") {
+            window.location = window.location.origin + "/services.html";
+          } else scrollToView(targetViewId);
+          break;
         case "section_contacts":
           scrollToView(targetViewId);
           break;
         case "section_about":
-          window.location.pathname = "/about.html";
+          window.location = window.location.origin + "/about.html";
           break;
-        case "section_events":
-          window.location.pathname = "/events.html";
+        case "section_news":
+          window.location = window.location.origin + "/events.html";
           break;
         case "section_jobs":
-          window.location.pathname = "/jobs.html";
+          window.location = window.location.origin + "/jobs.html";
           break;
         case "section_home":
-          window.location.pathname = "/index.html";
+          window.location = window.location.origin + "/index.html";
           break;
         case "section_training":
           window.location = "https://registration.itmafrica.co.tz";
@@ -88,7 +92,9 @@ const slideShow = (slides, index) => {
 let paths = window.location.pathname.split("/");
 if (paths[paths.length - 1] == "index.html" || paths[paths.length - 1] == "") {
   window.addEventListener("load", event => {
-    $("#slider").slick({
+    $("#slider2").slick({
+      slidesToShow: 10,
+      slidesToScroll: 5,
       dots: true,
       speed: 500,
       autoplay: true,
@@ -170,3 +176,76 @@ if (menuButton) {
     else nav.style.display = "none";
   });
 }
+
+const count = id => {
+  target = document.getElementById(id);
+  let number = parseInt(target.textContent);
+  // alert(number);
+  let x = 0;
+  setInterval(() => {
+    if (x <= number) {
+      target.textContent = x + "+";
+
+      x++;
+    }
+  }, 20);
+};
+const stats = document.getElementById("stats");
+if (stats) {
+  var bounding = stats.getBoundingClientRect();
+  if (
+    bounding.top >= 0 &&
+    bounding.left >= 0 &&
+    bounding.right <= (window.innerWidth || stats.clientWidth)
+  ) {
+    // count("outsource");
+    count("recruitment");
+    // count("training");
+    // count("partners");
+  }
+}
+
+const btnAbout = document.getElementById("btn-about");
+if (btnAbout) {
+  btnAbout.addEventListener("click", () => {
+    window.location = window.location.origin + "/about.html";
+  });
+}
+
+const btnService = document.getElementById("btn-services");
+if (btnService) {
+  btnService.addEventListener("click", () => {
+    window.location = window.location.origin + "/services.html";
+  });
+}
+
+const btnJobs = document.getElementById("btn-jobs");
+if (btnJobs) {
+  btnJobs.addEventListener("click", () => {
+    window.location = window.location.origin + "/jobs.html";
+  });
+}
+
+const btnTraining = document.getElementById("btn-training");
+if (btnTraining) {
+  btnTraining.addEventListener("click", () => {
+    window.location = "https://registration.itmafrica.co.tz";
+  });
+}
+
+const btnHr = document.getElementById("s_hr");
+const btnSales = document.getElementById("s_sales");
+const btnIndustrial = document.getElementById("s_industrial");
+const btnB2b = document.getElementById("s_b2b");
+
+const buttons = [btnHr, btnSales, btnIndustrial, btnB2b];
+buttons.forEach(b => {
+  if (b) {
+    b.addEventListener("click", () => {
+      let id = b.id;
+      let target = id.split("_")[1];
+      window.location = window.location.origin + "/services.html#" + target;
+      // window.location.hash = target;
+    });
+  }
+});

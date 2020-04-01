@@ -65,11 +65,23 @@
   .w-100 {
     width: calc(100% - 8em);
   }
+  .w-80 {
+    width: calc(80% - 8em);
+  }
   .w-75 {
     width: calc(75% - 8em);
   }
+  .w-60 {
+    width: calc(60% - 8em);
+  }
   .w-50 {
     width: calc(50% - 8em);
+  }
+  .w-40 {
+    width: calc(40% - 8em);
+  }
+  .w-30 {
+    width: calc(30% - 8em);
   }
   .w-25 {
     width: calc(25% - 8em);
@@ -114,6 +126,9 @@
   /* borders */
   .round-corner-top-left {
     border-top-left-radius: 50%;
+  }
+  .round-corner-top-right {
+    border-top-right-radius: 50%;
   }
   .round-corner {
     border-radius: 10px;
@@ -238,6 +253,9 @@
   .subtitle {
     font-size: 1.3rem;
   }
+  .text-small {
+    font-size: 0.8rem;
+  }
   .focus {
     font-weight: bolder;
     font-size: 3rem;
@@ -247,6 +265,22 @@
     background-image: url("../images/map.png");
     /* background-color: black; */
     background-repeat: repeat;
+  }
+  .bg-service1 {
+    background-image: url("../images/service1.jpg");
+    background-size: cover;
+  }
+  .bg-service2 {
+    background-image: url("../images/service2.jpg");
+    background-size: cover;
+  }
+  .bg-service3 {
+    background-image: url("../images/service3.jpg");
+    background-size: cover;
+  }
+  .bg-service4 {
+    background-image: url("../images/service4.jpg");
+    background-size: cover;
   }
   .bg-img-header1 {
     background-image: url("../images/header1.jpg");
@@ -262,6 +296,14 @@
   }
   .bg-img-header4 {
     background-image: url("../images/header4.jpg");
+    background-size: cover;
+  }
+  .bg-img-header5 {
+    background-image: url("../images/banner2.jpg");
+    background-size: cover;
+  }
+  .bg-img-header6 {
+    background-image: url("../images/banner3.jpg");
     background-size: cover;
   }
   .bg-img-team {
@@ -350,6 +392,7 @@
   .flex-row {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
   }
   .flex-center {
     justify-content: center;
@@ -422,7 +465,19 @@
     width: calc(100% - 10px);
     margin: 5px;
   }
-
+  .news-card {
+    min-width: 280px;
+    cursor: pointer;
+  }
+  .news-card:hover {
+    background-color: #132a86;
+    opacity: 0.4;
+  }
+  .box-list {
+    margin: 1em;
+    min-width: 180px;
+    max-width: 200px;
+  }
   .vspacer {
     display: block;
     width: 100%;
@@ -442,6 +497,13 @@
   padding: 0.5em;
   margin: 0 auto;
 } */
+  table tr td {
+    padding: 1em;
+  }
+  table tbody tr:hover {
+    background-color: #7ac7ed;
+    cursor: pointer;
+  }
   .copyright {
     padding: 1em;
     font-size: 0.7rem;
@@ -452,8 +514,6 @@
     margin: 0 auto;
   }
   .title-tag {
-    width: 240px;
-    /* margin-top: -2em; */
     padding: 1em;
     display: block;
     /* background-image: url("../images/title_tag.png");
