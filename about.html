@@ -19,6 +19,7 @@
       content="ITM, ITM Africa, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
     />
     <link href="styles/general.css" rel="stylesheet" />
+    <link href="styles/general_mobile.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="slick/slick.css" />
     <!-- // Add the new slick-theme.css if you want the default styling -->
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
@@ -50,8 +51,9 @@
           <span id="jobs">Jobs</span>
           <span id="training">Training</span>
           <span id="news">News & Events</span>
-          <span id="contacts">Contacts</span>
+          <!-- <span id="contacts">Contacts</span> -->
         </nav>
+        <span id="menu"><i class="material-icons">menu</i></span>
       </div>
       <div
         class="flex-row flex-end w-100 margin-std primary-bg bg-img-header1"
@@ -130,21 +132,21 @@
        <span class="vspacer"></span>
        <span class="vspacer"></span>
       </section>
-      <section class="w-100 flex-row flex-center flex-top margin-std ">
+      <section class="w-100 flex-row flex-center flex-top margin-std " id="stats">
         <div class="flex-column flex-center flex-middle padding-std w-50">
-            <p class="title primary-text focus">50</p>
+            <p id="partners" class="title primary-text focus">50</p>
             <p class="dark-text">Partners</p>
         </div>
         <div class="flex-column flex-center flex-middle padding-std w-50">
-            <p class="title primary-text focus">450</p>
+            <p id="training" class="title primary-text focus">450</p>
             <p class="dark-text">Trainings</p>
         </div>
         <div class="flex-column flex-center flex-middle padding-std w-50">
-            <p class="title primary-text focus">10,000</p>
+            <p id="recruitment" class="title primary-text focus">10000</p>
             <p class="dark-text">Recruitments</p>
         </div>
         <div class="flex-column flex-center flex-middle padding-std w-50">
-            <p class="title primary-text focus">3,200</p>
+            <p id="outsource" class="title primary-text focus">3200</p>
             <p class="dark-text">Outsourced staff</p>
             
         </div>
@@ -153,64 +155,7 @@
      
     </section>
 
-    
-    <!-- <span class="vspacer"></span> -->
-    <!-- <footer
-      class="flex-row flex-between bg-img-map dark-bg white-text min-width-full "
-    >
-      <div class="flex-column flex-start flex-top margin-std padding-std">
-        <h3>
-          Links
-        </h3>
-        <a href="">Home</a>
-        <a href="">About</a>
-        <a href="">Services</a>
-        <a href="">Jobs</a>
-        <a href="">Training</a>
-        <a href="">News & Events</a>
-        <a href="">Contacts</a>
-      </div>
-      <div class="flex-column flex-start flex-top margin-std padding-std">
-        <h3>
-          Contacts
-        </h3>
-        <span>7th Floor, Tanzanite Park</span>
-        <span>Victoria Area, New Bagamoyo Road,</span>
-        <span>Dar Es Salaam, Tanzania</span>
-        <span>E-mail: infotanzania@itmafrica.com</span>
-        <span>Phone: +255 737 100 025</span>
-      </div>
-      <div class="flex-column flex-start flex-top margin-std padding-std">
-        <h3>
-          Our Impact
-        </h3>
-        <span>Outsourced Staff: <b>3,200</b></span>
-        <span>Recruitments: <b>10,000</b></span>
-        <span>Partners: <b>50</b></span>
-        <span>People Trained: <b>2,000</b></span>
-        <span>Conducted Trainings: <b>450</b></span>
-      </div>
-      <div class="flex-column flex-start flex-top margin-std padding-std">
-        <h3>
-          Stay Connected
-        </h3>
-        <a
-          href="https://web.facebook.com/itmtanzania?_rdc=1&_rdr"
-          target="_blank"
-          >Facebook</a
-        >
-        <a href="https://twitter.com/itmtanzania" target="_blank">Twitter</a>
-        <a href="https://instagram.com/itemtanzania" target="_blank"
-          >Instagram</a
-        >
-        <a
-          href="https://www.linkedin.com/company/itmtanzania/about/"
-          target="_blank"
-          >LinkedIn</a
-        >
-        <span></span>
-      </div>
-    </footer> -->
+   
     <footer class="flex-row flex-space dark-bg white-text min-width-full ">
       <span class="copyright">2020 &copy;ITM Tanzania Ltd</span
       ><span class="copyright"
@@ -222,7 +167,7 @@
     </footer>
     <div
       id="scroll_top"
-      class="hidden button-scroll-top round primary-bg white-text flex-center flex-row flex-middle"
+      class="hidden button-scroll-top round border-white-all primary-bg white-text flex-center flex-row flex-middle"
     >
       <i class="material-icons">arrow_upward</i>
     </div>

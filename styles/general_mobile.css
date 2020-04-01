@@ -113,9 +113,9 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   /* borders */
-  .round-corner-top-left {
+  /* .round-corner-top-left {
     border-top-left-radius: 50%;
-  }
+  } */
   .round-corner {
     border-radius: 10px;
   }
@@ -332,9 +332,9 @@
   .text-left {
     /* text-align: left; */
   }
-  .text-right {
+  /* .text-right {
     text-align: right;
-  }
+  } */
   .text-justify {
     text-align: justify;
   }

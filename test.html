@@ -49,50 +49,31 @@
     <!-- </div> -->
     <p></p>
     <button id="test">Test</button>
-    <p class="can-go-right">
-      <img
-        src="images/logo.png"
-        width="240px"
-        id="testImg"
-        class="border-primary-all"
-      />
-      <img
-        src="images/logo.png"
-        width="240px"
-        id="testImg"
-        class="border-primary-all"
-      />
-      <img
-        src="images/logo.png"
-        width="240px"
-        id="testImg"
-        class="border-primary-all"
-      />
-      <img
-        src="images/logo.png"
-        width="240px"
-        id="testImg"
-        class="border-primary-all"
-      />
-      <img
-        src="images/logo.png"
-        width="240px"
-        id="testImg"
-        class="border-primary-all"
-      />
-      <img
-        src="images/logo.png"
-        width="240px"
-        id="testImg"
-        class="border-primary-all"
-      />
-      <img
-        src="images/logo.png"
-        width="240px"
-        id="testImg"
-        class="border-primary-all"
-      />
-    </p>
+    <p id="number">102</p>
     <script src="js/general.js"></script>
+    <script>
+      let testBut = document.getElementById("test");
+      let target = document.getElementById("number");
+      const timer = i => {
+        setTimeout(function() {
+          target.textContent = "i" + i;
+        }, 500);
+      };
+      testBut.addEventListener("click", () => {
+        let number = parseInt(target.textContent);
+        // alert(number);
+        let x = 0;
+        setInterval(() => {
+          if (x <= number) {
+            target.textContent = x + "+";
+            // if (number >= 1000 && number < 5000) x += 50;
+            // else if (number >= 5000 && number < 10000) x += 100;
+            // else if (number >= 10000) x += 200;
+            // else
+            x++;
+          }
+        }, 20);
+      });
+    </script>
   </body>
 </html>
