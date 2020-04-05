@@ -54,11 +54,7 @@
     <script>
       let testBut = document.getElementById("test");
       let target = document.getElementById("number");
-      const timer = i => {
-        setTimeout(function() {
-          target.textContent = "i" + i;
-        }, 500);
-      };
+
       testBut.addEventListener("click", () => {
         let number = parseInt(target.textContent);
         // alert(number);
@@ -66,10 +62,7 @@
         setInterval(() => {
           if (x <= number) {
             target.textContent = x + "+";
-            // if (number >= 1000 && number < 5000) x += 50;
-            // else if (number >= 5000 && number < 10000) x += 100;
-            // else if (number >= 10000) x += 200;
-            // else
+
             x++;
           }
         }, 20);

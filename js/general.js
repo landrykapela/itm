@@ -11,9 +11,9 @@ if (popupClose) {
 const nav = document.getElementById("navigation");
 if (nav) {
   let navItems = Array.from(nav.children);
-  navItems.forEach(cn => {
-    cn.addEventListener("click", event => {
-      navItems.forEach(c => {
+  navItems.forEach((cn) => {
+    cn.addEventListener("click", (event) => {
+      navItems.forEach((c) => {
         if (c.classList.contains("active")) c.classList.remove("active");
       });
       cn.classList.add("active");
@@ -50,7 +50,7 @@ if (nav) {
   console.log("no navigation");
 }
 
-const scrollToView = targetId => {
+const scrollToView = (targetId) => {
   let view = document.getElementById(targetId);
   if (view) {
     view.scrollIntoView({ behavior: "smooth" });
@@ -60,8 +60,8 @@ const scrollToView = targetId => {
 //newsletter signup
 const body = document.body;
 console.log("path: ", window.location.pathname);
-const hideAllSlides = slides => {
-  slides.forEach(slide => {
+const hideAllSlides = (slides) => {
+  slides.forEach((slide) => {
     slide.classList.add("hidden");
     slide.classList.remove("can-slide");
   });
@@ -84,14 +84,50 @@ const showSlide = (slides, index) => {
   }
 };
 const slideShow = (slides, index) => {
-  setTimeout(index => {
+  setTimeout((index) => {
     hideSlide(slides, index - 1);
     showSlide(slides, index);
   }, 5000);
 };
+const showForm = (id) => {
+  console.log("showing form..." + id);
+
+  let login = document.getElementById("login");
+  let reset = document.getElementById("p_reset");
+  let signup = document.getElementById("signup");
+
+  reset.classList.add("hidden");
+  login.classList.add("hidden");
+  signup.classList.add("hidden");
+
+  const target = document.getElementById(id);
+  target.classList.remove("hidden");
+  // switch (id.toLowerCase) {
+  //   case "signup":
+  //     console.log("hiding... reset and login");
+  //     login.classList.add("hidden");
+  //     reset.classList.add("hidden");
+  //     break;
+  //   case "login":
+  //     console.log("hiding... reset and signup");
+  //     reset.classList.add("hidden");
+  //     signup.classList.add("hidden");
+  //     break;
+  //   case "p_reset":
+  //     console.log("hiding... login and signup");
+  //     login.classList.add("hidden");
+  //     signup.classList.add("hidden");
+  //     break;
+  //   // default:
+  //   //   console.log("hiding... default");
+  //   //   reset.classList.add("hidden");
+  //   //   login.classList.add("hidden");
+  //   //   signup.classList.remove("hidden");
+  // }
+};
 let paths = window.location.pathname.split("/");
-if (paths[paths.length - 1] == "index.html" || paths[paths.length - 1] == "") {
-  window.addEventListener("load", event => {
+window.addEventListener("load", (event) => {
+  if (paths[paths.length - 1] == "index.html") {
     $("#slider2").slick({
       slidesToShow: 10,
       slidesToScroll: 5,
@@ -100,22 +136,42 @@ if (paths[paths.length - 1] == "index.html" || paths[paths.length - 1] == "") {
       autoplay: true,
       infinite: true,
       arrows: true,
-      swipe: true
+      swipe: true,
     });
 
     setTimeout(() => {
       popup.classList.remove("hidden");
     }, 10000);
-  });
-}
-
+  } else {
+    if (paths[paths.length - 1] == "signup.html") {
+      let hash = window.location.hash.toLowerCase();
+      let target = hash.substr(1);
+      console.log("hash: ", target);
+      if (target.length > 0) showForm(target);
+      else showForm("signup");
+    }
+  }
+});
+window.addEventListener(
+  "hashchange",
+  (event) => {
+    if (paths[paths.length - 1] == "signup.html") {
+      let hash = window.location.hash.toLowerCase();
+      let target = hash.substr(1);
+      console.log("hash: ", target);
+      if (target.length > 0) showForm(target);
+      else showForm("signup");
+    }
+  },
+  false
+);
 const logos1 = document.getElementsByClassName("can-go-right");
 const logos2 = document.getElementsByClassName("can-go-left");
 // const logos = logos1.concat(logos2);
 if (logos1) {
   let items = Array.from(logos1);
-  items.forEach(item => {
-    item.addEventListener("mouseover", event => {
+  items.forEach((item) => {
+    item.addEventListener("mouseover", (event) => {
       item.style.animationPlayState = "paused";
     });
     item.addEventListener("mouseout", () => {
@@ -125,8 +181,8 @@ if (logos1) {
 }
 if (logos2) {
   let items = Array.from(logos2);
-  items.forEach(item => {
-    item.addEventListener("mouseover", event => {
+  items.forEach((item) => {
+    item.addEventListener("mouseover", (event) => {
       item.style.animationPlayState = "paused";
     });
     item.addEventListener("mouseout", () => {
@@ -142,7 +198,7 @@ if (backToTop) {
   });
 }
 
-window.addEventListener("scroll", e => {
+window.addEventListener("scroll", (e) => {
   if (window.scrollY > 0.75 * window.innerHeight) {
     backToTop.classList.remove("hidden");
   } else backToTop.classList.add("hidden");
@@ -150,34 +206,34 @@ window.addEventListener("scroll", e => {
 
 let btnSubmit = document.getElementById("btnSubmitPopup");
 if (btnSubmit) {
-  btnSubmit.addEventListener("click", event => {
+  btnSubmit.addEventListener("click", (event) => {
     let email = document.getElementById("email").value;
     let name = document.getElementById("name").value;
     let data = { email: email, name: name };
     fetch("https://registration.itmafrica.co.tz/admin/verify/index.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(res => res.json())
-      .then(response => {
+      .then((res) => res.json())
+      .then((response) => {
         alert(response.message);
         popup.classList.add("hidden");
       })
-      .catch(error => {
+      .catch((error) => {
         popup.classList.add("hidden");
       });
   });
 }
 const menuButton = document.getElementById("menu");
 if (menuButton) {
-  menuButton.addEventListener("click", event => {
+  menuButton.addEventListener("click", (event) => {
     if (nav.style.display === "none") nav.style.display = "flex";
     else nav.style.display = "none";
   });
 }
 
-const count = id => {
+const count = (id) => {
   target = document.getElementById(id);
   let number = parseInt(target.textContent);
   // alert(number);
@@ -239,7 +295,7 @@ const btnIndustrial = document.getElementById("s_industrial");
 const btnB2b = document.getElementById("s_b2b");
 
 const buttons = [btnHr, btnSales, btnIndustrial, btnB2b];
-buttons.forEach(b => {
+buttons.forEach((b) => {
   if (b) {
     b.addEventListener("click", () => {
       let id = b.id;
@@ -249,3 +305,11 @@ buttons.forEach(b => {
     });
   }
 });
+
+//subscribe on events page
+const btnSubscribe = document.getElementById("btn-subscribe");
+if (btnSubscribe) {
+  btnSubscribe.addEventListener("click", () => {
+    popup.classList.remove("hidden");
+  });
+}

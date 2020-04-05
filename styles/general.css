@@ -101,6 +101,9 @@
   .padding-std {
     padding: 2em;
   }
+  .padding-small {
+    padding: 0.5em;
+  }
   .margin-auto {
     margin: 0 auto;
   }
@@ -357,6 +360,9 @@
     color: white;
     text-decoration: underline;
   }
+  a.button {
+    text-decoration: none;
+  }
   .primary-text {
     color: #132a86;
   }
@@ -492,6 +498,10 @@
     left: 0;
     top: 0;
   }
+  footer {
+    position: relative;
+    bottom: 0;
+  }
   /* header {
   width: calc(100% - 5em);
   padding: 0.5em;
@@ -539,6 +549,32 @@
   }
   .can-fade {
     animation: fade 1s linear 4s forwards;
+  }
+  .can-spin {
+  }
+  .can-spin:hover {
+    animation: spin 2000ms linear infinite;
+  }
+  .can-spin-horizontal {
+  }
+  .can-spin-horizontal:hover {
+    animation: spinHorizontal 2000ms linear infinite;
+  }
+  @keyframes spinHorizontal {
+    from {
+      transform: rotate3d(0deg);
+    }
+    to {
+      transform: rotate3d(360deg);
+    }
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
   @keyframes fade {
     from {
