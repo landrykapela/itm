@@ -10,12 +10,18 @@ if(isset($_POST['submit'])){
     $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
     $password = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
     // $cpassword = filter_var($_POST['cpassword'],FILTER_SANITIZE_STRING);
+
     $subscribe = ($_POST['subscribe'] == 1) ? true : false;
 
     $encrypted_password = password_hash($password,PASSWORD_BCRYPT);
 
     $action = DB::createUser($email,$name,$phone,$encrypted_password,$subscribe);
-   
+
+
+    $encrypted_password = password_hash($password,PASSWORD_BCRYPT);
+
+    $action = DB::createUser($email,$name,$phone,$encrypted_password);
+    $result = array();
 if($action){
     $result["response"] = "User created successfully";
 }
@@ -23,6 +29,7 @@ else $result["response"] = "Could not create user";
 echo json_encode($result);
 }
 else{
+
     if(isset($_POST['btnLoginSubmit'])){
         $email = filter_var($_POST['email'],FILTER_SANITIZE_STRING);
     
@@ -53,7 +60,8 @@ else{
         }
         else echo "Access Denied!";
     }
-    
+
+    echo "Access Denied!";
 }
 
 ?>
