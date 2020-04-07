@@ -333,8 +333,8 @@
   }
   .dark-bg a,
   a:visited {
-    color: white;
-    text-decoration: underline;
+    color: purple;
+    text-decoration: none;
   }
   .primary-bg {
     background-color: #132a86;
@@ -348,9 +348,11 @@
     background-color: white;
   }
   .white-bg a,
-  a:visited {
+  a:visited,
+  nav.white-bg a,
+  nav.white-bg a:visited {
     color: #132a86;
-    text-decoration: underline;
+    text-decoration: none;
   }
   .accent-bg {
     background-color: #7ac7ed;
@@ -358,7 +360,7 @@
   .accent-bg a,
   a:visited {
     color: white;
-    text-decoration: underline;
+    text-decoration: none;
   }
   a.button {
     text-decoration: none;
@@ -432,12 +434,15 @@
     flex-direction: column;
   }
   /* navigations */
-  nav span {
+
+  nav span,
+  nav a {
     padding: 0.5em;
     color: #132a86;
     cursor: pointer;
   }
-  nav span:hover {
+  nav span:hover,
+  nav a:hover {
     text-decoration: underline;
   }
   nav span.active {
@@ -488,6 +493,11 @@
     display: block;
     width: 100%;
     height: 30px;
+  }
+  .vspacer-small {
+    display: block;
+    width: 100%;
+    height: 5px;
   }
   .hidden {
     display: none;
