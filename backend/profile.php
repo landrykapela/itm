@@ -5,61 +5,65 @@ require('manager.php');
 $location = "Location: http://".$_SERVER['HTTP_HOST']."/signup.html#login";
 if(!isset($_SESSION['user'])) header($location);
 $user = DB::getUser($_SESSION['user']);
-
+if(DB::isAdmin($user['email'])){
+  $location = "Location: http://".$_SERVER['HTTP_HOST']."/backend/admin.php";
+  header($location,true);
+}
+else{
 echo '<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="author" content="Landry Kapela" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
-      name="description"
-      content="ITM Tanzania Ltd is the East African division of the ITM AFRICA Group of companies, a respected, multi-faceted service provider to different sectors throughout Africa."
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ITM Tanzania" />
-    <meta name="twitter:site" content="@itmafrica" />
-    <meta
-      name="twitter:image"
-      content="https://landrykapela.github.io/itm/images/office.jpg"
-    />
-    <meta
-      name="keyword"
-      content="ITM, ITM Africa, Jobs, empolyment, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
-    />
-    <link href="../styles/general.css" rel="stylesheet" />
-    <link href="../styles/general_mobile.css" rel="stylesheet" />
-    
-    <!-- // Add the new slick-theme.css if you want the default styling -->
-    <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Robot|Montserrat|Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" href="images/favicon.png" />
+<head>
+<meta name="author" content="Landry Kapela" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta
+  name="description"
+  content="ITM Tanzania Ltd is the East African division of the ITM AFRICA Group of companies, a respected, multi-faceted service provider to different sectors throughout Africa."
+/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ITM Tanzania" />
+<meta name="twitter:site" content="@itmafrica" />
+<meta
+  name="twitter:image"
+  content="https://landrykapela.github.io/itm/images/office.jpg"
+/>
+<meta
+  name="keyword"
+  content="ITM, ITM Africa, Jobs, empolyment, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
+/>
+<link href="../styles/general.css" rel="stylesheet" />
+<link href="../styles/general_mobile.css" rel="stylesheet" />
 
-    <title>ITM Tanzania - Jobs</title>
-  </head>
-  <body>
-    <header
-      id="header"
-      class="min-width-full flex-column flex-top flex-start margin-auto"
-    >
-      <div
-        class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
-      >
-        
-        <nav class="w-100 flex-row flex-end " id="navigation">
-          <a href="account.php?e='.$user['email'].'" >Account</a>
-          <a href="http://'.$_SERVER['HTTP_HOST'].'/jobs.html">Jobs</a>
-          <a href="signout.php" >Signout</a>
-        </nav>
-        <span id="menu"><i class="material-icons">menu</i></span>
-      </div>
-    </header>
+<!-- // Add the new slick-theme.css if you want the default styling -->
+<link rel="stylesheet" type="text/css" href="../slick/slick-theme.css" />
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css?family=Robot|Montserrat|Open+Sans&display=swap"
+  rel="stylesheet"
+/>
+<link rel="icon" href="images/favicon.png" />
+
+<title>ITM Tanzania - Job Portal</title>
+</head>
+<body>
+<header
+  id="header"
+  class="min-width-full flex-column flex-top flex-start margin-auto"
+>
+  <div
+    class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
+  >
+    
+    <nav class="flex-row flex-center white-bg" id="navigation">
+      <a href="account.php?e='.$user['id'].'" >Account</a>
+      <a href="http://'.$_SERVER['HTTP_HOST'].'/jobs.html">Jobs</a>
+      <a href="signout.php" >Signout</a>
+    </nav>
+    <span id="menu"><i class="material-icons">menu</i></span>
+  </div>
+</header>
     
 ';
 echo ' <section
@@ -84,7 +88,7 @@ echo ' <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Education Background</p><a class="button primary-bg border-white-all round-corner" href="edit_education.php?e='.$user['id'].'">Edit</a>
+<p class="title">Education Background</p><a class="button primary-bg border-white-all round-corner" href="edit_education.php?e='.$user['id'].'">Add</a>
 
 
 </div>';
@@ -111,20 +115,21 @@ echo ' <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Professional Experience</p><a class="button primary-bg border-white-all round-corner" href="edit_work.php?e='.$user['id'].'">Edit</a>
+<p class="title">Professional Experience</p><a class="button primary-bg border-white-all round-corner" href="edit_work.php?e='.$user['id'].'">Add</a>
 
 
 </div>';
 $work = DB::getWorkProfile($user['email']);
+// echo "work: ".json_encode($work);
 echo '<div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">';
 if(!$work) echo '<p class="subtitle">Nothing to show</p>';
 else{
   for($i=0; $i<sizeof($work);$i++){
     echo '<span class="subtitle">'.$work[$i]['title'].'</span>';
     echo '<span>'.$work[$i]['institution'].'</span>';
-    echo '<span>'.$work[$i]['country'].'</span>';
-    echo '<span>'.$work[$i]['month_start'].' '.$work[$i]['year_start'].' - '.$work[$i]['month_end'].' '.$work[$i]['year_end'].', '.DB::getCountry($work[$i]['country']).'</span>';
-    echo '<p>'.$work[$i]['tasks'].'</p>';
+    echo '<span>'.DB::getCountry($work[$i]['country']).'</span>';
+    echo '<span>'.DB::getMonth($work[$i]['month_start']).' '.$work[$i]['year_start'].' - '.DB::getMonth($work[$i]['month_end']).' '.$work[$i]['year_end'].'</span>';
+    echo '<span class="text-left">'.$work[$i]['tasks'].'</span>';
     echo '<span class="vspacer-small"></span>';
     echo '<span class="vspacer-small"></span>';
   }
@@ -139,20 +144,24 @@ echo ' <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Reference</p><a class="button primary-bg border-white-all round-corner" href="edit_reference.php?e='.$user['id'].'">Edit</a>
+<p class="title">Reference</p><a class="button primary-bg border-white-all round-corner" href="edit_reference.php?e='.$user['id'].'">Add</a>
 
 
-</div>
-<div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">
-<p class="subtitle">Mark Zuckerberg
-<p>Facebook</p>
-<p>mark.zuckerberg@facebook.com</p>
+</div>';
+$reference = DB::getReferenceProfile($user['email']);
 
-<p class="subtitle">Jack Ma
-<p>Chinese Entrepreneur</p>
-<p>jackma@alibaba.com</p>
-<p></p>
-</div>
-</section>';
+echo '<div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">';
+if(!$reference) echo '<p class="subtitle">Nothing to show</p>';
+else{
+  for($i=0; $i<sizeof($reference);$i++){
+    echo '<span class="title">'.$reference[$i]['name'].'</span>';
+    echo '<span>'.$reference[$i]['title'].'</span>';
+    echo '<span>'.$reference[$i]['contact'].'</span>';
+    echo '<span class="vspacer-small"></span>';
+    echo '<span class="vspacer-small"></span>';
+  }
+}
+echo '</div></section>';
 echo "</body>";
+}
 ?>

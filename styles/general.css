@@ -220,7 +220,7 @@
 
   .button:hover {
     background-color: #7ac7ed;
-    border: 2px solid #7ac7ed;
+    /* border: 0px solid #132a86; */
     color: white;
   }
   .large-icons:hover {
@@ -364,6 +364,12 @@
   }
   a.button {
     text-decoration: none;
+  }
+  .error-text {
+    color: red;
+  }
+  .success-text {
+    color: green;
   }
   .primary-text {
     color: #132a86;

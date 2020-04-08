@@ -56,7 +56,7 @@
         <span id="menu"><i class="material-icons">menu</i></span>
       </div>
     </header>
-
+<span class="w-100 error-text hidden padding-small" id="feedback"></span>
     <section
       class="min-width-full padding-std v-100 primary-bg white-text"
       id="signup"
@@ -230,8 +230,7 @@
       ><span class="copyright"
         >Developed and maintained by
         <a target="_blank" href="https://neelansoft.co.tz"
-          >Neelansoft Technologies</a
-        ></span
+          >Neelansoft Technologies</a></span
       >
     </footer>
     <div
@@ -240,21 +239,18 @@
     >
       <i class="material-icons">arrow_upward</i>
     </div>
-    <!-- <script>
-      document.body.addEventListener("load", () => {
-        console.log(window.location.hash);
-        if (window.location.hash.toLowerCase() == "#login") showForm("login");
-      
-      const showForm = id => {
-        const target = document.getElementById(id);
-        target.classList.remove("hidden");
-        var source;
-        if (id.toLowerCase() == "signup") {
-          source = document.getElementById("login");
-        } else source = document.getElementById("signup");
-        source.classList.add("hidden");
-      };
-    </script> -->
+    <script>
+      window.addEventListener("load", () => {
+        let query = window.location.search;
+        if(query.length > 0){
+          const errorHolder = document.getElementById('feedback');
+          let feedback = decodeURI(query.split("=")[1]);
+          errorHolder.classList.remove("hidden");
+          errorHolder.textContent = feedback;
+          
+        }
+      });
+    </script>
     <script src="js/general.js"></script>
   </body>
 </html>
