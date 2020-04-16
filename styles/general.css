@@ -530,6 +530,18 @@
     background-color: #7ac7ed;
     cursor: pointer;
   }
+  table tr td a,
+  table tr td a:visited,
+  table tr td a:hover {
+    color: #132a86;
+    text-decoration: none;
+  }
+  a.plain-link,
+  a.plain-link:visited,
+  a.plain-link:hover {
+    color: #132a86;
+    text-decoration: none;
+  }
   .copyright {
     padding: 1em;
     font-size: 0.7rem;

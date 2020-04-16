@@ -60,7 +60,7 @@ echo '<!DOCTYPE html>
     
     <nav class="flex-row flex-center white-bg" id="navigation">
       <a href="account.php?e='.$user['id'].'" >Account</a>
-      <a href="http://'.$_SERVER['HTTP_HOST'].'/jobs.html">Jobs</a>
+      <a href="http://'.$_SERVER['HTTP_HOST'].'/jobs.php">Jobs</a>
       <a href="signout.php" >Signout</a>
     </nav>
     <span id="menu"><i class="material-icons">menu</i></span>
@@ -78,30 +78,45 @@ echo '
     </div>
 </section>';
 echo '<section class="w-100 margin-std hidden" id="listings">
-<p class="title primary-text">Listings</p>
+<span class="flex-row flex-space flex-middle w-100"><p class="title primary-text">Listings</p><div class="text-center"><span class="vspacer"><a href="add_job.php" class="white-text button primary-bg round-corner border-white-all">Add Job</a></span></div></span>
 <table class="w-100 margin-auto text-left">
     <thead class="primary-bg white-text"><tr><td>Title</td><td>Description</td><td>Date uploaded</td><td>Deadline</td></tr></thead>
-    <tbody>
-        <tr><td>Project Manager</td><td>Project Manager for a local telecom company. Work station Dar es Salaam</td><td>20 Mar 2020</td><td>30 Apr 2020</td></tr>
-        <tr><td>Legal Officer</td><td>Legal officer to serve as company secretary</td><td>20 Mar 2020</td><td>30 Apr 2020</td></tr>
-        <tr><td>Project Manager</td><td>Project Manager for a local telecom company. Work station Dar es Salaam</td><td>20 Mar 2020</td><td>30 Apr 2020</td></tr>
-    </tbody>
+    <tbody>';
+    $jobs = DB::getJobListings();
+    if(!$jobs){
+      echo '<tr><td colspan=4 class="text-center">No job openings</td></tr></tbody></table>';
+      echo '<p></p>';
+    }
+     else{
+       for($i=0; $i<sizeof($jobs);$i++){
+         $job = $jobs[$i];
+         echo '<tr><td>'.$job['position'].'</td><td>'.substr($job['description'],0,60).'...</td><td>'.date('d M Y',$job['date_created']).'</td><td>'.date('d M Y',$job['deadline']).'</td></tr>';
+       }
+     }   
+    echo '</tbody>
 </table>
 </section>';
 echo '<section class="w-100 margin-std " id="candidates">
 <p class="title primary-text">Candidate Profiles</p>
 <table class="w-100 margin-auto text-left">
     <thead class="primary-bg white-text"><tr><td>Name</td><td>Qualification</td><td>Career</td><td>Recent Employer</td></tr></thead>
-    <tbody>
-        <tr><td>Landry Kapela</td><td>Master</td><td>Information Technology</td><td>Open Classrooms International</td></tr>
-        <tr><td>Tristan Landry</td><td>Master</td><td>Aeronautical Engineering</td><td>Emirates</td></tr>
-        <tr><td>Melani adanna</td><td>Bachelor</td><td>Accounting</td><td>Neelansoft Technologies</td></tr>
-    </tbody>
+    <tbody>';
+$candidates = DB::listCandidates();
+for($i=0;$i<sizeof($candidates);$i++){
+  $candidate = $candidates[$i];
+  $qual = DB::getHighestQualification($candidate['email']);
+  $exp = DB::getLatestEmployment($candidate['email']);
+  if($qual != null){
+  echo '<tr><td><a class="plain-link" href="admin_profile.php?u='.$candidate['id'].'">'.$candidate['name'].'</a></td><td><a href="admin_profile.php?u='.$candidate['id'].'">'.$qual['level'].'</a></td><td><a href="admin_profile.php?u='.$candidate['id'].'">'.$qual['major'].'</a></td><td><a href="admin_profile.php?u='.$candidate['id'].'">'.$exp['institution'].'</a></td></tr>';
+  }
+}
+        
+   echo' </tbody>
 </table>
 </section>';
 
 echo '<section class="w-100 margin-std hidden" id="search-form">
-<p class="title primary-text">Advance Seach</p>
+<p class="title primary-text">Advanced Seach</p>
 <form class="w-100 margin-auto flex-column flex-center">
 <div class=" text-left flex-row flex-space flex-top">
    <div class="flex-column flex-start flex-top margin-std">
@@ -109,9 +124,19 @@ echo '<section class="w-100 margin-std hidden" id="search-form">
     <input type="text" name="name" id="name" placeholder="Candidate\'s name" class="form-control padding-small"/>
    </div>
    <div class="flex-column flex-start flex-top margin-std">
-    <label for="profession">Profession</label>
-    <input type="text" name="profession" id="profession" placeholder="Profession" class="form-control padding-small"/>
-  </div>
+    <label for="profession">Professional Career</label>';
+      $careers = DB::listCareers();
+      if(!$careers){
+        echo '<input type="text" name="major" id="major" placeholder="Career" class="form-control padding-small"/>';
+      }
+      else{
+echo '<select name="major" id="major" class="form-control padding-small"><option>Any</option>';
+        for($i=0;$i<sizeof($careers);$i++){
+          echo '<option>'.$careers[$i]['name'].'</option>';
+        }
+        echo '</select>';
+      }
+ echo '</div>
   <div class="flex-column flex-start flex-top margin-std">
     <label for="level">Level of Education</label>
     <select name="level" id="level" class="form-control padding-small">

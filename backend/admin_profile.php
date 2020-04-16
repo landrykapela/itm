@@ -5,11 +5,13 @@ require('manager.php');
 $location = "Location: http://".$_SERVER['HTTP_HOST']."/signup.html#login";
 if(!isset($_SESSION['user'])) header($location);
 $user = DB::getUser($_SESSION['user']);
-if(DB::isAdmin($user['email'])){
-  $location = "Location: http://".$_SERVER['HTTP_HOST']."/backend/admin.php";
+if(!DB::isAdmin($user['email'])){
+  $location = "Location: http://".$_SERVER['HTTP_HOST']."/backend/profile.php";
   header($location,true);
 }
 else{
+    $id = $_GET['u'];
+    $profile = DB::getUserById($id);
 echo '<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,15 +72,15 @@ echo ' <section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Personal Info</p><a class="button primary-bg border-white-all round-corner" href="edit_profile.php?e='.$user['id'].'">Edit</a>
+<p class="title">Personal Info</p>
 
 
 </div>
 <div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">
 
-<p>'.$user['name'].'</p>
-<p>'.$_SESSION['user'].'</p>
-<p>'.$user['phone'].'</p>
+<p>'.$profile['name'].'</p>
+<p>'.$profile['email'].'</p>
+<p>'.$profile['phone'].'</p>
 
 <p>Dar es Salaam</p>
 </div>
@@ -88,11 +90,11 @@ echo ' <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Education Background</p><a class="button primary-bg border-white-all round-corner" href="edit_education.php?e='.$user['id'].'">Add</a>
+<p class="title">Education Background</p>
 
 
 </div>';
-$education = DB::getEducationProfile($user['email']);
+$education = DB::getEducationProfile($profile['email']);
 echo '<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">';
 if(!$education){
   echo '<p class="subtitle">Nothing to show</p>';
@@ -115,11 +117,11 @@ echo ' <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Professional Experience</p><a class="button primary-bg border-white-all round-corner" href="edit_work.php?e='.$user['id'].'">Add</a>
+<p class="title">Professional Experience</p>
 
 
 </div>';
-$work = DB::getWorkProfile($user['email']);
+$work = DB::getWorkProfile($profile['email']);
 // echo "work: ".json_encode($work);
 echo '<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">';
 if(!$work) echo '<p class="subtitle">Nothing to show</p>';
@@ -144,11 +146,12 @@ echo ' <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Reference</p><a class="button primary-bg border-white-all round-corner" href="edit_reference.php?e='.$user['id'].'">Add</a>
+<p class="title">Reference</p>
+
 
 
 </div>';
-$reference = DB::getReferenceProfile($user['email']);
+$reference = DB::getReferenceProfile($profile['email']);
 
 echo '<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">';
 if(!$reference) echo '<p class="subtitle">Nothing to show</p>';

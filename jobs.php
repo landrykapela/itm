@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<?php
+echo '<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta name="author" content="Landry Kapela" />
@@ -21,7 +22,6 @@
     <link href="styles/general.css" rel="stylesheet" />
     <link href="styles/general_mobile.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="slick/slick.css" />
-    <!-- // Add the new slick-theme.css if you want the default styling -->
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -52,7 +52,7 @@
           <span id="jobs" class="active">Jobs</span>
           <span id="training">Training</span>
           <span id="news">News & Events</span>
-          <!-- <span id="contacts">Contacts</span> -->
+          
         </nav>
         <span id="menu"><i class="material-icons">menu</i></span>
       </div>
@@ -66,8 +66,10 @@
                Get matched with the best employers and land your dream job
             </p>
             <span class="vspacer"></span>
-            <span class="vspacer"></span>
-            <div class="w-50 flex-row flex-between flex-middle white-text margin-auto"><span class="button primary-bg round-corner border-white-all white-text" onclick="window.location=window.location.origin+'/signup.html';">SIGNUP NOW</span><span>OR</span><span class="button border-white-all round-corner white-text" onclick="window.location=window.location.origin+'/signup.html#login';">LOGIN</span></div>
+            <span class="vspacer"></span>';
+            $open_signup =  "window.location=window.location.origin+'/signup.html'";
+            $open_signin =  "window.location=window.location.origin+'/signup.html#login'";
+            echo '<div class="w-50 flex-row flex-between flex-middle white-text margin-auto"><span class="button primary-bg round-corner border-white-all white-text" onclick="'.$open_signup.'">SIGNUP NOW</span><span>OR</span><span class="button border-white-all round-corner white-text" onclick="'.$open_signin.'">LOGIN</span></div>
             <span class="vspacer"></span>
             <span class="vspacer"></span>
             
@@ -81,22 +83,21 @@
     
     <section class="w-100 margin-std ">
         <p class="title primary-text">Recent Listings</p>
-        <table class="w-100 margin-auto text-left">
+        <table class="w-100 margin-auto text-left border-primary-all">
           <thead class="primary-bg white-text"><tr><td>Title</td><td>Description</td><td>Date uploaded</td><td>Deadline</td></tr></thead>
-          <tbody>
-            <?php
+          <tbody>';
               require('backend/manager.php');
           $jobs = DB::getJobListings();
           if(!$jobs){
-            echo '<tr><td colspan=4 class="text-center">No jobs openings</td></tr>';
+            echo '<tr><td colspan=4 class="text-center">No job openings</td></tr>';
           }
            else{
              for($i=0; $i<sizeof($jobs);$i++){
                $job = $jobs[$i];
                echo '<tr><td>'.$job['position'].'</td><td>'.$job['description'].'</td><td>'.date('d M Y',$job['date_created']).'</td><td>'.date('d M Y',$job['deadline']).'</td></tr>';
              }
-           }   ?>
-          </tbody>
+           }   
+  echo '</tbody>
       </table>
     </section>
    
@@ -119,4 +120,4 @@
     <script src="js/general.js"></script>
     
   </body>
-</html>
+</html>';?>

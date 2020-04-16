@@ -35,7 +35,7 @@ if (nav) {
           window.location = window.location.origin + "/events.html";
           break;
         case "section_jobs":
-          window.location = window.location.origin + "/jobs.html";
+          window.location = window.location.origin + "/jobs.php";
           break;
         case "section_home":
           window.location = window.location.origin + "/index.html";
@@ -278,7 +278,7 @@ if (btnService) {
 const btnJobs = document.getElementById("btn-jobs");
 if (btnJobs) {
   btnJobs.addEventListener("click", () => {
-    window.location = window.location.origin + "/jobs.html";
+    window.location = window.location.origin + "/jobs.php";
   });
 }
 

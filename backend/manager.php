@@ -7,7 +7,7 @@ class DB{
         $result = "";
         for($i=0; $i<8;$i++){
             $randomIndex = rand(0,strlen($string));
-            $result .= substr($string,$i,1);
+            $result .= substr($string,$randomIndex,1);
             
         }
         return $result;
@@ -69,12 +69,13 @@ class DB{
         $query = mysqli_query(self::connect(),$sql);
         if(mysqli_num_rows($query) > 0){
             $password = self::randomPassword();
-            $hash = passsword_hash($password,PASSWORD_BCRYPT);
+            echo $password;
+            $hash = password_hash($password,PASSWORD_BCRYPT);
             $sql2 = "update user set password ='".$hash."' where email='".$email."'";
             $query2 = mysqli_query(self::connect(),$sql2);
             if($query2){
-                mail($email,"Password Reset","Your password has been reset. Please use ".$password." next time you login");
-                return true;
+                $mail = mail($email,"Password Reset","Your password has been reset. Please use ".$password." next time you login");
+                return $mail;
             }
             else return false;
         }
@@ -91,6 +92,14 @@ class DB{
     }
     static function getUser($email){
         $sql = "select * from user where email='".$email."' order by id asc limit 1";
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            return mysqli_fetch_array($query);
+        }
+        else return false;
+    }
+    static function getUserById($id){
+        $sql = "select * from user where id='".$id."' order by id asc limit 1";
         $query = mysqli_query(self::connect(),$sql);
         if($query){
             return mysqli_fetch_array($query);
@@ -118,12 +127,12 @@ class DB{
         }
         else return false;
     }
-    static function createEducationProfile($email,$data){
+    static function createEducationProfile($user,$data){
         if($data == null){
             return false;
         }
             $values = "";
-            $sql = "insert into education (title,level,institution,major,year,country,email) values ";
+            $sql = "insert into education (title,level,institution,major,year,country,email,user) values ";
             for($i=0; $i<count($data);$i++){
                 $d = $data[$i];
                 $title = $d['title'];
@@ -132,8 +141,9 @@ class DB{
             $major = $d['major'];
             $year = $d['year'];
             $country = $d['country'];
+            
 
-            $values .= "('".$title."','".$level."','".$institution."','".$major."',".$year.",'".$country."','".$email."')";
+            $values .= "('".$title."','".$level."','".$institution."','".$major."',".$year.",'".$country."','".$user['email']."',".$user['id'].")";
             if($i < sizeof($data)-1){
                 $values .= ",";
             }
@@ -141,11 +151,11 @@ class DB{
             $sql .= $values;
             $query = mysqli_query(self::connect(),$sql);
             if($query) {
-                $user = self::getUser($email);
+                
                 $progress = explode(",",$user['profile']);
                 $progress[1] = "40";
                 $profile = implode(",",$progress);
-                mysqli_query(self::connect(),"update user set profile = '".$profile."' where email='".$email."'");
+                mysqli_query(self::connect(),"update user set profile = '".$profile."' where email='".$user['email']."'");
                 return true;
             }
             else return false;
@@ -316,43 +326,101 @@ class DB{
     }
     static function mapQualifications($levels){
         $result = array();
-        for($i =0; $i<sizeof($levels);$i++){
-            $l = $levels[$i];
-            switch($l){
-                case "Doctorate":
-                    $result['Doctorate'] = 5;
-                    break;
-                    case "Master":
-                        $result['Master'] = 4;
-                    break;
-                    case "Bachelor":
-                        $result['Bachelor'] = 3;
-                    break;
-                    case "Diploma":
-                        $result['Diploma'] = 2;
-                    break;
-                    case "Certificate":
-                        $result['Certificate'] = 1;
-                    break;
-                    case "Short Course":
-                        $result['Short Course'] = 0;
-                    break;
-            }
+        $keys = array();
+        foreach($levels as $key =>$value){
+            $keys[$key];
+            
         }
-        return arsort($result);
+       $sortedKeys = ksort($keys);
+       for($i=0;$i<sizeof($sortedKeys);$i++){
+           $result[] = $levels[$sortedKeys[$i]];
+       }
+        return $result;
     }
     static function getHighestQualification($email){
-        $sql = "select level from education where email ='".$email."'";
-        $levels= array();
+        $sql = "select level,institution,major from education where email ='".$email."'";
+        $eds= array();
         $query = mysqli_query(self::connect(),$sql);
         if($query){
             while($r=mysqli_fetch_row($query)){
-                $level = $r[0];
-                $levels[] = $level;
+                $level = array();
+                $level['level'] = $r[0];
+                $level['institution'] = $r[1];
+                $level['major'] = $r[2];
+                $eds[] = $level;
             }
         }
-        $result = self::mapQualifications($levels);
-        return $result[0];
+        $values = array();
+        for($i=0;$i<sizeof($eds);$i++){
+            $e = $eds[$i];
+            if($e['level'] == 'Doctorate') return $e;
+            else{
+                $val = 0;
+                switch($e['level']){
+                    case "Master":
+                        $val = 4;
+                    break;
+                    case "Bachelor":
+                        $val = 3;
+                    break;
+                    case "Diploma":
+                        $val = 2;
+                    break;
+                    case "Certificate":
+                        $val = 1;
+                    break;
+                    
+                }
+                $e['val'] = $val;
+                $values[$val] = $e;
+            }
+            
+        }
+        krsort($values);
+        // echo "eds: ".json_encode(($values));
+        return reset($values);
+    }
+    static function getLatestEmployment($email){
+        $sql = "select institution,year_start,year_end from work where email ='".$email."' order by year_start";
+        $employment = array();
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            while($r=mysqli_fetch_row($query)){
+                $job= array();
+                $job['institution'] = $r[0];
+                $job['year_start'] = $r[1];
+                $job['year_end'] = $r[2];
+                $employment[] = $job;
+            }
+        }
+        $values = array();
+        for($i=0;$i<sizeof($employment);$i++){
+            $job = $employment[$i];
+            if($job['year_end'] == -1){
+                return $job;
+            }
+            else{
+                $values[$job['year_start']] = $job;
+            }
+        }
+        krsort($values);
+        // echo "jobs: ".json_encode(array_keys($values))."\n";
+        return reset($values);
+    }
+    static function listCareers(){
+        $result = array();
+        $sql = "select * from career order by name asc";
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            while($r = mysqli_fetch_row($query)){
+                $item = array();
+                $item['id'] = $r[0];
+                $item['name'] = $r[1];
+                $result[] = $item;
+            }
+            return $result;
+        }
+        else return false;
     }
     static function listCandidates(){
         $sql = "select * from user where id <> 1 order by name asc";
@@ -366,6 +434,58 @@ class DB{
             $result[] = $item;
         }
         return $result;
+    }
+
+    //create job listing
+    static function createJob($data){
+        if($data == null){
+            return false;
+        }
+            $values = "";
+            $sql = "insert into jobs (date_created,position,contact,description,company,deadline) values ";
+            $date_created = time();
+            for($i=0; $i<count($data);$i++){
+                $d = $data[$i];
+            $position = $d['position'];
+            $contact = $d['contact'];
+            $description = $d['description'];
+            $company = $d['company'];
+            $deadline = $d['deadline'];
+            
+            $values .= "(".$date_created.",'".$position."','".$contact."','".$description."','".$company."',".$deadline.")";
+            if($i < sizeof($data)-1){
+                $values .= ",";
+            }
+            }
+            $sql .= $values;
+            $query = mysqli_query(self::connect(),$sql);
+            if($query){
+                return true;
+            }else return false;
+    }
+
+    //get job listings
+    static function getJobListings(){
+        $result = array();
+        $deadline = time();
+        $sql = "select * from jobs where deadline >= ".$deadline." order by date_created desc";
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            while($r=mysqli_fetch_row($query)){
+                $rec['id'] = $r[0];
+                $rec['position'] = $r[1];
+                $rec['description'] = $r[2];
+                $rec['company'] = $r[3];
+                $rec['contact'] = $r[4];
+                $rec['date_created'] = $r[5];
+                $rec['deadline'] = $r[6];
+
+                $result[] = $rec;
+            }
+
+            return $result;
+        }
+        else return false;
     }
     static function months(){
        return array("Jan"=>1,"Feb"=>2,"Mar"=>3,"Apr"=>4,"May"=>5,"Jun"=>6,"Jul"=>7,"Aug"=>8,"Sep"=>9,"Oct"=>10,"Nov"=>11,"Dec"=>12);

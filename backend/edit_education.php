@@ -74,7 +74,7 @@ if(isset($_POST['submit'])){
     $data = array();
     $info = array("level"=>$level,"title"=>$title,"institution"=>$institution,"major"=>$major,"country"=>$country,"year"=>$year);
     $data[0] = $info;
-    $action = DB::createEducationProfile($user['email'],$data);
+    $action = DB::createEducationProfile($user,$data);
 }
 
 echo ' <span class="vspacer-small"></span><section
@@ -103,27 +103,17 @@ class="min-width-full v-100  flex-row flex-center"
     <option>Bachelor</option>
     <option>Diploma</option>
     <option>Certificate</option>
-    <option>Short Course</option>
     
 </select></div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="major">Select Area of Study</label>
-<select name="major" id="major" class="w-75 form-control padding-small">
-    <option>Accounting</option>
-    <option>Aeronautical Engineering</option>
-    <option>Administration</option>
-    <option>Biological Science</option>
-    <option>Business Management</option>
-    <option>Chemical Engineering</option>
-    <option>Computer Science</option>
-    <option>Information Technology</option>
-    <option>Graphics & Arts</option>
-    <option>Mechanical Engineering</option>
-    <option>Geology</option>
-    <option>Law</option>
-    <option>Software Engineering</option>Short Course
+<select name="major" id="major" class="w-75 form-control padding-small">';
+   $careers = DB::listCareers();
+   for($i=0;$i<sizeof($careers);$i++){
+     echo '<option>'.$careers[$i]['name'].'</option>';
+   }
     
-</select></div>
+echo '</select></div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="country">Country</label>
 <select name="country" id="country" class="w-75 form-control padding-small">';

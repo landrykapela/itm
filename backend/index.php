@@ -67,10 +67,14 @@ else{
         if(isset($_POST['btnResetSubmit'])){
             $email = filter_var($_POST['email'],FILTER_SANITIZE_STRING);
             $action = DB::resetPassword($email);
-            if($action) $result['response'] = "Your password was reset successfully. Check your email for instructions";
-            else $result['response'] = "Could not reset your password. Make sure you are using the same email address you used at registration";
+            if(!$action) $result['response'] = "Could not reset your password. Make sure you are using the same email address you used at registration";
+            else $result['response'] = "Your password was reset successfully. Check your email for instructions";
     
-            echo json_encode($result);
+            $fb = $result['response'];
+            $location = "Location: http://".$_SERVER['HTTP_HOST']."/signup.html?fb=".$fb."#login";
+            
+
+    //    header($location,true);
         }
         else echo "Access Denied!";
     }

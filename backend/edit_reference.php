@@ -78,7 +78,7 @@ echo ' <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Education Background</p><a class="button primary-bg border-white-all round-corner" href="profile.php">Close</a>
+<p class="title">Reference</p><a class="button primary-bg border-white-all round-corner" href="profile.php">Close</a>
 
 
 </div>

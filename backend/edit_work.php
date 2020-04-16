@@ -68,7 +68,7 @@ if(isset($_POST['submit'])){
     $title = filter_var($_POST['title'],FILTER_SANITIZE_STRING);
     $tasks = $_POST['tasks'];
     $year_start = $_POST['year_start'];
-    $year_end = $_POST['year_end'];
+    $year_end = $_POST['current'] == -1 ? $_POST['current'] : $_POST['year_end'];
     $month_start = $_POST['month_start'];
     $month_end = $_POST['month_end'];
     $country = $_POST['country'];
@@ -140,7 +140,9 @@ for($i=0;$i<40;$i++){
 }
     
 echo '</select></div>
-
+<div class="w-50 padding-small flex-column flex-start flex-top">
+<label for="current">Still Working</label>
+<input type="checkbox" name="current" id="current" class="form-control padding-std" value="-1"/></div>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="tasks">Major Tasks</label>
