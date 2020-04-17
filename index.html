@@ -43,6 +43,8 @@
     >
       <span class="vspacer"></span>
       <form
+        action="backend/subscribe.php"
+        method="POST"
         class="margin-auto flex-column flex-middle flex-center w-50 primary-bg padding-std"
       >
         <span id="close-popup" class="round white-bg flex-row flex-center"
@@ -70,8 +72,9 @@
         />
         <input
           class="button primary-bg border-white-all white-text round-corner"
-          type="button"
-          id="btnSubmitPopup"
+          type="submit"
+          name="btnSubscribe"
+          id="btnSubscribe"
           value="SUBSCRIBE"
         />
       </form>
@@ -91,7 +94,7 @@
           <span id="services">Services</span>
           <span id="jobs">Jobs</span>
           <span id="training">Training</span>
-          <span id="events">News & Events</span>
+          <span id="news">News & Events</span>
           <!-- <span id="contacts">Contacts</span> -->
         </nav>
         <span id="menu"><i class="material-icons">menu</i></span>

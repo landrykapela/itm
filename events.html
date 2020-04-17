@@ -41,7 +41,7 @@
     class="padding-std min-width-full black-bg-transparent flex-column flex-center-flex-middle hidden"
   >
     <span class="vspacer"></span>
-    <form
+    <form action="backend/subscribe.php" method="POST"
       class="margin-auto flex-column flex-middle flex-center w-50 primary-bg padding-std"
     >
       <span id="close-popup" class="round white-bg flex-row flex-center"
@@ -69,8 +69,9 @@
       />
       <input
         class="button primary-bg border-white-all white-text round-corner"
-        type="button"
-        id="btnSubmitPopup"
+        type="submit"
+        name="btnSubscribe"
+        id="btnSubscribe"
         value="SUBSCRIBE"
       />
     </form>

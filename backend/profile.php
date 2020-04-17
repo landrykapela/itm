@@ -71,6 +71,7 @@ class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
 <p class="title">Personal Info</p><a class="button primary-bg border-white-all round-corner" href="edit_profile.php?e='.$user['id'].'">Edit</a>
+<span><a  class="flex-row flex-start flex-middle" target="_blank" href="profile_pdf.php?e='.$user['id'].'"><i class="material-icons">print</i> Generate CV</a></span>
 
 
 </div>
@@ -78,9 +79,11 @@ class="min-width-full v-100  flex-row flex-center"
 
 <p>'.$user['name'].'</p>
 <p>'.$_SESSION['user'].'</p>
-<p>'.$user['phone'].'</p>
+<p>'.$user['phone'].'</p>';
+$cities = DB::getTanzaniaCities();
+$location = in_array($user['location'],$cities) ? $user['location'] : DB::getCountry($user['location']);
 
-<p>Dar es Salaam</p>
+echo '<p>'.$location.'</p>
 </div>
 </section>';
 
@@ -106,6 +109,13 @@ else{
     echo '<span>'.$education[$i]['year'].', '.DB::getCountry($education[$i]['country']).'</span>';
     echo '<span class="vspacer-small"></span>';
     echo '<span class="vspacer-small"></span>';
+    echo '<div class="w-100 flex-row flex-between flex-middle">
+    <a class="plain-link " href="edit_education.php?e='.$user['id'].'&ed='.$education[$i]['id'].'">Edit</a>
+    <a class="plain-link " href="edit_education.php?e='.$user['id'].'&del='.$education[$i]['id'].'">Delete</a></div>';
+    echo '<span class="vspacer-small"></span>';
+    if($i < count($education) -1) echo '<span class="vspacer-small border-dark-bottom"></span>';
+    echo '<span class="vspacer-small"></span>';
+    echo '<span class="vspacer-small"></span>';
   }
 }
 
@@ -128,8 +138,15 @@ else{
     echo '<span class="subtitle">'.$work[$i]['title'].'</span>';
     echo '<span>'.$work[$i]['institution'].'</span>';
     echo '<span>'.DB::getCountry($work[$i]['country']).'</span>';
-    echo '<span>'.DB::getMonth($work[$i]['month_start']).' '.$work[$i]['year_start'].' - '.DB::getMonth($work[$i]['month_end']).' '.$work[$i]['year_end'].'</span>';
+    echo '<span>'.DB::getMonth($work[$i]['month_start']).' '.$work[$i]['year_start'].' - '.($work[$i]['year_end']== -1 ? 'Present': (DB::getMonth($work[$i]['month_end']).' - '.$work[$i]['year_end'])).'</span>';
     echo '<span class="text-left">'.$work[$i]['tasks'].'</span>';
+    echo '<span class="vspacer-small"></span>';
+    echo '<span class="vspacer-small"></span>';
+    echo '<div class="w-100 flex-row flex-between flex-middle">
+    <a class="plain-link " href="edit_work.php?e='.$user['id'].'&ed='.$work[$i]['id'].'">Edit</a>
+    <a class="plain-link " href="edit_work.php?e='.$user['id'].'&del='.$work[$i]['id'].'">Delete</a></div>';
+    echo '<span class="vspacer-small"></span>';
+    if($i < count($work) -1) echo '<span class="vspacer-small border-dark-bottom"></span>';
     echo '<span class="vspacer-small"></span>';
     echo '<span class="vspacer-small"></span>';
   }
@@ -157,6 +174,14 @@ else{
     echo '<span class="subtitle">'.$reference[$i]['name'].'</span>';
     echo '<span>'.$reference[$i]['title'].'</span>';
     echo '<span>'.$reference[$i]['contact'].'</span>';
+    echo '<span>'.$reference[$i]['phone'].'</span>';
+    echo '<span class="vspacer-small"></span>';
+    echo '<span class="vspacer-small"></span>';
+    echo '<div class="w-100 flex-row flex-between flex-middle">
+    <a class="plain-link " href="edit_reference.php?e='.$user['id'].'&ed='.$reference[$i]['id'].'">Edit</a>
+    <a class="plain-link " href="edit_reference.php?e='.$user['id'].'&del='.$reference[$i]['id'].'">Delete</a></div>';
+    echo '<span class="vspacer-small"></span>';
+    if($i < count($reference) -1) echo '<span class="vspacer-small border-dark-bottom"></span>';
     echo '<span class="vspacer-small"></span>';
     echo '<span class="vspacer-small"></span>';
   }

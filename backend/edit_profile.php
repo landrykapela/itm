@@ -5,6 +5,7 @@ require('manager.php');
 $location = "Location: http://".$_SERVER['HTTP_HOST']."/signup.html#login";
 if(!isset($_SESSION['user'])) header($location);
 $user = DB::getUser($_SESSION['user']);
+$msg = "";
 if($_GET['e'] != $user['id']) die("Not your account");
 echo '<!DOCTYPE html>
 <html lang="en">
@@ -67,13 +68,20 @@ echo '<!DOCTYPE html>
 if(isset($_POST['submit'])){
     $name = filter_var($_POST['name'],FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'],FILTER_SANITIZE_STRING);
-    $dob = $_POST['date_of_birth'];
+    $dob = strtotime($_POST['date_of_birth']);
     $location = isset($_POST['abroad']) ? filter_var($_POST['country'],FILTER_SANITIZE_STRING):filter_var($_POST['location'],FILTER_SANITIZE_STRING);
     $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
    
     $info = array("name"=>$name,"email"=>$email,"date_of_birth"=>$dob,"location"=>$location,"phone"=>$phone);
    
-    $action = DB::updateInfo($user['id'],$info);
+    $action = DB::updateUserInfo($user['id'],$info);
+    if(!$action){
+      $msg = "Could not update user info!";
+    }
+    else{
+      $user = $action;
+      $msg = "Successfully updated user info!";
+    }
 }
 echo "<script>
 function showCountry(){
@@ -84,7 +92,7 @@ function showCountry(){
 }
 
 </script>";
-echo ' <span class="vspacer-small"></span><section
+echo ' <span class="error-text">'.$msg.'</span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
@@ -99,8 +107,10 @@ class="min-width-full v-100  flex-row flex-center"
 <input type="text" name="name" id="name" placeholder="Full name..." value="'.$user['name'].'" class="w-100 form-control padding-small"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
-<label for="date_of_birth">Date of Birth</label>
-<input type="date" name="date_of_birth" id="date_of_birth" class=" form-control padding-small"/>
+<label for="date_of_birth">Date of Birth</label>';
+$onfocus = "this.type = 'date';";
+$onblur = "this.type = 'text';";
+echo '<input type="text" onfocus="'.$onfocus.'" onblur="'.$onblur.'" name="date_of_birth" id="date_of_birth" class=" form-control padding-small" placeholder="Enter date of birth" value="'.date('d M Y',$user['date_of_birth']).'"/>
  </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="email">E-mail</label>
@@ -116,8 +126,9 @@ class="min-width-full v-100  flex-row flex-center"
 <select name="location" id="location" class="w-100 form-control padding-small">';
 $cities = DB::getTanzaniaCities();
 for($i=0; $i<sizeof($cities);$i++){
-    
-    echo "<option>".$cities[$i]."</option>";
+    if($user['location'] == $cities[$i])
+    echo "<option selected>".$cities[$i]."</option>";
+    else  echo "<option>".$cities[$i]."</option>";
 }
     
 echo '</select></div>';
@@ -132,7 +143,9 @@ echo '<div class="padding-small flex-row flex-start flex-top">
 <select name="country" id="country" class="w-75 form-control padding-small">';
 $countries = DB::listCountries();
 foreach($countries as $code => $name){
-    
+    if($user['location'] == $code)
+    echo "<option value=".$code." selected>".$code." - ".$name."</option>";
+    else 
     echo "<option value=".$code.">".$code." - ".$name."</option>";
 }
     

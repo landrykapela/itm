@@ -5,7 +5,25 @@ require('manager.php');
 $location = "Location: http://".$_SERVER['HTTP_HOST']."/signup.html#login";
 if(!isset($_SESSION['user'])) header($location);
 $user = DB::getUser($_SESSION['user']);
+$msg = "";
+$task = "new";
 if($_GET['e'] != $user['id']) die("Not your account");
+else{
+if(isset($_GET['del'])) {
+ 
+  $task = "delete";
+  $education = DB::getEducationRecord($_GET['del']);
+}
+else{
+  if(isset($_GET['ed'])) {
+    $education = DB::getEducationRecord($_GET['ed']);
+    $task = "update";
+  }
+  else{
+    $education = false;
+  }
+}
+}
 echo '<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -54,7 +72,7 @@ echo '<!DOCTYPE html>
         
         <nav class="flex-row flex-center white-bg" id="navigation">
           <a href="account.php?e='.$user['email'].'" >Account</a>
-          <a href="http://'.$_SERVER['HTTP_HOST'].'/jobs.html">Jobs</a>
+          <a href="job_listings.php">Jobs</a>
           <a href="signout.php" >Signout</a>
         </nav>
         <span id="menu"><i class="material-icons">menu</i></span>
@@ -75,9 +93,40 @@ if(isset($_POST['submit'])){
     $info = array("level"=>$level,"title"=>$title,"institution"=>$institution,"major"=>$major,"country"=>$country,"year"=>$year);
     $data[0] = $info;
     $action = DB::createEducationProfile($user,$data);
+    if($action){
+      $msg = "Record successfully saved!";
+    }
+    else $msg = "Could not save record!";
+}
+if(isset($_POST['submitUpdate'])){
+  $institution = filter_var($_POST['institution'],FILTER_SANITIZE_STRING);
+  $title = filter_var($_POST['program'],FILTER_SANITIZE_STRING);
+  $level = $_POST['level'];
+  $major = $_POST['major'];
+  $year = $_POST['year'];
+  $country = $_POST['country'];
+
+  $info = array("level"=>$level,"title"=>$title,"institution"=>$institution,"major"=>$major,"country"=>$country,"year"=>$year);
+  
+  $action = DB::updateEducationRecord($info,$_GET['ed']);
+  if(!$action){
+    $msg = "Could not update record!";
+  }
+  else {
+    $education = $action;
+    $msg = "Record successfully updated!";
+  }
+}
+if(isset($_POST['submitDelete'])){
+  
+  $action = DB::deleteEducationRecord($_GET['del']);
+  if($action){
+    $msg = "Record successfully deleted!";
+  }
+  else $msg = "Could not delete record!";
 }
 
-echo ' <span class="vspacer-small"></span><section
+echo ' <span class="error-text padding-small">'.$msg.'</span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
@@ -89,28 +138,31 @@ class="min-width-full v-100  flex-row flex-center"
 <form class="w-100 flex-column flex-start flex-top accent-bg dark-text padding-std" action="" method="POST">
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="institution">Institution</label>
-<input type="text" name="institution" id="institution" placeholder="Institution" class="w-100 form-control padding-small"/>
+<input type="text" name="institution" id="institution" placeholder="Institution" value="'.$education['institution'].'" class="w-100 form-control padding-small"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="program">Study Program</label>
-<input type="text" name="program" id="program" placeholder="program"class="w-100 form-control padding-small"/>
+<input type="text" name="program" id="program"  value="'.$education['title'].'" placeholder="program"class="w-100 form-control padding-small"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="level">Select Level</label>
-<select name="level" id="level" class="w-75 form-control padding-small">
-    <option>Doctorate</option>
-    <option>Master</option>
-    <option>Bachelor</option>
-    <option>Diploma</option>
-    <option>Certificate</option>
+<select name="level" id="level" class="w-75 form-control padding-small">';
+    $levels = DB::getLevels();
+    for($i=0;$i<sizeof($levels);$i++){
+      if($education['level'] == $levels[$i])
+      echo '<option selected>'.$levels[$i].'</option>';
+      else echo '<option>'.$levels[$i].'</option>';
+    }
     
-</select></div>
+echo '</select></div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="major">Select Area of Study</label>
 <select name="major" id="major" class="w-75 form-control padding-small">';
    $careers = DB::listCareers();
    for($i=0;$i<sizeof($careers);$i++){
-     echo '<option>'.$careers[$i]['name'].'</option>';
+     if($education['major'] == $careers[$i]['name'])
+     echo '<option selected>'.$careers[$i]['name'].'</option>';
+     else echo '<option>'.$careers[$i]['name'].'</option>';
    }
     
 echo '</select></div>
@@ -119,7 +171,9 @@ echo '</select></div>
 <select name="country" id="country" class="w-75 form-control padding-small">';
 $countries = DB::listCountries();
 foreach($countries as $code => $name){
-    
+    if($education['country'] == $code)
+    echo "<option value=".$code." selected>".$code." - ".$name."</option>";
+    else 
     echo "<option value=".$code.">".$code." - ".$name."</option>";
 }
     
@@ -130,13 +184,29 @@ echo '</select></div>
 $year = date('Y');
 for($i=0;$i<40;$i++){
     $y = $year - $i;
+    if($y == $education['year'])
+    echo "<option selected>".$y."</option>";
+    else 
     echo "<option>".$y."</option>";
 }
     
 echo '</select></div>
-<div class="w-100 padding-small flex-column flex-start flex-top">
-<input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>
-</form>
+<div class="w-100 padding-small flex-column flex-start flex-top">';
+if($task == 'update') {
+  echo'
+<input type="submit" name="submitUpdate" id="submitUpdate" value="UPDATE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>';
+}
+else{
+   if($task == 'delete') {
+     echo'
+<input type="submit" name="submitDelete" id="submitDelete" value="DELETE" class="button round-corner alert-bg border-white-all white-text w-100 form-control padding-small"/>';
+   }
+else {
+   echo'
+<input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>';
+}
+}
+echo '</div></form>
 </div>
 </section>';
 

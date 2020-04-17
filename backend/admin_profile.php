@@ -73,6 +73,7 @@ class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
 <p class="title">Personal Info</p>
+<span><a  class="flex-row flex-start flex-middle" target="_blank" href="profile_pdf.php?e='.$profile['id'].'"><i class="material-icons">print</i> Generate CV</a></span>
 
 
 </div>

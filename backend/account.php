@@ -78,9 +78,11 @@ class="min-width-full v-100  flex-row flex-center"
 
 <p>'.$user['name'].'</p>
 <p>'.$_SESSION['user'].'</p>
-<p>'.$user['phone'].'</p>
+<p>'.$user['phone'].'</p>';
+$cities = DB::getTanzaniaCities();
+$location = in_array($user['location'],$cities) ? $user['location'] : DB::getCountry($user['location']);
 
-<p>Dar es Salaam</p>
+echo '<p>'.$location.'</p>
 </div>
 </section>';
 

@@ -6,6 +6,25 @@ $location = "Location: http://".$_SERVER['HTTP_HOST']."/signup.html#login";
 if(!isset($_SESSION['user'])) header($location);
 $user = DB::getUser($_SESSION['user']);
 if($_GET['e'] != $user['id']) die("Not your account");
+$msg = "";
+$task = "new";
+if($_GET['e'] != $user['id']) die("Not your account");
+else{
+if(isset($_GET['del'])) {
+ 
+  $task = "delete";
+  $referee = DB::getReferenceRecord($_GET['del']);
+}
+else{
+  if(isset($_GET['ed'])) {
+    $referee = DB::getReferenceRecord($_GET['ed']);
+    $task = "update";
+  }
+  else{
+    $referee = false;
+  }
+}
+}
 echo '<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,8 +72,8 @@ echo '<!DOCTYPE html>
       >
         
         <nav class="flex-row flex-center white-bg" id="navigation">
-          <a href="account.php?e='.$user['email'].'" >Account</a>
-          <a href="http://'.$_SERVER['HTTP_HOST'].'/jobs.html">Jobs</a>
+          <a href="account.php?e='.$user['id'].'" >Account</a>
+          <a href="job_listings.php">Jobs</a>
           <a href="signout.php" >Signout</a>
         </nav>
         <span id="menu"><i class="material-icons">menu</i></span>
@@ -66,15 +85,55 @@ if(isset($_POST['submit'])){
     $name = filter_var($_POST['name'],FILTER_SANITIZE_STRING);
     $contact = filter_var($_POST['contact'],FILTER_SANITIZE_EMAIL);
     $title = filter_var($_POST['title'],FILTER_SANITIZE_STRING);
-    
-
+    $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
     $data = array();
-    $info = array("name"=>$name,"title"=>$title,"contact"=>$contact);
+    $info = array("name"=>$name,"title"=>$title,"contact"=>$contact,"phone"=>$phone);
     $data[0] = $info;
     $action = DB::createReferenceProfile($user['email'],$data);
+    if(!$action){
+      $msg = "Could not create record!";
+      
+    }
+    else{
+      $msg = "Record successfully saved!";
+      // $referee = $action;
+    }
 }
 
-echo ' <span class="vspacer-small"></span><section
+if(isset($_POST['submitUpdate'])){
+  $name = filter_var($_POST['name'],FILTER_SANITIZE_STRING);
+  $contact = filter_var($_POST['contact'],FILTER_SANITIZE_EMAIL);
+  $title = filter_var($_POST['title'],FILTER_SANITIZE_STRING);
+  $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
+  
+  $info = array("name"=>$name,"title"=>$title,"contact"=>$contact,"phone"=>$phone);
+  
+  $action = DB::updateReferenceRecord($info,$_GET['ed']);
+  if(!$action){
+    $msg = "Could not update record!";
+    
+  }
+  else{
+    $msg = "Record successfully updated!";
+    $referee = $action;
+  }
+}
+
+
+if(isset($_POST['submitDel'])){
+  
+  $action = DB::deleteReferenceRecord($_GET['del']);
+  if(!$action){
+    $msg = "Could not delete record!";
+    
+  }
+  else{
+    $msg = "Record successfully deleted!";
+  }
+}
+
+
+echo ' <span class="error-text">'.$msg.'</span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
@@ -86,20 +145,37 @@ class="min-width-full v-100  flex-row flex-center"
 <form class="w-100 flex-column flex-start flex-top accent-bg dark-text padding-std" action="" method="POST">
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="name">Name of Referee</label>
-<input type="text" name="name" id="name" placeholder="Enter the name of the referee" class="w-100 form-control padding-small"/>
+<input type="text" name="name" id="name" placeholder="Enter the name of the referee" class="w-100 form-control padding-small" value="'.$referee['name'].'"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="title">Title/Company</label>
-<input type="text" name="title" id="title" placeholder="Title or company" class="w-100 form-control padding-small"/>
+<input type="text" name="title" id="title" placeholder="Title or company" class="w-100 form-control padding-small" value="'.$referee['title'].'"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="contact">Referee E-mail </label>
-<input type="email" name="contact" id="contact" placeholder="E-mail address" class="w-100 form-control padding-small"/>
+<input type="email" name="contact" id="contact" placeholder="E-mail address" class="w-100 form-control padding-small" value="'.$referee['contact'].'"/>
+</div>
+<div class="w-100 padding-small flex-column flex-start flex-top">
+<label for="contact">Referee Phone Number </label>
+<input type="text" name="phone" id="phone" placeholder="Phone number..." class="w-100 form-control padding-small" value="'.$referee['phone'].'"/>
 </div>
 
-<div class="w-100 padding-small flex-column flex-start flex-top">
-<input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>
-</form>
+<div class="w-100 padding-small flex-column flex-start flex-top">';
+if($task == 'update') {
+  echo'
+<input type="submit" name="submitUpdate" id="submitUpdate" value="UPDATE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>';
+}
+else{
+   if($task == 'delete') {
+     echo'
+<input type="submit" name="submitDel" id="submitDel" value="DELETE" class="button round-corner alert-bg border-white-all white-text w-100 form-control padding-small"/>';
+   }
+else {
+   echo'
+<input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>';
+}
+}
+echo '</div></form>
 </div>
 </section>';
 

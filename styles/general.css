@@ -136,6 +136,24 @@
   .round-corner {
     border-radius: 10px;
   }
+  .alert-bg {
+    background-color: red;
+  }
+  .border-dark-bottom {
+    border-bottom: 1px solid black;
+  }
+  .border-dark-left {
+    border-left: 1px solid black;
+  }
+  .border-dark-right {
+    border-right: 1px solid black;
+  }
+  .border-dark-top {
+    border-top: 1px solid black;
+  }
+  .border-dark-all {
+    border: 1px solid black;
+  }
   .border-primary-all {
     border: 1px solid #132a86;
   }

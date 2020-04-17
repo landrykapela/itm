@@ -89,6 +89,16 @@ const slideShow = (slides, index) => {
     showSlide(slides, index);
   }, 5000);
 };
+const handlePopupFeedback = () => {
+  if (window.location.search) {
+    let fb = decodeURI(window.location.search.split("=")[1]);
+    alert(fb);
+  } else {
+    setTimeout(() => {
+      popup.classList.remove("hidden");
+    }, 10000);
+  }
+};
 const showForm = (id) => {
   console.log("showing form..." + id);
 
@@ -138,10 +148,7 @@ window.addEventListener("load", (event) => {
       arrows: true,
       swipe: true,
     });
-
-    setTimeout(() => {
-      popup.classList.remove("hidden");
-    }, 10000);
+    handlePopupFeedback();
   } else {
     if (paths[paths.length - 1] == "signup.html") {
       let hash = window.location.hash.toLowerCase();

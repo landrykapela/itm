@@ -106,7 +106,66 @@ class DB{
         }
         else return false;
     }
+    static function updateUserInfo($id,$data){
+        if($data == null){
+            return false;
+        }
+        $sql = "update user ";
+        $set = "set ";
+        foreach($data as $key => $value){
+            $set .= $key ." = '".$value."', ";
+        }
+        $sql .= substr($set,0,strlen($set)-2) ." where id=".$id;
+        
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            return self::getUserById($id);
 
+        }
+        else return false;
+    }
+    static function deleteEducationRecord($eid){
+        $sql = "delete from education where id=".$eid;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query) return true;
+        else return false;
+    }
+    static function updateEducationRecord($data,$eid){
+        if($data == null){
+            return false;
+        }
+            $set = " set ";
+            $sql = "update education ";
+            foreach($data as $key => $value){
+                $set .= $key ." = '".$value."', ";
+            }
+            $sql .= substr($set,0,strlen($set)-2)." where id=".$eid;
+            $query = mysqli_query(self::connect(),$sql);
+            if($query) {
+                return self::getEducationRecord($eid);
+            }
+            else return false;
+    }
+    static function getEducationRecord($id){
+        $sql = "select * from education where id='".$id."' order by year desc limit 1";
+        $query = mysqli_query(self::connect(),$sql);
+        $result = array();
+        if($query){
+            $item = array();
+            while($row = mysqli_fetch_row($query)){
+                $item['id'] = $row[0];
+                $item['level'] = $row[1];
+                $item['title'] = $row[2];
+                $item['institution'] = $row[3];
+                $item['major'] = $row[8];
+                $item['country'] = $row[4];
+                $item['year'] = $row[5];
+                $result = $item; 
+            }
+            return $result;
+        }
+        else return false;
+    }
     static function getEducationProfile($email){
         $sql = "select * from education where email='".$email."' order by year desc";
         $query = mysqli_query(self::connect(),$sql);
@@ -184,7 +243,52 @@ class DB{
         }
         else return false;
     }
-
+    static function getWorkRecord($id){
+        $sql = "select * from work where id=".$id." order by id asc limit 1";
+        $query = mysqli_query(self::connect(),$sql);
+        $result = array();
+        if($query){
+            $item = array();
+            while($row = mysqli_fetch_row($query)){
+                $item['id'] = $row[0];
+                $item['title'] = $row[1];
+                $item['institution'] = $row[2];
+                $item['tasks'] = $row[3];
+                $item['country'] = $row[4];
+                $item['year_start'] = $row[5];
+                $item['year_end'] = $row[6];
+                $item['month_start'] = $row[7];
+                $item['month_end'] = $row[8];
+                $result = $item; 
+            }
+            return $result;
+        }
+        else return false;
+    }
+    static function updateWorkRecord($data,$id){
+        if($data == null){
+            return false;
+        }
+            $set = " set ";
+            $sql = "update work ";
+            foreach($data as $key => $value){
+                $set .= $key ." = '".$value."', ";
+            }
+            $sql .= substr($set,0,strlen($set)-2)." where id=".$id;
+            $query = mysqli_query(self::connect(),$sql);
+            if($query) {
+                return self::getWorkRecord($id);
+            }
+            else return false;
+    }
+    static function deleteWorkRecord($id){
+        $sql = "delete from work where id=".$id;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            return true;
+        }
+        else return false;
+    }
     static function createWorkProfile($email,$data){
         if($data == null){
             return false;
@@ -225,14 +329,14 @@ class DB{
             return false;
         }
             $values = "";
-            $sql = "insert into reference (name,title,contact,email) values ";
+            $sql = "insert into reference (name,title,contact,email,phone) values ";
             for($i=0; $i<count($data);$i++){
                 $d = $data[$i];
                 $title = $d['title'];
             $name = $d['name'];
             $contact = $d['contact'];
-            
-            $values .= "('".$name."','".$title."','".$contact."','".$email."')";
+            $phone = $d['phone'];
+            $values .= "('".$name."','".$title."','".$contact."','".$email."','".$phone."')";
             if($i < sizeof($data)-1){
                 $values .= ",";
             }
@@ -251,6 +355,50 @@ class DB{
         // }
     }
 
+    static function updateReferenceRecord($data,$id){
+        if($data == null){
+            return false;
+        }
+
+        $sql = "update reference ";
+        $set = "set ";
+        foreach($data as $key => $value){
+            $set .= $key." = '".$value."', ";
+        }
+        $sql .= substr($set,0,strlen($set)-2)." where id=".$id;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            return self::getReferenceRecord($id);
+        }
+        else return false;
+        
+    }
+    static function deleteReferenceRecord($id){
+        $sql = "delete from reference where id=".$id;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            return true;
+        }
+        else return false;
+    }
+    static function getReferenceRecord($id){
+        $sql = "select * from reference where id=".$id." order by id asc";
+        $query = mysqli_query(DB::connect(),$sql);
+        $result = array();
+        if($query){
+            while($row=mysqli_fetch_row($query)){
+                $item['id'] = $row[0];
+                $item['name'] = $row[1];
+                $item['contact'] = $row[2];
+                $item['title'] = $row[3];
+                $item['email'] = $row[4];
+                $item['phone'] = $row[6];
+                $result = $item;
+            }
+            return $result;
+        }
+        else return false;
+    }
     static function getReferenceProfile($email){
         $sql = "select * from reference where email='".$email."' order by id asc";
         $query = mysqli_query(DB::connect(),$sql);
@@ -262,6 +410,7 @@ class DB{
                 $item['contact'] = $row[2];
                 $item['title'] = $row[3];
                 $item['email'] = $row[4];
+                $item['phone'] = $row[6];
                 $result[] = $item;
             }
             return $result;
@@ -517,6 +666,10 @@ class DB{
             return $result;
         }
         else return false;
+    }
+    static function getLevels(){
+        $levels = array("Doctorate","Master","Bachelor","Diploma","Certificate");
+        return $levels;
     }
     static function months(){
        return array("Jan"=>1,"Feb"=>2,"Mar"=>3,"Apr"=>4,"May"=>5,"Jun"=>6,"Jul"=>7,"Aug"=>8,"Sep"=>9,"Oct"=>10,"Nov"=>11,"Dec"=>12);
@@ -774,7 +927,7 @@ array(
   }
 
   static function getCountry($code){
-      return self::listCountries()[$code];
+      return array_key_exists($code,self::listCountries()) ? self::listCountries()[$code] : 'Not Available';
   }
 
   static function getTanzaniaCities(){
