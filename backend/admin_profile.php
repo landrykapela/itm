@@ -60,7 +60,7 @@ echo '<!DOCTYPE html>
     
     <nav class="flex-row flex-center white-bg" id="navigation">
       <a href="account.php?e='.$user['id'].'" >Account</a>
-      <a href="http://'.$_SERVER['HTTP_HOST'].'/jobs.html">Jobs</a>
+      <a href="admin.php">Search</a>
       <a href="signout.php" >Signout</a>
     </nav>
     <span id="menu"><i class="material-icons">menu</i></span>
@@ -102,9 +102,9 @@ if(!$education){
 else{
   // echo json_encode($education);
   for($i=0; $i<sizeof($education);$i++){
-    echo '<span class="subtitle">'.$education[$i]['title'].'</span>';
+    echo '<span class="subtitle text-left">'.$education[$i]['title'].'</span>';
     echo '<span>'.$education[$i]['institution'].'</span>';
-    echo '<span>'.$education[$i]['major'].'</span>';
+    echo '<span>'.$education[$i]['major'].', '.$education[$i]['level'].'</span>';
     echo '<span>'.$education[$i]['year'].', '.DB::getCountry($education[$i]['country']).'</span>';
     echo '<span class="vspacer-small"></span>';
     echo '<span class="vspacer-small"></span>';

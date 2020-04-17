@@ -118,7 +118,7 @@ class DB{
                 $item['level'] = $row[1];
                 $item['title'] = $row[2];
                 $item['institution'] = $row[3];
-                $item['major'] = $row[7];
+                $item['major'] = $row[8];
                 $item['country'] = $row[4];
                 $item['year'] = $row[5];
                 $result[] = $item; 
@@ -270,59 +270,38 @@ class DB{
     }
 
     static function searchCandidates($options){
-        $sql = "select * from user where id <> 1 order by name asc";
+        $sql = "select u.id,u.name,u.email,u.phone,e.level,e.major,e.institution,e.title from user as u left join education as e on e.user where u.id=e.user and u.id <>1 ";
+        if($options != null){
+            $condition = "";
+            
+            foreach($options as $key =>$value){
+                $condition .= " and ".$key." like '%".$value."%' ";
+            }
+        
+            $sql .= $condition;
+        }
+        
             $query = mysqli_query(self::connect(),$sql);
             $result = array();
             if($query){
                 while($row = mysqli_fetch_row($query)){
+                    $item = array();
                     $item['id'] = $row[0];
                     $item['name'] = $row[1];
                     $item['email'] = $row[2];
                     $item['phone'] = $row[3];
-                    $result[][$row[0]]['info'] = $item;
-                    $sql_ed = "select * from education where email='".$row[2]."'";
-                    $query_ed = mysqli_query(self::connect(),$sql_ed);
-                    if($query_ed){
-                        while($ed = mysqli_fetch_row($query_ed)){
-                            $e['level'] = $ed[1];
-                            $e['title'] = $ed[2];
-                            $e['institution'] = $ed[3];
-                            $e['major'] = $ed[4];
-                            $e['year'] = $ed[5];
-                            $result[][$row[0]]['education'][] = $e;
-                        }
-                    }
-
-                    $sql_w = "select * from work where email='".$row[2]."'";
-                    $query_w = mysqli_query(self::connect(),$sql_w);
-                    if($query_w){
-                        while($wk = mysqli_fetch_row($query_w)){
-                            $w['tasks'] = $wk[3];
-                            $w['title'] = $wk[1];
-                            $w['institution'] = $wk[2];
-                            $w['major'] = $wk[4];
-                            $w['year_start'] = $wk[5];
-                            $w['year_end'] = $wk[6];
-                            $result[][$row[0]]['work'][] = $w;
-                        }
-                    }
-                }
-            }
-        if($options == null){
-            
-            return $result;
-        }
-        // else{
-        //    $filtered = $result; 
-        //     if(sizeof($options) > 0){
-        //         foreach($options as $key => $value){
+                    $item['level'] = $row[4];
+                    $item['major'] = $row[5];
+                    $item['institution'] = $row[6];
+                    $item['title'] = $row[7];
                     
-        //             if($key == 'name'){
-        //                 foreach($re)
-        //             }
-        //         }
-        //     }
-        // }
+           
+                    $result[] = $item;
+                }
+                return $result;
+            }
+            else return false;
+       
     }
     static function mapQualifications($levels){
         $result = array();
@@ -442,7 +421,7 @@ class DB{
             return false;
         }
             $values = "";
-            $sql = "insert into jobs (date_created,position,contact,description,company,deadline) values ";
+            $sql = "insert into jobs (date_created,last_updated,position,contact,description,company,deadline) values ";
             $date_created = time();
             for($i=0; $i<count($data);$i++){
                 $d = $data[$i];
@@ -452,7 +431,7 @@ class DB{
             $company = $d['company'];
             $deadline = $d['deadline'];
             
-            $values .= "(".$date_created.",'".$position."','".$contact."','".$description."','".$company."',".$deadline.")";
+            $values .= "(".$date_created.",".$date_created.",'".$position."','".$contact."','".$description."','".$company."',".$deadline.")";
             if($i < sizeof($data)-1){
                 $values .= ",";
             }
@@ -463,7 +442,58 @@ class DB{
                 return true;
             }else return false;
     }
+    static function updateJob($data,$jid){
+        if($data == null){
+            return false;
+        }
+            $values = "";
+            $sql = "update jobs ";
+            $set = " set ";
+            $date_created = time();
+            foreach($data as $key => $value){
+                $set .= $key." = '".$value."', ";
+            // $position = $d['position'];
+            // $contact = $d['contact'];
+            // $description = $d['description'];
+            // $company = $d['company'];
+            // $deadline = $d['deadline'];
+            
+            // $values .= "(".$date_created.",".$date_created.",'".$position."','".$contact."','".$description."','".$company."',".$deadline.")";
+            // if($i < sizeof($data)-1){
+            //     $values .= ",";
+            // }
+            }
+            $sql .= substr($set,0,strlen($set)-2). " where id=".$jid;
+            // echo $sql;
+            $query = mysqli_query(self::connect(),$sql);
+            if($query){
+                return self::getJobById($jid);
+            }else return false;
+    }
 
+    //get job by id
+    static function getJobById($jid){
+        $result = array();
+        $sql = "select * from jobs where id=".$jid." order by date_created desc limit 1";
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            while($r=mysqli_fetch_row($query)){
+                $rec['id'] = $r[0];
+                $rec['position'] = $r[1];
+                $rec['description'] = $r[2];
+                $rec['company'] = $r[3];
+                $rec['contact'] = $r[4];
+                $rec['date_created'] = $r[5];
+                $rec['last_updated'] = $r[6];
+                $rec['deadline'] = $r[7];
+
+                $result = $rec;
+            }
+
+            return $result;
+        }
+        else return false;
+    }
     //get job listings
     static function getJobListings(){
         $result = array();
@@ -478,7 +508,8 @@ class DB{
                 $rec['company'] = $r[3];
                 $rec['contact'] = $r[4];
                 $rec['date_created'] = $r[5];
-                $rec['deadline'] = $r[6];
+                $rec['last_updated'] = $r[6];
+                $rec['deadline'] = $r[7];
 
                 $result[] = $rec;
             }
@@ -744,6 +775,44 @@ array(
 
   static function getCountry($code){
       return self::listCountries()[$code];
+  }
+
+  static function getTanzaniaCities(){
+      $cities = array(
+    "Arusha",
+    "Dar es Salaam",
+     "Dodoma",
+     "Geita",
+     "Iringa",
+     "Kagera",
+     "Kaskazini Pemba",
+     "Kaskazini Unguja",
+     "Katavi",
+     "Kilimanjaro",
+     "Kigoma",
+     "Kusini Pemba",
+     "Kusini Unguja",
+     "Lindi",
+     "Manyara",
+     "Mara",
+     "Mbeya",
+     "Mjini Magharibi",
+     "Morogoro",
+     "Mtwara",
+     "Mwanza",
+     "Njombe",
+     "Pwani",
+     "Rukwa",
+     "Ruvuma",
+     "Shinyanga",
+     "Simiyu",
+     "Singida",
+     "Songwe",
+     "Tabora",
+     "Tanga");
+
+     return $cities;
+
   }
 }
 

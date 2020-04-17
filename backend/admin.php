@@ -11,6 +11,7 @@ if(!$admin){
     header($location,true);
 }
 else{
+  $hasResult = false;
     $user = DB::getUser($_SESSION['user']);
 echo '<!DOCTYPE html>
 <html lang="en">
@@ -90,7 +91,7 @@ echo '<section class="w-100 margin-std hidden" id="listings">
      else{
        for($i=0; $i<sizeof($jobs);$i++){
          $job = $jobs[$i];
-         echo '<tr><td>'.$job['position'].'</td><td>'.substr($job['description'],0,60).'...</td><td>'.date('d M Y',$job['date_created']).'</td><td>'.date('d M Y',$job['deadline']).'</td></tr>';
+         echo '<tr><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.$job['position'].'</a></td><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.(strlen($job['description']) > 64 ? substr($job['description'],0,64):$job['description']).'</a></td><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['date_created']).'</a></td><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['deadline']).'</a></td></tr>';
        }
      }   
     echo '</tbody>
@@ -116,8 +117,8 @@ for($i=0;$i<sizeof($candidates);$i++){
 </section>';
 
 echo '<section class="w-100 margin-std hidden" id="search-form">
-<p class="title primary-text">Advanced Seach</p>
-<form class="w-100 margin-auto flex-column flex-center">
+<p class="title primary-text">Advanced Search</p>
+<form class="w-100 margin-auto flex-column flex-center" action="search_result.php" method="post">
 <div class=" text-left flex-row flex-space flex-top">
    <div class="flex-column flex-start flex-top margin-std">
     <label for="name">Candidate Name</label>
@@ -152,10 +153,12 @@ echo '<select name="major" id="major" class="form-control padding-small"><option
   </div>
 </div>
 <div class="w-100 flex-column flex-center flex-middle">
-    <input type="submit" name="submit" id="submit" value="Search" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>
+    <input type="submit" name="submitSearch" id="submitSearch" value="Search" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>
     </div>
-</form>
-</section>';
+</form>';
+
+
+echo '</section>';
 
 echo '
     <script>

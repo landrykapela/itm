@@ -83,7 +83,7 @@ echo '<!DOCTYPE html>
     
     <section class="w-100 margin-std ">
         <p class="title primary-text">Recent Listings</p>
-        <table class="w-100 margin-auto text-left border-primary-all">
+        <table class="w-100 margin-auto text-left">
           <thead class="primary-bg white-text"><tr><td>Title</td><td>Description</td><td>Date uploaded</td><td>Deadline</td></tr></thead>
           <tbody>';
               require('backend/manager.php');
@@ -94,7 +94,7 @@ echo '<!DOCTYPE html>
            else{
              for($i=0; $i<sizeof($jobs);$i++){
                $job = $jobs[$i];
-               echo '<tr><td>'.$job['position'].'</td><td>'.$job['description'].'</td><td>'.date('d M Y',$job['date_created']).'</td><td>'.date('d M Y',$job['deadline']).'</td></tr>';
+               echo '<tr><td><a href="backend/job_details.php?jid='.$job['id'].'" class="plain-link">'.$job['position'].'</a></td><td><a href="backend/job_details.php?jid='.$job['id'].'" class="plain-link">'.(strlen($job['description']) > 64 ? substr($job['description'],0,64):$job['description']).'</a></td><td><a href="backend/job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['date_created']).'</a></td><td><a href="backend/job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['deadline']).'</a></td></tr>';
              }
            }   
   echo '</tbody>

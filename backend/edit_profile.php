@@ -5,7 +5,7 @@ require('manager.php');
 $location = "Location: http://".$_SERVER['HTTP_HOST']."/signup.html#login";
 if(!isset($_SESSION['user'])) header($location);
 $user = DB::getUser($_SESSION['user']);
-
+if($_GET['e'] != $user['id']) die("Not your account");
 echo '<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -62,105 +62,88 @@ echo '<!DOCTYPE html>
     </header>
     
 ';
-echo ' <section
-class="min-width-full v-100  flex-row flex-center"
->
-<div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Personal Info</p><a class="button primary-bg border-white-all round-corner" href="edit_profile.php?e='.$user['id'].'">Edit</a>
 
 
-</div>
-<div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">
+if(isset($_POST['submit'])){
+    $name = filter_var($_POST['name'],FILTER_SANITIZE_STRING);
+    $email = filter_var($_POST['email'],FILTER_SANITIZE_STRING);
+    $dob = $_POST['date_of_birth'];
+    $location = isset($_POST['abroad']) ? filter_var($_POST['country'],FILTER_SANITIZE_STRING):filter_var($_POST['location'],FILTER_SANITIZE_STRING);
+    $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
+   
+    $info = array("name"=>$name,"email"=>$email,"date_of_birth"=>$dob,"location"=>$location,"phone"=>$phone);
+   
+    $action = DB::updateInfo($user['id'],$info);
+}
+echo "<script>
+function showCountry(){
+  console.log('f**ck');
+  let cb = document.getElementById('abroad');
+  let c=document.getElementById('c');
+  if(cb.checked) c.classList.remove('hidden');else c.classList.add('hidden');
+}
 
-<p>'.$user['name'].'</p>
-<p>'.$_SESSION['user'].'</p>
-<p>'.$user['phone'].'</p>
-
-<p>Dar es Salaam</p>
-</div>
-</section>';
-
+</script>";
 echo ' <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Education Background</p><a class="button primary-bg border-white-all round-corner" href="edit_education.php?e='.$user['id'].'">Edit</a>
+<p class="title">Professional Background</p><a class="button primary-bg border-white-all round-corner" href="profile.php">Close</a>
 
 
 </div>
 <div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">
-<p class="subtitle">MSc. IT and Management
-<p>Avinashillingam University/Institute of Finance Management</p>
-<p>2012-2014</p>
-<p>Dar es Salaam</p>
+<form class="w-100 flex-column flex-start flex-top accent-bg dark-text padding-std" action="" method="POST">
+<div class="w-100 padding-small flex-column flex-start flex-top">
+<label for="name">Full Name</label>
+<input type="text" name="name" id="name" placeholder="Full name..." value="'.$user['name'].'" class="w-100 form-control padding-small"/>
+</div>
+<div class="w-100 padding-small flex-column flex-start flex-top">
+<label for="date_of_birth">Date of Birth</label>
+<input type="date" name="date_of_birth" id="date_of_birth" class=" form-control padding-small"/>
+ </div>
+<div class="w-100 padding-small flex-column flex-start flex-top">
+<label for="email">E-mail</label>
+<input type="email" name="email" id="email" placeholder="Email..." value="'.$user['email'].'" class="w-100 form-control padding-small"/>
+</div>
+<div class="w-100 padding-small flex-column flex-start flex-top">
+<label for="phone">Phone</label>
+<input type="text" name="phone" id="phone" placeholder="Phone..." value="'.$user['phone'].'" class="w-100 form-control padding-small"/>
+</div>
+<div class="w-100 flex-row flex-start flex-middle">
+<div class="w-75 padding-small flex-column flex-center flex-top">
+<label for="location">Current Location</label>
+<select name="location" id="location" class="w-100 form-control padding-small">';
+$cities = DB::getTanzaniaCities();
+for($i=0; $i<sizeof($cities);$i++){
+    
+    echo "<option>".$cities[$i]."</option>";
+}
+    
+echo '</select></div>';
 
-<p class="subtitle">BSc. Information and Communication Technology Management
-<p>Mzumbe University</p>
-<p>2006-2009</p>
-<p>Morogoro</p>
+echo '<div class="padding-small flex-row flex-start flex-top">
+<input type="checkbox" name="abroad" id="abroad" class="form-control padding-std" value="-1" onchange="showCountry();" />
+<label for="abroad">Not in Tanzania</label></div>
+</div>
+
+<div class="w-100 padding-small flex-column flex-start flex-top hidden" id="c">
+<label for="country">Country</label>
+<select name="country" id="country" class="w-75 form-control padding-small">';
+$countries = DB::listCountries();
+foreach($countries as $code => $name){
+    
+    echo "<option value=".$code.">".$code." - ".$name."</option>";
+}
+    
+echo '</select></div>
+
+
+<div class="w-100 padding-small flex-column flex-start flex-top">
+<input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>
+</form>
 </div>
 </section>';
 
-echo ' <span class="vspacer-small"></span><section
-class="min-width-full v-100  flex-row flex-center"
->
-<div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Professional Experience</p><a class="button primary-bg border-white-all round-corner" href="edit_experience.php?e='.$user['id'].'">Edit</a>
-
-
-</div>
-<div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">
-<p class="subtitle">Mentor (Junior Web Developer and Android Developer Paths)
-<p>Open Classrooms International</p>
-<p>Since 2019</p>
-<p>Paris</p>
-
-<p class="subtitle">Software Developer
-<p>Neelansoft Technologies</p>
-<p>Since 2016</p>
-<p>Dar es salaam</p>
-</div>
-</section>';
-
-echo ' <span class="vspacer-small"></span><section
-class="min-width-full v-100  flex-row flex-center"
->
-<div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Professional Training</p><a class="button primary-bg border-white-all round-corner" href="edit_training.php?e='.$user['id'].'">Edit</a>
-
-
-</div>
-<div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">
-<p class="subtitle">Fullstack Web Developer (ReactJS,Node.js,Express,MongoDB)
-<p>Open Classrooms International</p>
-<p>2018-2019</p>
-<p>Andela Learning Program</p>
-
-<p class="subtitle">Android Developer
-<p>Udacity</p>
-<p>May 2018 - November 2018</p>
-<p>ALC with Google 2.0 (Google Africa Scholarship Challenge)</p>
-</div>
-</section>';
-
-echo ' <span class="vspacer-small"></span><section
-class="min-width-full v-100  flex-row flex-center"
->
-<div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Reference</p><a class="button primary-bg border-white-all round-corner" href="edit_reference.php?e='.$user['id'].'">Edit</a>
-
-
-</div>
-<div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">
-<p class="subtitle">Mark Zuckerberg
-<p>Facebook</p>
-<p>mark.zuckerberg@facebook.com</p>
-
-<p class="subtitle">Jack Ma
-<p>Chinese Entrepreneur</p>
-<p>jackma@alibaba.com</p>
-<p></p>
-</div>
-</section>';
 echo "</body>";
 ?>

@@ -68,7 +68,7 @@ if(isset($_POST['submit'])){
     $title = filter_var($_POST['title'],FILTER_SANITIZE_STRING);
     $tasks = $_POST['tasks'];
     $year_start = $_POST['year_start'];
-    $year_end = $_POST['current'] == -1 ? $_POST['current'] : $_POST['year_end'];
+    $year_end = isset($_POST['current']) ? $_POST['current'] : $_POST['year_end'];
     $month_start = $_POST['month_start'];
     $month_end = $_POST['month_end'];
     $country = $_POST['country'];
