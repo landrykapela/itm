@@ -1,5 +1,5 @@
 <?php
-
+require('class.phpmailer.php');
 class DB{
 
     static function randomPassword(){
@@ -20,6 +20,7 @@ class DB{
         return $connect;
     }
 
+    //mailing
     static function addToMailingList($email,$name){
         $test = mysqli_query(DB::connect(),"select * from mailing_list where email='".$email."'");
         if(mysqli_num_rows($test) > 0){
@@ -35,7 +36,131 @@ class DB{
         }
         
     }
+    static function getMailingList(){
+        $sql = "select email,name from mailing_list";
+        $query = mysqli_query(self::connect(),$sql);
+        $result = array();
+        if($query){
+            while($r = mysqli_fetch_row($query)){
+                $i['email'] = $r[0];
+                $i['name'] = $r[1];
+                $result[] = $i;
+            }
+            return $result;
+        }
+        else return false;
+    }
+    static function sendGroupMail($data){
+        $result = array();
+        $image_data = "";
+        $body = $data['message'];
+        $subject = $data['subject'];
+        $html_message ='<p class="primary-text subtitle">Hello </p>';
+        $html_message .= '<p class="dark-text text-left">'.$body.'</p>';
+        $html_message .='<p class="dark-text text-left primary-text">From ITM Tanzania</p>';
 
+        if(array_key_exists('image',$data)){
+            $file = $data['image'];
+            $upload = "events/";
+            $allowedFiles = array("png","jpg","jpeg");
+            $ext = pathinfo($file['name'],PATHINFO_EXTENSION);
+            if(!in_array($ext,$allowedFiles)){
+                $result['status'] = false;
+                $result['message'] = "The image you uploaded is not supported!";
+                return $result;
+            }
+            else{
+                if($file['size'] > 2048000){
+                    $result['status'] = false;
+                    $result['message'] = "The image you uploaded is too large!";
+                    return $result;
+                }
+                else{
+                    $image_data = "data:image/".$ext.";base64,".base64_encode(file_get_contents($file['tmp_name']));
+                    $html_message .'<img src="'.$image_data.'" class="w-100"/>';
+                }
+                
+            }
+        }
+        
+                    $html_head = '<!DOCTYPE html>
+                    <html lang="en">
+                      <head>
+                        <meta name="author" content="Landry Kapela" />
+                        <meta name="viewport" content="width=device-width,initial-scale=1" />
+                        <meta
+                          name="description"
+                          content="ITM Tanzania Ltd is the East African division of the ITM AFRICA Group of companies, a respected, multi-faceted service provider to different sectors throughout Africa."
+                        />
+                        <meta name="twitter:card" content="summary_large_image" />
+                        <meta name="twitter:title" content="ITM Tanzania" />
+                        <meta name="twitter:site" content="@itmafrica" />
+                        <meta
+                          name="twitter:image"
+                          content="https://landrykapela.github.io/itm/images/office.jpg"
+                        />
+                        <meta
+                          name="keyword"
+                          content="ITM, ITM Africa, Jobs, empolyment, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
+                        />
+                        
+                        <link
+                          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                          rel="stylesheet"
+                        />
+                        <link
+                          href="https://fonts.googleapis.com/css?family=Robot|Montserrat|Open+Sans&display=swap"
+                          rel="stylesheet"
+                        />
+                        <link rel="icon" href="images/favicon.png" />
+                    
+                        <title>ITM Tanzania - Newsletter</title>
+                      </head><body>
+                      <header
+      id="header"
+      class="min-width-full flex-column flex-top flex-start margin-auto"
+    >
+      <div
+        class="white-bg flex-row flex-between flex-middle w-100 padding-std margin-auto"
+      >
+        <img src="images/logo.png" class="logo" alt="ITM logo" />
+        
+      </div>
+    </header>
+                      
+                      <section class="min-width-full margin-auto flex-row flex-start flex-middle primary-bg">
+                      <div class="margin-auto primary-bg white-text flex-row flex-start flex-middle padding-small">
+                      <span class="primary-bg white-text padding-std margin-std">ITM Tanzania Newsletter</span>
+                      <div></section>';
+                      
+                      
+                      $recipients = self::getMailingList();
+                      $headers  = 'MIME-Version: 1.0' . "\r\n";
+                      $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                       
+                      // Create email headers
+                      $headers .= 'From: events@itmtanzania.co.tz'."\r\n".
+                          'Reply-To: no-reply@itmtanzania.co.tz'."\r\n" .
+                          'X-Mailer: PHP/' . phpversion();
+
+                          $html_message = $html_head . $html_message;
+
+                          $action = mail($recipients[1]['email'],$subject,$html_message,$headers);
+                    if($action){
+                        $result['status'] = true;
+                        $result['message'] = "Email was sent successfully";
+                        return $result;
+                    }
+                    else{
+                        $result['status'] = false;
+                        $result['message'] = "Email was not sent successfully";
+                        return $result;
+                    }
+        
+    }
+
+
+    //users
     static function createUser($email,$name,$phone,$password,$subscribe){
         $sql = "insert into user (email,name,phone,password) values ('".$email."','".$name."','".$phone."','".$password."')";
         $query = mysqli_query(self::connect(),$sql);
@@ -112,8 +237,13 @@ class DB{
         }
         $sql = "update user ";
         $set = "set ";
+        
         foreach($data as $key => $value){
-            $set .= $key ." = '".$value."', ";
+            if($key == 'password'){
+                $hash = password_hash($value,PASSWORD_BCRYPT);
+                $set .= $key ." = '".$hash."', ";
+            }
+            else $set .= $key ." = '".$value."', ";
         }
         $sql .= substr($set,0,strlen($set)-2) ." where id=".$id;
         
@@ -535,6 +665,16 @@ class DB{
         // echo "jobs: ".json_encode(array_keys($values))."\n";
         return reset($values);
     }
+
+    //careers
+    static function addCareer($name){
+       
+        $query = mysqli_query(self::connect(),"insert into career (name) values ('".$name."')");
+        if($query){
+            return self::listCareers();
+        }
+        else return false;
+    }
     static function listCareers(){
         $result = array();
         $sql = "select * from career order by name asc";
@@ -564,6 +704,100 @@ class DB{
         return $result;
     }
 
+//training programs
+    static function getTrainingPrograms(){
+        
+        $sql = "select * from training where status = 0 order by start_date desc";
+        $query= mysqli_query(self::connect(),$sql);
+        if($query){
+            
+            $result = array();
+            while($r =mysqli_fetch_row($query)){
+                $i=array();
+                $i['id'] = $r[0];
+                $i['title'] = $r[1];
+                $i['description'] = $r[2];
+                $i['start_date'] = $r[3];
+                $i['end_date'] = $r[4];
+                $i['target'] = $r[5];
+                $i['instructor'] = $r[6];
+                $i['registered'] = $r[7];
+                $i['last_updated'] = $r[8];
+                $i['contact'] = $r[9];
+                $i['phone'] = $r[10];
+                $i['location'] = $r[11];
+            $result[] = $i;
+            }
+            // echo "ok: ".json_encode($result);
+            return $result;
+        }
+        return false;
+    }
+    static function getTrainingProgram($id){
+        $sql = "select * from training where id=".$id." order by start_date desc";
+        $query= mysqli_query(self::connect(),$sql);
+        if($query){
+            $result = array();
+            while($r =mysqli_fetch_row($query)){
+                $i=array();
+                $i['id'] = $r[0];
+                $i['title'] = $r[1];
+                $i['description'] = $r[2];
+                $i['start_date'] = $r[3];
+                $i['end_date'] = $r[4];
+                $i['target'] = $r[5];
+                $i['instructor'] = $r[6];
+                $i['registered'] = $r[7];
+                $i['last_updated'] = $r[8];
+                $i['contact'] = $r[9];
+                $i['phone'] = $r[10];
+                $i['location'] = $r[11];
+            $result = $i;
+            }
+            return $result;
+        }
+        return false;
+    }
+    static function deleteTrainingProgram($id){
+        $query = mysqli_query(self::connect(),"update training set status=1 where id=".$id);
+        if($query) return true;
+        else return false;
+    }
+    static function updateTrainingProgram($data,$id){
+        if($data == null) return false;
+        $sql = "update training set last_updated = ".time();
+        $set = " ,";
+
+        foreach($data as $key => $value){
+            $set .= $key." = '".$value."', ";
+        }
+        $sql .= substr($set,0,strlen($set)-2)." where id=".$id;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            return self::getTrainingProgram($id);
+        }
+        else return false;
+    }
+
+    static function createTrainingProgram($data){
+        $sql = "insert into training ";
+        $fields = "(last_updated,";
+        $values = " values (".time().",";
+        foreach($data as $key=>$value){
+            $fields .= $key.",";
+            $values .= '"'.$value.'",';
+        }
+
+        $sql .= substr($fields,0,strlen($fields)-1).")".substr($values,0,strlen($values)-1).")";
+        
+        $query = mysqli_query(self::connect(),$sql);
+        if($query) return true;
+        else return false;
+
+    }
+//end training programs
+
+//start of jobs functions
     //create job listing
     static function createJob($data){
         if($data == null){
@@ -668,7 +902,9 @@ class DB{
         else return false;
     }
 
-    //events
+//end jobs
+
+//start of events
     static function getEvents(){
         $sql = "select * from events where status = 0 order by id desc";
         $query = mysqli_query(self::connect(),$sql);
@@ -898,7 +1134,7 @@ class DB{
         }
         return false;
     }
-    //end events
+//end events
     static function getLevels(){
         $levels = array("Doctorate","Master","Bachelor","Diploma","Certificate");
         return $levels;

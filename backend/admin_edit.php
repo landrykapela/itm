@@ -68,11 +68,15 @@ echo '<!DOCTYPE html>
 if(isset($_POST['submit'])){
     $name = filter_var($_POST['name'],FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'],FILTER_SANITIZE_STRING);
-    $dob = strtotime($_POST['date_of_birth']);
-    $location = isset($_POST['abroad']) ? filter_var($_POST['country'],FILTER_SANITIZE_STRING):filter_var($_POST['location'],FILTER_SANITIZE_STRING);
+    
     $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
    
-    $info = array("name"=>$name,"email"=>$email,"date_of_birth"=>$dob,"location"=>$location,"phone"=>$phone);
+    $info = array("name"=>$name,"email"=>$email,"phone"=>$phone);
+
+    if(isset($_POST['password']) && !empty($_POST['password'])){
+        $password = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
+        $info['password'] = $password;
+    }
    
     $action = DB::updateUserInfo($user['id'],$info);
     if(!$action){
@@ -84,19 +88,18 @@ if(isset($_POST['submit'])){
     }
 }
 echo "<script>
-function showCountry(){
-  
-  let cb = document.getElementById('abroad');
-  let c=document.getElementById('c');
-  if(cb.checked) c.classList.remove('hidden');else c.classList.add('hidden');
+function showHide(){
+    let cb = document.getElementById('cbpassword');
+    let pw = document.getElementById('password');
+    if(cb.checked) pw.type = 'text';
+    else pw.type = 'password';
 }
-
 </script>";
 echo ' <span class="error-text">'.$msg.'</span><section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Personal Info</p><a class="button primary-bg border-white-all round-corner" href="profile.php">Close</a>
+<p class="title">Basic Information</p><a class="button primary-bg border-white-all round-corner" href="admin_account.php">Close</a>
 
 
 </div>
@@ -106,12 +109,7 @@ class="min-width-full v-100  flex-row flex-center"
 <label for="name">Full Name</label>
 <input type="text" name="name" id="name" placeholder="Full name..." value="'.$user['name'].'" class="w-100 form-control padding-small"/>
 </div>
-<div class="w-100 padding-small flex-column flex-start flex-top">
-<label for="date_of_birth">Date of Birth</label>';
-$onfocus = "this.type = 'date';";
-$onblur = "this.type = 'text';";
-echo '<input type="text" onfocus="'.$onfocus.'" onblur="'.$onblur.'" name="date_of_birth" id="date_of_birth" class=" form-control padding-small" placeholder="Enter date of birth" value="'.date('d M Y',$user['date_of_birth']).'"/>
- </div>
+
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="email">E-mail</label>
 <input type="email" name="email" id="email" placeholder="Email..." value="'.$user['email'].'" class="w-100 form-control padding-small"/>
@@ -120,37 +118,15 @@ echo '<input type="text" onfocus="'.$onfocus.'" onblur="'.$onblur.'" name="date_
 <label for="phone">Phone</label>
 <input type="text" name="phone" id="phone" placeholder="Phone..." value="'.$user['phone'].'" class="w-100 form-control padding-small"/>
 </div>
-<div class="w-100 flex-row flex-start flex-middle">
-<div class="w-75 padding-small flex-column flex-center flex-top">
-<label for="location">Current Location</label>
-<select name="location" id="location" class="w-100 form-control padding-small">';
-$cities = DB::getTanzaniaCities();
-for($i=0; $i<sizeof($cities);$i++){
-    if($user['location'] == $cities[$i])
-    echo "<option selected>".$cities[$i]."</option>";
-    else  echo "<option>".$cities[$i]."</option>";
-}
-    
-echo '</select></div>';
 
-echo '<div class="padding-small flex-row flex-start flex-top">
-<input type="checkbox" name="abroad" id="abroad" class="form-control padding-std" value="-1" onchange="showCountry();" />
-<label for="abroad">Not in Tanzania</label></div>
+<div class="w-100 padding-small flex-column flex-start flex-top">
+<label for="password">Password</label>
+<input type="password" name="password" id="password" placeholder="Password..." class="w-100 form-control padding-small"/>
 </div>
-
-<div class="w-100 padding-small flex-column flex-start flex-top hidden" id="c">
-<label for="country">Country</label>
-<select name="country" id="country" class="w-75 form-control padding-small">';
-$countries = DB::listCountries();
-foreach($countries as $code => $name){
-    if($user['location'] == $code)
-    echo "<option value=".$code." selected>".$code." - ".$name."</option>";
-    else 
-    echo "<option value=".$code.">".$code." - ".$name."</option>";
-}
-    
-echo '</select></div>
-
+<div class="w-100 padding-small flex-row flex-start flex-middle">
+<input type="checkbox" name="cbpassword" id="cbpassword" class="form-control padding-small" onchange="showHide();"/>
+<label for="cbpassword">Show</label>
+</div>
 
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>
@@ -158,5 +134,5 @@ echo '</select></div>
 </div>
 </section>';
 
-echo "</body>";
+echo "</body></html>";
 ?>

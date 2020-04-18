@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set("display_errors",1);
+// ini_set("display_errors",1);
 require('manager.php');
 
 if(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == "on"){
@@ -76,34 +76,39 @@ echo '<!DOCTYPE html>
   
 </header>';
 $msg = "";
-if(isset($_POST['saveEvent'])){
+$programs = DB::getTrainingPrograms();
+if(isset($_POST['saveProgram'])){
     $title = filter_var($_POST['title'],FILTER_SANITIZE_STRING);
-    $content = filter_var($_POST['content'],FILTER_SANITIZE_STRING);
-    $caption = filter_var($_POST['caption'],FILTER_SANITIZE_STRING);
-    $date = strtotime(filter_var($_POST['event_date'],FILTER_SANITIZE_STRING));
+    $contact = filter_var($_POST['contact'],FILTER_SANITIZE_STRING);
+    $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
+    $description = filter_var($_POST['description'],FILTER_SANITIZE_STRING);
+    $start_date = strtotime(filter_var($_POST['start_date'],FILTER_SANITIZE_STRING));
+    $end_date = strtotime(filter_var($_POST['end_date'],FILTER_SANITIZE_STRING));
 
     $location = filter_var($_POST['location'],FILTER_SANITIZE_STRING);
-    $link = filter_var($_POST['link'],FILTER_SANITIZE_STRING);
-    $link_text = filter_var($_POST['link_text'],FILTER_SANITIZE_STRING);
+    $instructor = filter_var($_POST['instructor'],FILTER_SANITIZE_STRING);
+    $target = filter_var($_POST['target'],FILTER_SANITIZE_STRING);
     $data = array();
                 if(!empty($title)) $data['title'] = $title;
-                if(!empty($content)) $data['content'] = $content;
-                if(!empty($caption)) $data['caption'] = $caption;
+                if(!empty($contact)) $data['contact'] = $contact;
+                if(!empty($description)) $data['description'] = $description;
 
-                if(!empty($link)) $data['link'] = $link;
-                if(!empty($link_text)) $data['link_text'] = $link_text;
+                if(!empty($instructor)) $data['instructor'] = $instructor;
+                if(!empty($target)) $data['target'] = $target;
                 if(!empty($location)) $data['location'] = $location;
                 
-                if(isset($_POST['event_date'])) $data['event_date'] = $date;
+                if(isset($_POST['start_date'])) $data['start_date'] = $start_date;
+                if(isset($_POST['end_date'])) $data['end_date'] = $end_date;
                 
                 if(isset($_FILES['feature_image'])) {
                     $file = $_FILES['feature_image'];
                     $data['image'] = $file;
                 }
    
-                if(!empty($data['title']) && !empty($data['content']) && !empty($data['event_date'])){
-                  $action = DB::createEvent($data);
-                  $msg = $action['message'];
+                if(!empty($data['contact']) && !empty($data['title']) && !empty($data['description']) && !empty($data['start_date']) && !empty($data['end_date'])){
+                  $action = DB::createTrainingProgram($data);
+                  (!$action) ? "Could not create training program!":"Program created successfully!";
+                  $programs = DB::getTrainingPrograms();
                 }
     
                 else $msg = "Please fill in mandatory fields!";
@@ -113,19 +118,19 @@ if(isset($_POST['saveEvent'])){
 echo '<p class="error-text">'.$msg.'</p>
 <section class="min-width-full margin-auto flex-row flex-start flex-middle primary-bg">
     <div class="margin-auto flex-row flex-start flex-middle padding-small">
-    <span id="btn-search" class="button primary-bg white-text padding-std margin-std">Search Archive</span> 
+    <span id="btn-search" class="button primary-bg white-text padding-std margin-std">Search Programs</span> 
     </div><div class="margin-auto flex-row flex-start flex-middle padding-small">
-        <span id="btn-events" class="button accent-bg white-text padding-std margin-std">Manage Events</span>
+        <span id="btn-events" class="button accent-bg white-text padding-std margin-std">Manage Programs</span>
     <div>
     <div class="margin-auto flex-row flex-end flex-middle padding-small">
-        <span id="btn-new" class="button primary-bg white-text padding-std margin-std">New Event</span>
+        <span id="btn-new" class="button primary-bg white-text padding-std margin-std">New Program</span>
     </div>
 </section>';
 echo '<section class="w-100 margin-std hidden" id="listings">
-<span class="flex-row flex-space flex-middle w-100"><p class="title primary-text">Add New Event</p></span>
+<span class="flex-row flex-space flex-middle w-100"><p class="title primary-text">Add New Program</p></span>
 <form action="" enctype="multipart/form-data" method="post" class="w-60 flex-column flex-start text-left margin-auto">
     <div class="form-group flex-column flex-start padding-small">
-    <label for="title">Title/Theme</label>
+    <label for="title">Title/Theme <span class="error-text">*</span></label>
     <input
       type="text"
       name="title"
@@ -135,71 +140,100 @@ echo '<section class="w-100 margin-std hidden" id="listings">
     />
   </div>
   <div class="form-group flex-column flex-start padding-small">
-  <label for="event_date">Event Date</label>
+  <label for="start_date">Start Date <span class="error-text">*</span></label>
   <input
     type="date"
-    name="event_date"
-    id="event_date"
+    name="start_date"
+    id="start_date"
     class="form-control padding-small"
   />
 </div>
 <div class="form-group flex-column flex-start padding-small">
-<label for="feature_image">Feature Image</label>
-<input accept="image/*"
-  type="file"
-  name="feature_image"
-  id="feature_image"
-  class="form-control padding-small"
-  placeholder="Feature image..."
-/>
+  <label for="end_date">End Date <span class="error-text">*</span></label>
+  <input
+    type="date"
+    name="end_date"
+    id="end_date"
+    class="form-control padding-small"
+  />
 </div>
+
 <div class="form-group flex-column flex-start padding-small">
-<label for="caption">Image Caption</label>
-<input
-  type="text"
-  name="caption"
-  id="caption"
-  class="form-control padding-small"
-  placeholder="Enter Caption..."
-/>
-</div>
-<div class="form-group flex-column flex-start padding-small">
-<label for="content">Description</label>
+<label for="description">Description <span class="error-text">*</span></label>
 <textarea rows=10
-  name="content"
-  id="content"
+  name="description"
+  id="description"
   class="form-control padding-small"></textarea>
 </div>
+
 <div class="form-group flex-column flex-start padding-small">
-<label for="link">External Link</label>
+<label for="target">Open Applications</label>
 <input 
-  type="text"
-  name="link"
-  id="link"
+  type="number"
+  name="target"
+  id="target"
   class="form-control padding-small"
-  placeholder="https://example.com..."
+  placeholder="Number of Applications..."
 />
 </div>
 <div class="form-group flex-column flex-start padding-small">
-<label for="link_text">Link Text</label>
+<label for="instructor">Instructor/Coordinator</label>
 <input 
   type="text"
-  name="link_text"
-  id="link_text"
+  name="instructor"
+  id="instructor"
   class="form-control padding-small"
-  placeholder="eg: View Details, Signup..."
+  placeholder="Instructor name..."
+/>
+</div><div class="form-group flex-column flex-start padding-small">
+<label for="contact">Contact Email <span class="error-text">*</span></label>
+<input
+  type="email"
+  name="contact"
+  id="contact"
+  class="form-control padding-small"
+  placeholder="Enter email..."
 />
 </div>
 <div class="form-group flex-column flex-start padding-small">
+<label for="phone">Contact Phone</label>
+<input
+  type="text"
+  name="phone"
+  id="phone"
+  class="form-control padding-small"
+  placeholder="Enter phone number..."
+/>
+</div>';
+// <div class="form-group flex-column flex-start padding-small">
+// <label for="link">External Link</label>
+// <input 
+//   type="text"
+//   name="link"
+//   id="link"
+//   class="form-control padding-small"
+//   placeholder="https://example.com..."
+// />
+// </div>
+// <div class="form-group flex-column flex-start padding-small">
+// <label for="link_text">Link Text</label>
+// <input 
+//   type="text"
+//   name="link_text"
+//   id="link_text"
+//   class="form-control padding-small"
+//   placeholder="eg: View Details, Signup..."
+// />
+// </div>
+echo '<div class="form-group flex-column flex-start padding-small">
 <label for="location">Location</label>
 <select
-  
   name="location"
   id="location"
   class="form-control padding-small"><option>--select--</option>';
             $cities = DB::getTanzaniaCities();
             for($i=0;$i<count($cities);$i++){
-              if($cities[$i] == $event['location']) echo '<option selected>'.$cities[$i].'</option>';
+              if($cities[$i] == $program['location']) echo '<option selected>'.$cities[$i].'</option>';
               else echo '<option>'.$cities[$i].'</option>';
             }
 echo '</select>
@@ -208,10 +242,10 @@ echo '</select>
 
 <input
   type="submit"
-  name="saveEvent"
-  id="saveEvent"
+  name="saveProgram"
+  id="saveProgram"
   class="button form-control padding-small primary-bg white-text round-corner border-all-white"
-  value="SAVE"
+  value=" SAVE "
 />
 <a href="" class="plain-link">CANCEL</a>
 </div>
@@ -220,17 +254,17 @@ echo '</select>
 echo '<section class="w-100 margin-std " id="candidates">
 <p class="title primary-text"></p>
 <table class="w-100 margin-auto text-left">
-    <thead class="primary-bg white-text"><tr><td>Title/Theme</td><td>Description</td><td>Event Date</td></tr></thead>
+    <thead class="primary-bg white-text"><tr><td>Title/Theme</td><td>Description</td><td>Start Date</td><td>End Date</td><td>Available Applications</td></tr></thead>
     <tbody>';
-$events = DB::getEvents();
-if(!$events || count($events) == 0){
-    echo '<tr><td colspan=4 class="text-center">No events to show</td></tr>';
+
+if(!$programs || count($programs) == 0){
+    echo '<tr><td colspan=5 class="text-center">No programs to show</td></tr>';
 }
 else{
-for($i=0;$i<sizeof($events);$i++){
-  $event = $events[$i];
+for($i=0;$i<sizeof($programs);$i++){
+  $program = $programs[$i];
   
-  echo '<tr><td><a class="plain-link" href="event_detail.php?id='.$event['id'].'">'.$event['title'].'</a></td><td><a href="event_detail.php?id='.$event['id'].'">'.(strlen($event['content']) > 72 ? substr($event['content'],0,72) : $event['content']).'</a></td><td><a href="event_detail.php?id='.$event['id'].'">'.date('d M Y',$event['event_date']).'</a></td></tr>';
+  echo '<tr><td><a class="plain-link" href="training_detail.php?id='.$program['id'].'">'.$program['title'].'</a></td><td><a href="training_detail.php?id='.$program['id'].'">'.(strlen($program['description']) > 72 ? substr($program['description'],0,72) : $program['description']).'</a></td><td><a href="training_detail.php?id='.$program['id'].'">'.date('d M Y',$program['start_date']).'</a></td><td><a href="training_detail.php?id='.$program['id'].'">'.date('d M Y',$program['end_date']).'</a></td><td><a href="training_detail.php?id='.$program['id'].'">'.($program['target'] - $program['registered']).'</a></td></tr>';
   }
 }
         
@@ -239,7 +273,7 @@ for($i=0;$i<sizeof($events);$i++){
 </section>';
 
 echo '<section class="w-100 margin-std hidden" id="search-form">
-<p class="title primary-text">Search Archive</p>
+<p class="title primary-text">Search Training Program</p>
 <form class="w-100 margin-auto flex-column flex-center" action="search_archive.php" method="post">
 <div class=" text-center flex-row flex-center flex-top">
    <div class="flex-column flex-center flex-top margin-std">

@@ -67,7 +67,7 @@ $html = '<!DOCTYPE html>
           <span id="services">Services</span>
           <span id="jobs">Jobs</span>
           <span id="training">Training</span>
-          <span id="news" class="active">News & Events</span>
+          <span id="news">News & Events</span>
           <!-- <span id="contacts">Contacts</span> -->
         </nav>
         <span id="menu"><i class="material-icons">menu</i></span>

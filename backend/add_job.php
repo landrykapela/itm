@@ -58,11 +58,14 @@ echo '<!DOCTYPE html>
     class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
   >
     
-    <nav class="flex-row flex-center white-bg" id="navigation">
-      <a href="account.php?e='.$user['id'].'" >Account</a>
-      <a href="http://'.$_SERVER['HTTP_HOST'].'/jobs.php">Jobs</a>
-      <a href="signout.php" >Signout</a>
-    </nav>
+  <nav class="flex-row flex-center white-bg" id="navigation">
+  <a href="admin_account.php" >Account</a>
+  <a href="events_admin.php" >Events</a>
+  <a href="training_admin.php" >Training</a>
+  <a href="job_listings.php">Jobs</a>
+  <a href="signout.php" >Signout</a>
+</nav>
+
     <span id="menu"><i class="material-icons">menu</i></span>
   </div>
   
@@ -127,7 +130,7 @@ echo '<section class="w-100 margin-std " id="">
   <label for="description">Job Description</label>
   <textarea rows=10 
     name="description"
-    id="podescripon"
+    id="descripon"
     class="form-control padding-small"
   ></textarea>
 </div>
