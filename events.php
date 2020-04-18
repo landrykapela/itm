@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+<?php
+
+ini_set("display_errors",1);
+require("backend/manager.php");
+$msg = "";
+if(isset($_GET['fb'])){
+  $msg = urldecode($_GET['fb']);
+}
+$html = '<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta name="author" content="Landry Kapela" />
@@ -79,7 +87,7 @@
     <header
       id="header"
       class="min-width-full flex-column flex-top flex-start margin-auto"
-    >
+    ><span class="padding-small error-text">'.$msg.'</span>
       <div
         class="white-bg flex-row flex-between flex-middle w-100 padding-std margin-auto"
       >
@@ -118,42 +126,28 @@
       </div>
     </header>
     <p class="title primary-text">Recent Events</p>
-    <section class="w-100 flex-row flex-center margin-std ">
-<div class="w-40 shadow margin-std news-card accent-bg " id="card1">
-    <img src="images/event2.jpg" class="w-100-no-padding"/>
-        
-        <p class="dark-text text-left padding-std">ITM AFRICA has a proven expertise in human resources development and offers  </p>
-    </div>     
-    <div class="w-40 shadow margin-std news-card accent-bg " id="card2">
-        <img src="images/event.jpg" class="w-100-no-padding"/>
-            
-            <p class="dark-text text-left padding-std">ITM AFRICA has a proven expertise in human resources development and offers  </p>
-        </div>     
-        <div class="w-40 shadow margin-std news-card accent-bg " id="card3">
-            <img src="images/lady.jpg" class="w-100-no-padding"/>
-                
-                <p class="dark-text text-left padding-std">ITM AFRICA has a proven expertise in human resources development and offers  </p>
-            </div>     
-            <div class="w-40 shadow margin-std news-card accent-bg " id="card1">
-                <img src="images/event2.jpg" class="w-100-no-padding"/>
-                    
-                    <p class="dark-text text-left padding-std">ITM AFRICA has a proven expertise in human resources development and offers  </p>
-                </div>     
-                <div class="w-40 shadow margin-std news-card accent-bg " id="card2">
-                    <img src="images/event.jpg" class="w-100-no-padding"/>
-                        
-                        <p class="dark-text text-left padding-std">ITM AFRICA has a proven expertise in human resources development and offers  </p>
-                    </div>     
-                    <div class="w-40 shadow margin-std news-card accent-bg " id="card3">
-                        <img src="images/lady.jpg" class="w-100-no-padding"/>
-                            
-                            <p class="dark-text text-left padding-std">ITM AFRICA has a proven expertise in human resources development and offers  </p>
-                        </div>     
-                             
-      
-    </section>
+    <section class="w-100 flex-row flex-center margin-std ">';
+    $events = DB::getEvents();
+    if($events){
+      for($i=0;$i<sizeof($events);$i++){
+        $event = $events[$i];
+        $html .='
+        <div class="shadow margin-std news-card accent-bg w-40" >
+        <a href="backend/event_detail.php?id='.$event['id'].'" class="plain-link">
+          <img src="backend/events/'.$event['image'].'" class="w-100-no-padding"/>
+          
+          <p class="dark-text text-left padding-small">'.$event['title'].'</p>    
+          </a>
+      </div> ';
+      }
+    }
+    
+  $html .='</section>
    
     <footer class="flex-row flex-space dark-bg white-text min-width-full ">
+    <a class="copyright" href="backend/events_admin.php"
+          >Events Admin</a
+        >
       <span class="copyright">2020 &copy;ITM Tanzania Ltd</span
       ><span class="copyright"
         >Developed and maintained by
@@ -172,4 +166,8 @@
     <script src="js/general.js"></script>
     
   </body>
-</html>
+</html>';
+
+echo $html;
+
+?>

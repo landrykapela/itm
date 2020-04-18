@@ -61,7 +61,9 @@ echo '<!DOCTYPE html>
     
     <nav class="flex-row flex-center white-bg" id="navigation">
       <a href="account.php?e='.$user['id'].'" >Account</a>
-      <a href="http://'.$_SERVER['HTTP_HOST'].'/jobs.php">Jobs</a>
+      <a href="events_admin.php" >Events</a>
+      <a href="training_admin.php" >Training</a>
+      <a href="job_listings.php">Jobs</a>
       <a href="signout.php" >Signout</a>
     </nav>
     <span id="menu"><i class="material-icons">menu</i></span>

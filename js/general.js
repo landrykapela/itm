@@ -32,7 +32,7 @@ if (nav) {
           window.location = window.location.origin + "/about.html";
           break;
         case "section_news":
-          window.location = window.location.origin + "/events.html";
+          window.location = window.location.origin + "/events.php";
           break;
         case "section_jobs":
           window.location = window.location.origin + "/jobs.php";
@@ -112,28 +112,6 @@ const showForm = (id) => {
 
   const target = document.getElementById(id);
   target.classList.remove("hidden");
-  // switch (id.toLowerCase) {
-  //   case "signup":
-  //     console.log("hiding... reset and login");
-  //     login.classList.add("hidden");
-  //     reset.classList.add("hidden");
-  //     break;
-  //   case "login":
-  //     console.log("hiding... reset and signup");
-  //     reset.classList.add("hidden");
-  //     signup.classList.add("hidden");
-  //     break;
-  //   case "p_reset":
-  //     console.log("hiding... login and signup");
-  //     login.classList.add("hidden");
-  //     signup.classList.add("hidden");
-  //     break;
-  //   // default:
-  //   //   console.log("hiding... default");
-  //   //   reset.classList.add("hidden");
-  //   //   login.classList.add("hidden");
-  //   //   signup.classList.remove("hidden");
-  // }
 };
 let paths = window.location.pathname.split("/");
 window.addEventListener("load", (event) => {
@@ -152,7 +130,8 @@ window.addEventListener("load", (event) => {
   } else {
     if (paths[paths.length - 1] == "signup.html") {
       let hash = window.location.hash.toLowerCase();
-      let target = hash.substr(1);
+      let target = hash.substr(1).split("?")[0];
+
       console.log("hash: ", target);
       if (target.length > 0) showForm(target);
       else showForm("signup");
@@ -240,18 +219,20 @@ if (menuButton) {
   });
 }
 
-const count = (id) => {
-  target = document.getElementById(id);
-  let number = parseInt(target.textContent);
-  // alert(number);
-  let x = 0;
-  setInterval(() => {
-    if (x <= number) {
-      target.textContent = x + "+";
+const count = (ids) => {
+  ids.forEach((id) => {
+    let target = document.getElementById(id);
+    let number = parseInt(target.textContent);
+    // alert(number);
+    let x = 0;
+    setInterval(() => {
+      if (x <= number) {
+        target.textContent = x + "+";
 
-      x++;
-    }
-  }, 20);
+        x++;
+      }
+    }, 20);
+  });
 };
 const stats = document.getElementById("stats");
 if (stats) {
@@ -261,10 +242,7 @@ if (stats) {
     bounding.left >= 0 &&
     bounding.right <= (window.innerWidth || stats.clientWidth)
   ) {
-    // count("outsource");
-    count("recruitment");
-    // count("training");
-    // count("partners");
+    count(["trainings", "outsource", "recruitment", "partners"]);
   }
 }
 

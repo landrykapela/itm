@@ -667,6 +667,238 @@ class DB{
         }
         else return false;
     }
+
+    //events
+    static function getEvents(){
+        $sql = "select * from events where status = 0 order by id desc";
+        $query = mysqli_query(self::connect(),$sql);
+        $result = array();
+        if($query){
+            while($r = mysqli_fetch_row($query)){
+                $item = array();
+                $item['id'] = $r[0];
+                $item['title'] = $r[1];
+                $item['content'] = $r[2];
+                $item['image'] = $r[3];
+                $item['caption'] = $r[4];
+                $item['status'] = $r[5];
+                $item['date_created'] = $r[6];
+                $item['event_date'] = $r[7];
+                $item['last_updated'] = $r[8];
+                $item['location'] = $r[9];
+                $item['link'] = $r[10];
+                $item['link_text'] = $r[11];
+
+                $result[] = $item;
+            }
+            return $result;
+        }
+        else return false;
+    }
+    static function searchArchivedEvents($keyword){
+        $sql = "select * from events where status = 2 and title like '%".$keyword."%' or content like '%".$keyword."%' or caption like '%".$keyword."%' order by event_date desc";
+        $query = mysqli_query(self::connect(),$sql);
+        $result = array();
+        if($query){
+            while($r = mysqli_fetch_row($query)){
+                $item = array();
+                $item['id'] = $r[0];
+                $item['title'] = $r[1];
+                $item['content'] = $r[2];
+                $item['image'] = $r[3];
+                $item['caption'] = $r[4];
+                $item['status'] = $r[5];
+                $item['date_created'] = $r[6];
+                $item['event_date'] = $r[7];
+                $item['last_updated'] = $r[8];
+                $item['location'] = $r[9];
+                $item['link'] = $r[10];
+                $item['link_text'] = $r[11];
+
+                $result[] = $item;
+            }
+            return $result;
+        }
+        else return false;
+    }
+    static function getEventById($id){
+        $sql = "select * from events where id=".$id." limit 1";
+        $query = mysqli_query(self::connect(),$sql);
+        $result = array();
+        if($query){
+            while($r = mysqli_fetch_row($query)){
+                $item = array();
+                $item['id'] = $r[0];
+                $item['title'] = $r[1];
+                $item['content'] = $r[2];
+                $item['image'] = $r[3];
+                $item['caption'] = $r[4];
+                $item['status'] = $r[5];
+                $item['date_created'] = $r[6];
+                $item['event_date'] = $r[7];
+                $item['last_updated'] = $r[8];
+                $item['location'] = $r[9];
+                $item['link'] = $r[10];
+                $item['link_text'] = $r[11];
+
+                $result = $item;
+            }
+            return $result;
+        }
+        else return false;
+    }
+
+    static function updateEvent($event,$id){
+        $result = array();
+        $time = time();
+        $upload = "events/";
+        if($event == null) {
+            $result['status'] = false;
+            $result['message'] = "Invalid event data!";
+            $result['event'] = self::getEventById($id);
+            return $result;
+        }
+        if(array_key_exists("image",$event)){
+            $file = $event['image'];
+            $allowedFiles = array("png","jpg","jpeg");
+            $ext = pathinfo($file['name'],PATHINFO_EXTENSION);
+            if(!in_array($ext,$allowedFiles)) {
+                $result['status'] = false;
+                $result['message'] = "Only images are allowed!";
+                $result['event'] = self::getEventById($id);
+                return $result;
+            }
+            if($file['size'] > 2048000){
+                $result['status'] = false;
+                $result['message'] = "Image file is too large. Please upload a file less than 2mb";
+                $result['event'] = self::getEventById($id);
+                return $result;
+            }
+            
+        $filename = $time."_".basename($event['image']['name']);
+        }
+        
+        $sql = "update events set last_updated =".$time;
+        $set = ", ";
+        foreach($event as $key=>$value){
+            if($key == "image"){
+                $set .= $key." = '".$filename."', ";
+            }
+            else{
+                $set .= $key." = '".$value."', ";
+            }
+            
+        }
+        $set = substr($set,0,strlen($set)-2)." where id=".$id;
+        $sql .= $set;
+        // echo $sql;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            $result['status'] = true;
+            
+            if(array_key_exists("image",$event)){
+                $target_file = $upload.$filename;
+                if(move_uploaded_file($file['tmp_name'],$target_file)) 
+                    $result['message'] = "Event was successfully updated";
+                else 
+            $result['message'] = "Event was successfully updated but could not upload feature image";
+
+           }
+           else {
+               $result['message'] = "Event was successfully updated";
+           }
+           $result['event'] = self::getEventById($id);
+            return $result;
+            
+        }
+        else {
+            $result['status'] = false;
+            $result['message'] = "Could not update event";
+            $result['event'] = self::getEventById($id);
+            return $result;
+        }
+    }
+
+    static function createEvent($event){
+        $result = array();
+        $upload = "events/";
+        if($event == null) {
+            $result['status'] = false;
+            $result['message'] = "Invalid event data!";
+            return $result;
+        }
+        $file = $event['image'];
+        $allowedFiles = array("png","jpg","jpeg");
+        $ext = pathinfo($file['name'],PATHINFO_EXTENSION);
+        if(!in_array($ext,$allowedFiles)) {
+            $result['status'] = false;
+            $result['message'] = "Only images are allowed!";
+            return $result;
+        }
+        if($file['size'] > 4000000){
+            $result['status'] = false;
+            $result['message'] = "Image file is too large. Please upload a file less than 4mb";
+            return $result;
+        }
+        $time = time();
+        $filename = $time."_".basename($event['image']['name']);
+        $fields = "(date_created,last_updated,";
+        $values = " values (".$time.",".$time.",";
+        $sql = "insert into events ";
+        foreach($event as $key=>$value){
+            if($key == "image"){
+                $fields .= $key.",";
+                $values .= "'".$filename."',";
+            }
+            else{
+                $fields .= $key.",";
+                $values .= "'".$value."',";
+            }
+            
+        }
+        $values = substr($values,0,strlen($values)-1).")";
+        $fields = substr($fields,0,strlen($fields)-1).")";
+        $sql .= $fields . $values;
+        // echo $sql;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            $target_file = $upload.$filename;
+            if(move_uploaded_file($file['tmp_name'],$target_file)){
+                $result['status'] = true;
+            $result['message'] = "Event was successfully created";
+            return $result;
+            }
+            $result['status'] = true;
+            $result['message'] = "Event was successfully created but could not upload feature image";
+            return $result;
+        }
+        else {
+            $result['status'] = false;
+            $result['message'] = "Could not create event";
+            return $result;
+        }
+    }
+
+    static function deleteEvent($id){
+        $last_updated = time();
+        $sql = "update events set status=2, last_updated=".$last_updated." where id=".$id;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            return true;
+        }
+        return false;
+    }
+
+    static function archiveEvent($id){
+        $last_updated = time();
+        $sql = "update events set status=1, last_updated=".$last_updated." where id=".$id;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            return true;
+        }
+        return false;
+    }
+    //end events
     static function getLevels(){
         $levels = array("Doctorate","Master","Bachelor","Diploma","Certificate");
         return $levels;

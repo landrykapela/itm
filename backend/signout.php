@@ -1,5 +1,7 @@
 <?php
 session_destroy();
 $_SESSION = [];
-header("Location: http://".$_SERVER['HTTP_HOST']."/signup.html#login",true);
+$location = "Location: ".($_SERVER['HTTPS'] ? "https://":"http://");
+$location .= $_SERVER['HTTP_HOST']."/signup.html#login";
+header($location,true);
 ?>

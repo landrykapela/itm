@@ -386,6 +386,9 @@
   .error-text {
     color: red;
   }
+  .success-bg {
+    background-color: green;
+  }
   .success-text {
     color: green;
   }
