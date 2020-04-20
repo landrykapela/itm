@@ -1,4 +1,5 @@
 <?php
+require('config.php');
 require('class.phpmailer.php');
 $http = "http://";
 if(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == "on") $http = "https://";
@@ -21,7 +22,7 @@ class DB{
         echo "Cool";
     }
     static function connect(){
-        $connect = mysqli_connect("localhost","itm_jobs","itm_jobs","itm_jobs") or die("Unable to connect to database ".mysqli_error());
+        $connect = mysqli_connect(HOST,USER,DB,PWORD) or die("Unable to connect to database ".mysqli_error());
         return $connect;
     }
 
