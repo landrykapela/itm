@@ -71,6 +71,9 @@
   .w-75 {
     width: calc(75% - 8em);
   }
+  .w-70 {
+    width: calc(70% - 8em);
+  }
   .w-60 {
     width: calc(60% - 8em);
   }
@@ -109,6 +112,18 @@
   }
   .margin-std {
     margin: 2em auto;
+  }
+  .margin-std-left {
+    margin-left: 2em;
+  }
+  .margin-std-right {
+    margin-right: 2em;
+  }
+  .margin-std-top {
+    margin-top: 2em;
+  }
+  .margin-std-bottom {
+    margin-bottom: 2em;
   }
   /* images */
   .feature-image {
@@ -288,19 +303,19 @@
     background-repeat: repeat;
   }
   .bg-service1 {
-    background-image: url("../images/service1.jpg");
+    background-image: url("../images/service1_.jpg");
     background-size: cover;
   }
   .bg-service2 {
-    background-image: url("../images/service2.jpg");
+    background-image: url("../images/service2_.jpg");
     background-size: cover;
   }
   .bg-service3 {
-    background-image: url("../images/service3.jpg");
+    background-image: url("../images/service3_.jpg");
     background-size: cover;
   }
   .bg-service4 {
-    background-image: url("../images/service4.jpg");
+    background-image: url("../images/service4_.jpg");
     background-size: cover;
   }
   .bg-img-header1 {
@@ -320,7 +335,7 @@
     background-size: cover;
   }
   .bg-img-header5 {
-    background-image: url("../images/banner2.jpg");
+    background-image: url("../images/banner4.jpg");
     background-size: cover;
   }
   .bg-img-header6 {

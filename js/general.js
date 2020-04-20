@@ -32,16 +32,16 @@ if (nav) {
           window.location = window.location.origin + "/about.html";
           break;
         case "section_news":
-          window.location = window.location.origin + "/events.php";
+          window.location = window.location.origin + "/events/events.php";
           break;
         case "section_jobs":
-          window.location = window.location.origin + "/jobs.php";
+          window.location = window.location.origin + "/jobs/jobs.php";
           break;
         case "section_home":
           window.location = window.location.origin + "/index.html";
           break;
         case "section_training":
-          window.location = "https://registration.itmafrica.co.tz";
+          window.location = window.location.origin + "/training/training.php";
           break;
       }
     });
@@ -190,27 +190,6 @@ window.addEventListener("scroll", (e) => {
   } else backToTop.classList.add("hidden");
 });
 
-let btnSubmit = document.getElementById("btnSubmitPopup");
-if (btnSubmit) {
-  btnSubmit.addEventListener("click", (event) => {
-    let email = document.getElementById("email").value;
-    let name = document.getElementById("name").value;
-    let data = { email: email, name: name };
-    fetch("https://registration.itmafrica.co.tz/admin/verify/index.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        alert(response.message);
-        popup.classList.add("hidden");
-      })
-      .catch((error) => {
-        popup.classList.add("hidden");
-      });
-  });
-}
 const menuButton = document.getElementById("menu");
 if (menuButton) {
   menuButton.addEventListener("click", (event) => {
@@ -263,14 +242,14 @@ if (btnService) {
 const btnJobs = document.getElementById("btn-jobs");
 if (btnJobs) {
   btnJobs.addEventListener("click", () => {
-    window.location = window.location.origin + "/jobs.php";
+    window.location = window.location.origin + "/jobs/jobs.php";
   });
 }
 
 const btnTraining = document.getElementById("btn-training");
 if (btnTraining) {
   btnTraining.addEventListener("click", () => {
-    window.location = "https://registration.itmafrica.co.tz";
+    window.location = window.location.origin + "/training/training.php";
   });
 }
 
