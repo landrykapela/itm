@@ -193,8 +193,13 @@ window.addEventListener("scroll", (e) => {
 const menuButton = document.getElementById("menu");
 if (menuButton) {
   menuButton.addEventListener("click", (event) => {
-    if (nav.style.display === "none") nav.style.display = "flex";
-    else nav.style.display = "none";
+    if (nav.style.display === "none") {
+      nav.style.display = "flex";
+      menuButton.innerHTML = '<i class="material-icons">close</i>';
+    } else {
+      nav.style.display = "none";
+      menuButton.innerHTML = '<i class="material-icons">menu</i>';
+    }
   });
 }
 
