@@ -67,9 +67,9 @@ echo '<!DOCTYPE html>
             </p>
             <span class="vspacer"></span>
             <span class="vspacer"></span>';
-            $open_signup =  "window.location=window.location.origin+'/signup.html'";
-            $open_signin =  "window.location=window.location.origin+'/signup.html#login'";
-            echo '<div class="w-50 flex-row flex-between flex-middle white-text margin-auto"><span class="button primary-bg round-corner border-white-all white-text" onclick="'.$open_signup.'">SIGNUP NOW</span><span>OR</span><span class="button border-white-all round-corner white-text" onclick="'.$open_signin.'">LOGIN</span></div>
+            $open_signup =  "window.location=window.location.origin+'/jobs/signup.html'";
+            $open_signin =  "window.location=window.location.origin+'/jobs/signup.html#login'";
+            echo '<div class="w-50 flex-row flex-between flex-middle white-text margin-auto"><span class="button primary-bg round-corner border-white-all white-text" onclick="'.$open_signup.'">SIGNUP NOW</span><span class="desktop-only">OR</span><span class="button border-white-all round-corner white-text" onclick="'.$open_signin.'">LOGIN</span></div>
             <span class="vspacer"></span>
             <span class="vspacer"></span>
             
@@ -79,15 +79,15 @@ echo '<!DOCTYPE html>
 
       
       </div>
-    </header>
-    
-    <section class="w-100 margin-std ">
+    </header>';
+    require('../libs/manager.php');
+          $jobs = DB::getJobListings();
+    echo '<section class="w-100 margin-std ">
         <p class="title primary-text">Recent Listings</p>
-        <table class="w-100 margin-auto text-left">
+        <table class="w-100 margin-auto text-left desktop-only">
           <thead class="primary-bg white-text"><tr><td>Title</td><td>Description</td><td>Date uploaded</td><td>Deadline</td></tr></thead>
           <tbody>';
-              require('../libs/manager.php');
-          $jobs = DB::getJobListings();
+              
           if(!$jobs){
             echo '<tr><td colspan=4 class="text-center">No job openings</td></tr>';
           }
@@ -98,8 +98,22 @@ echo '<!DOCTYPE html>
              }
            }   
   echo '</tbody>
-      </table>
-    </section>
+      </table>';
+echo '<div class="flex-column flex-center flex-middle mobile-only">';
+if(!$jobs){
+  echo '<p class="text-center">No job openings</p>';
+}
+else {
+  for($i=0; $i<sizeof($jobs);$i++){
+    $job = $jobs[$i];
+    echo '<div class="w-100 flex-column flex-center flex-middle margin-std-top"><span class="primary-bg w-100 padding-small white-text">'.$job['position'].'</span>
+    <p>'.date('d M Y',$job['deadline']).'</p>
+    <p>'.(strlen($job['description']) > 72 ? substr($job['description'],0,72):$job['description']).'</p>
+    <a href="../jobs/job_details.php?jid='.$job['id'].'"><p class="button primary-bg white-text round-corner border-white-all"> View Job</p></a></div>';
+}
+}
+echo '</div>';
+echo '</section>
    
     <footer class="flex-row flex-space dark-bg white-text min-width-full ">
       <span class="copyright">2020 &copy;ITM Tanzania Ltd</span

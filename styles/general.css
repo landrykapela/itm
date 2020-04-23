@@ -335,7 +335,7 @@
     background-size: cover;
   }
   .bg-img-header5 {
-    background-image: url("../images/banner4.jpg");
+    background-image: url("../images/jobs.jpg");
     background-size: cover;
   }
   .bg-img-header6 {
@@ -494,6 +494,9 @@
     font-weight: bold;
   }
   /* layouts */
+  .mobile-only {
+    display: none;
+  }
   .horizontal-scroll-wrapper {
     animation: myscroll 5s linear forwards;
     width: 100%;

@@ -85,11 +85,26 @@
   .padding-std {
     padding: 0.25em;
   }
+  .padding-small {
+    padding: 0.5em;
+  }
   .margin-auto {
     margin: 2em auto;
   }
   .margin-std {
     margin: 0.25em auto;
+  }
+  .margin-std-left {
+    margin-left: 0.25em;
+  }
+  .margin-std-right {
+    margin-right: 0.25em;
+  }
+  .margin-std-top {
+    margin-top: 0.25em;
+  }
+  .margin-std-bottom {
+    margin-bottom: 0.25em;
   }
   /* images */
   .feature-image {
@@ -106,15 +121,36 @@
     background-color: white;
     display: none;
     margin:0 auto;
-    width:90%;
+    width:100%;
     position:fixed;
     top:4em;z-index:999999999999;
+    overflow: hidden;
   }
   #navigation span{
-      width:100%;
+    margin: 0 auto;
+    width: calc(100% - 1em);
+    padding: 0.5em;
+    color: #132a86;
+    cursor: pointer;
   }
   #navigation span.round-corner{
     border-radius: 0;
+  }
+   /* navigations */
+   nav span {
+    margin: 0 auto;
+    width: calc(100% - 1em);
+    padding: 0.5em;
+    color: #132a86;
+    cursor: pointer;
+  }
+  #navigaion span:hover {
+    text-decoration: underline;
+  }
+  #navigation span.active {
+    color: white;
+    background-color: #132a86;
+    font-weight: bold;
   }
   #secondary_navigation,#footer-impact{
     display: none;
@@ -210,7 +246,12 @@
   .button i {
     margin-left: 1em;
   }
-
+  a.plain-link,
+  a.plain-link:visited,
+  a.plain-link:hover {
+    color: #132a86;
+    text-decoration: none;
+  }
   .button:hover {
     background-color: #7ac7ed;
     border: 2px solid #7ac7ed;
@@ -289,6 +330,14 @@
   }
   .bg-img-header4 {
     background-image: url("../images/header4.jpg");
+    background-size: cover;
+  }
+  .bg-img-header5 {
+    background-image: url("../images/jobs.jpg");
+    background-size: cover;
+  }
+  .bg-img-header6 {
+    background-image: url("../images/banner3.jpg");
     background-size: cover;
   }
   .bg-img-team {
@@ -411,23 +460,12 @@
     display: flex;
     flex-direction: column;
   }
-  /* navigations */
-  nav span {
-    padding: 0.5em;
-    color: #132a86;
-    cursor: pointer;
-  }
-  nav span:hover {
-    text-decoration: underline;
-  }
-  nav span.active {
-    border-radius: 5px;
-    color: white;
-    background-color: #132a86;
-    font-weight: bold;
-  }
+ 
   /* layouts */
 
+  .desktop-only{
+    display:none;
+  }
   .squares {
     padding: 2px;
     display: block;
@@ -441,6 +479,7 @@
   }
   .news-card {
     min-width: 280px;
+    max-width:320px;
     cursor: pointer;
   }
   .news-card:hover {
