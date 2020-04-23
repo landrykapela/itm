@@ -28,18 +28,19 @@
   }
   #close-popup {
     position: relative;
-    top: 0;
-    right: 0;
+    top: -10px;
+    z-index: 999999999;
     cursor: pointer;
     text-align: right;
-    margin-top: -50px;
-    margin-left: calc(100% + 50px);
+    margin-top: 0px auto;
     padding: 0.25em;
   }
   /* components */
 
   #popup > form {
-    margin-top: 140px;
+    margin-top: 80px;
+    height:300px;
+    
   }
   #popup > form input[type="text"],
   #popup > form input[type="email"] {
@@ -71,10 +72,10 @@
   .w-25{
     width: calc(100% - 1em);
   }
-  /* .w-50,
+  .w-50,
   .w-25 {
-    width: calc(75% - 1em);
-  } */
+    margin:2em;
+  }
 
   .w-100-no-padding,
   .w-75-no-padding,

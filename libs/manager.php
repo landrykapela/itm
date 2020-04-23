@@ -22,7 +22,7 @@ class DB{
         echo "Cool";
     }
     static function connect(){
-        $connect = mysqli_connect(HOST,USER,DB,PWORD) or die("Unable to connect to database ".mysqli_error());
+        $connect = mysqli_connect(HOST,USER,DB,PWORD,PORT) or die("Unable to connect to database ");
         return $connect;
     }
 
