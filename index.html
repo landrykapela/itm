@@ -89,35 +89,34 @@
         />
       </form>
     </div>
-
-    <header
-      id="header"
-      class="min-width-full flex-column flex-top flex-start flex-middle margin-auto"
+    <div
+      id="floating-header"
+      class="floating-header flex-row flex-between flex-top w-100-no-padding padding-std margin-auto"
     >
-      <div
-        class="white-bg flex-row flex-between flex-top w-100 padding-std margin-auto"
-      >
-        <img src="images/logo.png" class="logo" alt="ITM logo" />
-        <nav class="flex-row flex-center" id="navigation">
-          <span id="home" class="active">Home</span>
-          <span id="about">About</span>
-          <span id="services">Services</span>
-          <span id="jobs">Jobs</span>
-          <span id="training">Training</span>
-          <span id="news">News & Events</span>
-          <!-- <span id="contacts">Contacts</span> -->
-        </nav>
-        <span id="menu"><i class="material-icons">menu</i></span>
-      </div>
+      <img src="images/logo.png" class="logo" alt="ITM logo" />
+      <nav class="flex-row flex-center margin-std-right" id="navigation">
+        <span id="home" class="active">Home</span>
+        <span id="about">About</span>
+        <span id="services">Services</span>
+        <span id="jobs">Jobs</span>
+        <span id="training">Training</span>
+        <span id="news">News & Events</span>
+        <!-- <span id="contacts">Contacts</span> -->
+      </nav>
+      <span id="menu"><i class="material-icons">menu</i></span>
+    </div>
+    <header id="header" class="min-width-full">
       <div
         class="flex-row flex-center flex-middle w-100-no-padding margin-auto"
         id="slider1"
       >
         <!-- slide 1 -->
-        <div class="w-100 margin-auto flex-row bg-img-header1 v-100">
+        <div class="w-100 margin-auto flex-row v-100 bg-img-header1">
           <div
             class="w-100-no-padding dark-bg-transparent padding-std margin-auto flex-column flex-center flex-middle v-100"
           >
+            <span class="vspacer"></span>
+            <span class="vspacer"></span>
             <span class="vspacer"></span>
             <span class="vspacer"></span>
             <p class="title-label white-text">Welcome to</p>
@@ -133,6 +132,8 @@
               >MORE <i class="material-icons">arrow_forward</i></span
             >
             <span class="vspacer"></span>
+            <span class="vspacer"></span>
+            <span class="vspacer"></span>
           </div>
         </div>
 
@@ -141,6 +142,8 @@
           <div
             class="w-100-no-padding dark-bg-transparent padding-std margin-auto flex-column flex-center flex-middle v-100"
           >
+            <span class="vspacer"></span>
+            <span class="vspacer"></span>
             <span class="vspacer"></span>
             <span class="vspacer"></span>
             <!-- <p class="title-label white-text">We provide</p> -->
@@ -154,6 +157,8 @@
               class="margin-auto text-center button round-corner border-white-all primary-bg white-text flex-row flex-center flex-middle"
               >MORE <i class="material-icons">arrow_forward</i></span
             ><span class="vspacer"></span>
+            <span class="vspacer"></span>
+            <span class="vspacer"></span>
           </div>
         </div>
 
@@ -162,6 +167,8 @@
           <div
             class="w-100-no-padding dark-bg-transparent padding-std margin-auto flex-column flex-center flex-middle v-100"
           >
+            <span class="vspacer"></span>
+            <span class="vspacer"></span>
             <span class="vspacer"></span>
             <span class="vspacer"></span>
             <!-- <p class="title-label white-text">Welcome to</p> -->
@@ -178,6 +185,8 @@
               class="margin-auto text-center button round-corner border-white-all primary-bg white-text flex-row flex-center flex-middle"
               >MORE <i class="material-icons">arrow_forward</i></span
             ><span class="vspacer"></span>
+            <span class="vspacer"></span>
+            <span class="vspacer"></span>
           </div>
         </div>
         <!-- silde 4 -->
@@ -185,6 +194,8 @@
           <div
             class="w-100-no-padding dark-bg-transparent padding-std margin-auto flex-column flex-center flex-middle v-100"
           >
+            <span class="vspacer"></span>
+            <span class="vspacer"></span>
             <span class="vspacer"></span>
             <span class="vspacer"></span>
             <p class="title-label white-text"></p>
@@ -198,6 +209,8 @@
               class="margin-auto text-center button round-corner primary-bg border-white-all white-text flex-row flex-center flex-middle"
               >MORE <i class="material-icons">arrow_forward</i></span
             >
+            <span class="vspacer"></span>
+            <span class="vspacer"></span>
             <span class="vspacer"></span>
             <span class="vspacer"></span>
           </div>
@@ -301,15 +314,16 @@
     </section>
 
     <!-- <span class="vspacer"></span> -->
-    <main class="min-width-full white-text v-100 padding-std">
+    <main class="min-width-full white-text v-100 padding-std dark-bg">
       <section id="section_services" class="w-100-no-padding">
+        <span class="title white-text">Our Services</span>
         <div
-          class="w-100 flex-row flex-space padding-std margin-auto"
+          class="w-100 flex-row flex-center padding-std margin-auto"
           id="slider"
         >
           <!-- slide 1 -->
           <div
-            class="box-list padding-std bg-service1 round-corner margin-std white-text"
+            class="box-list padding-small bg-service1 round-corner white-text"
           >
             <span class="flex-row flex-space flex-middle">
               <div class="flex-column flex-center flex-middle">
@@ -334,7 +348,7 @@
 
           <!-- slide 2 -->
           <div
-            class="box-list padding-std bg-service2 round-corner margin-std white-text"
+            class="box-list padding-small bg-service2 round-corner white-text"
           >
             <span class="flex-row flex-space flex-middle">
               <div class="flex-column flex-center flex-middle">
@@ -358,7 +372,7 @@
 
           <!-- silde 3 -->
           <div
-            class="box-list padding-std bg-service3 round-corner margin-std white-text"
+            class="box-list padding-small bg-service3 round-corner white-text"
           >
             <span class="flex-row flex-space flex-middle">
               <div class="flex-column flex-center flex-middle">
@@ -383,7 +397,7 @@
           </div>
           <!-- silde 4 -->
           <div
-            class="box-list padding-std white-text bg-service4 round-corner margin-std"
+            class="box-list padding-small white-text bg-service4 round-corner"
           >
             <span class="flex-row flex-space flex-middle">
               <div class="flex-column flex-center flex-middle">

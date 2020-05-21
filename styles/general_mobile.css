@@ -124,7 +124,7 @@
     margin:0 auto;
     width:100%;
     position:fixed;
-    top:4em;z-index:999999999999;
+    top:4em;z-index:9999999;
     overflow: hidden;
   }
   #navigation span{
@@ -137,14 +137,7 @@
   #navigation span.round-corner{
     border-radius: 0;
   }
-   /* navigations */
-   nav span {
-    margin: 0 auto;
-    width: calc(100% - 1em);
-    padding: 0.5em;
-    color: #132a86;
-    cursor: pointer;
-  }
+   
   #navigaion span:hover {
     text-decoration: underline;
   }

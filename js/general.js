@@ -185,6 +185,10 @@ if (backToTop) {
 }
 
 window.addEventListener("scroll", (e) => {
+  if (window.scrollY > 0.1 * window.innerHeight) {
+    document.getElementById("floating-header").classList.add("primary-bg");
+  } else
+    document.getElementById("floating-header").classList.remove("primary-bg");
   if (window.scrollY > 0.75 * window.innerHeight) {
     backToTop.classList.remove("hidden");
   } else backToTop.classList.add("hidden");

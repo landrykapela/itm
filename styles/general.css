@@ -342,6 +342,10 @@
     background-image: url("../images/banner3.jpg");
     background-size: cover;
   }
+  .bg-img-header7 {
+    background-image: url("../images/ladies.jpg");
+    background-size: cover;
+  }
   .bg-img-team {
     background-image: url("../images/team-image.jpg");
     background-size: cover;
@@ -387,8 +391,18 @@
     color: #132a86;
     text-decoration: none;
   }
+  .primary-bg a,
+  a:visited,
+  nav.primary-bg a,
+  nav.primary-bg a:visited {
+    color: white;
+    text-decoration: none;
+  }
+  nav.primary-bg span.active {
+    color: #6ff1e6;
+  }
   .accent-bg {
-    background-color: #7ac7ed;
+    background-color: #6ff1e6;
   }
   .accent-bg a,
   a:visited {
@@ -477,7 +491,11 @@
   }
   /* navigations */
 
-  nav span,
+  nav span {
+    padding: 0.5em;
+    color: white;
+    cursor: pointer;
+  }
   nav a {
     padding: 0.5em;
     color: #132a86;
@@ -488,9 +506,9 @@
     text-decoration: underline;
   }
   nav span.active {
-    border-radius: 5px;
-    color: white;
-    background-color: #132a86;
+    /* border-radius: 5px; */
+    color: #6ff1e6;
+    /* background-color: #132a86; */
     font-weight: bold;
   }
   /* layouts */
@@ -530,9 +548,9 @@
     opacity: 0.4;
   }
   .box-list {
-    margin: 1em;
-    min-width: 180px;
-    max-width: 200px;
+    margin: 0.12em;
+    min-width: calc(20% - 0.2em);
+    max-width: calc(22% - 0.2em);
   }
   .vspacer {
     display: block;
@@ -562,6 +580,11 @@
   padding: 0.5em;
   margin: 0 auto;
 } */
+  .floating-header {
+    position: fixed;
+    top: 0;
+    z-index: 100000000;
+  }
   table tr td {
     padding: 1em;
   }
