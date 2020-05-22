@@ -185,19 +185,19 @@
     border-top: 1px solid #132a86;
   }
   .border-accent-all {
-    border: 1px solid #7ac7ed;
+    border: 1px solid #6ff1e6;
   }
   .border-accent-bottom {
-    border-bottom: 1px solid #7ac7ed;
+    border-bottom: 1px solid #6ff1e6;
   }
   .border-accent-left {
-    border-left: 1px solid #7ac7ed;
+    border-left: 1px solid #6ff1e6;
   }
   .border-accent-right {
-    border-right: 1px solid #7ac7ed;
+    border-right: 1px solid #6ff1e6;
   }
   .border-accent-top {
-    border-top: 1px solid #7ac7ed;
+    border-top: 1px solid #6ff1e6;
   }
   .border-white-all {
     border: 2px solid white;
@@ -226,18 +226,36 @@
     cursor: pointer;
   }
   .button-scroll-top:hover {
-    background-color: #7ac7ed;
+    background-color: #6ff1e6;
   }
-  .large-icons {
+  .large-icons,
+  .large-icons-2 {
     border-radius: 50%;
     cursor: pointer;
     padding: 12px;
     width: 100px;
     height: 100px;
   }
-  .large-icons i {
-    font-size: 3rem;
+  .large-icons:hover {
+    background-color: #132a86;
+    border: 2px solid #132a86;
+    color: white;
   }
+  .large-icons-2:hover {
+    background-color: #6ff1e6;
+    border: 2px solid #6ff1e6;
+    color: black;
+  }
+  .large-icons i,
+  .large-icons-2 i {
+    font-size: 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   .button {
     margin: 2em 0;
     min-width: 80px;
@@ -252,15 +270,11 @@
   }
 
   .button:hover {
-    background-color: #7ac7ed;
+    background-color: #6ff1e6;
     /* border: 0px solid #132a86; */
     color: white;
   }
-  .large-icons:hover {
-    background-color: #132a86;
-    border: 2px solid #132a86;
-    color: white;
-  }
+
   .button.round-corner {
     border-radius: 25px;
   }
@@ -294,7 +308,6 @@
   }
   .focus {
     font-weight: bolder;
-    font-size: 3rem;
   }
   /* colors and backgrounds */
   .bg-img-map {
@@ -363,7 +376,7 @@
     background-color: rgba(255, 255, 255, 0.534);
   }
   .accent-bg-transparent {
-    background-color: #7ac7ed71;
+    background-color: #6ff1e671;
   }
   .dark-bg {
     background-color: rgb(24, 20, 20);
@@ -428,7 +441,7 @@
     color: white;
   }
   .accent-text {
-    color: #7ac7ed;
+    color: #6ff1e6;
   }
   /* alignment */
   .text-center {
@@ -585,11 +598,18 @@
     top: 0;
     z-index: 100000000;
   }
+  img.flag {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: 5px;
+    cursor: pointer;
+  }
   table tr td {
     padding: 1em;
   }
   table tbody tr:hover {
-    background-color: #7ac7ed;
+    background-color: #6ff1e6;
     cursor: pointer;
   }
   table tr td a,
