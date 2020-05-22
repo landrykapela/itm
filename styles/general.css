@@ -64,30 +64,39 @@
   }
   .w-100 {
     width: calc(100% - 8em);
+    max-width: 100%;
   }
   .w-80 {
     width: calc(80% - 8em);
+    max-width: 80%;
   }
   .w-75 {
     width: calc(75% - 8em);
+    max-width: 75%;
   }
   .w-70 {
     width: calc(70% - 8em);
+    max-width: 70%;
   }
   .w-60 {
     width: calc(60% - 8em);
+    max-width: 60%;
   }
   .w-50 {
     width: calc(50% - 8em);
+    max-width: 50%;
   }
   .w-40 {
     width: calc(40% - 8em);
+    max-width: 40%;
   }
   .w-30 {
     width: calc(30% - 8em);
+    max-width: 30%;
   }
   .w-25 {
     width: calc(25% - 8em);
+    max-width: 25%;
   }
   .w-100-no-padding {
     width: 100%;
@@ -130,6 +139,11 @@
     /* border-top-right-radius: 50%; */
     max-width: 400px;
     margin: 2em -2em -2em 2em;
+  }
+  .item-image {
+    width: 180px;
+    height: 160px;
+    border-radius: 50%;
   }
   /* logo */
   .logo {
@@ -357,6 +371,10 @@
   }
   .bg-img-header7 {
     background-image: url("../images/ladies.jpg");
+    background-size: cover;
+  }
+  .bg-img-header8 {
+    background-image: url("../images/industrial.jpg");
     background-size: cover;
   }
   .bg-img-team {
