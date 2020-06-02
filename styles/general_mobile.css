@@ -124,6 +124,9 @@
     width: 80px;
   }
   /* menu bar */
+  #expandable{
+    display: none;
+  }
   #navigation {
     background-color: white;
     display: none;

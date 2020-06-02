@@ -11,6 +11,7 @@ if (popupClose) {
 const nav = document.getElementById("navigation");
 if (nav) {
   let navItems = Array.from(nav.children);
+
   navItems.forEach((cn) => {
     cn.addEventListener("click", (event) => {
       navItems.forEach((c) => {
@@ -45,6 +46,17 @@ if (nav) {
           break;
       }
     });
+    if (cn.id === "services") {
+      let expandable = document.getElementById("expandable");
+      cn.addEventListener("mouseover", () => {
+        expandable.classList.remove("hidden");
+        cn.classList.add("primary-bg");
+      });
+      cn.addEventListener("mouseout", () => {
+        expandable.classList.add("hidden");
+        cn.classList.remove("primary-bg");
+      });
+    }
   });
 } else {
   console.log("no navigation");

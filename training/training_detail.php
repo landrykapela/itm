@@ -53,30 +53,31 @@ $html = '<!DOCTYPE html>
   </head>
   <body>
     
-    <header
-      id="header"
-      class="min-width-full flex-column flex-top flex-start margin-auto"
-    >
-      <div
-        class="white-bg flex-row flex-between flex-middle w-100 padding-std margin-auto"
+   <div
+      id="floating-header"
+      class="floating-header primary-bg flex-row flex-between flex-middle w-100-no-padding margin-auto padding-std"
       >
         <img src="../images/logo.png" class="logo" alt="ITM logo" />
-        <nav class="flex-row flex-center" id="navigation">
-          <span id="home">Home</span>
-          <span id="about">About</span>
-          <span id="services">Services</span>
-          <span id="jobs">Jobs</span>
-          <span id="training">Training</span>
-          <span id="news">News & Events</span>
-          <!-- <span id="contacts">Contacts</span> -->
-        </nav>
+        <nav class="flex-row flex-center margin-std-right" id="navigation">
+        <span id="home">Home</span>
+        <span id="about">About</span>
+        <span id="services">Services</span>
+        <span id="jobs">Jobs</span>
+        <span id="training" class="active">Training</span>
+        <span id="news">News & Events</span>
+        <!-- <span id="contacts">Contacts</span> -->
+      </nav>
         <span id="menu"><i class="material-icons">menu</i></span>
-      </div>';
+      </div>
+      <header
+      id="header"
+      class="min-width-full flex-column flex-top flex-start margin-auto" ';
       $background = "background-image:url('programs/".$program['image']."');background-size:cover;";
-      $html .='<div
-        class="flex-row flex-start w-100 margin-std v-100" style="'.$background.'" >
+      
+      
+      $html .='style="'.$background.'" >
         <div class="w-100-no-padding flex-column flex-start padding-std primary-bg-transparent">
-         
+          <span class="vspacer"></span> <span class="vspacer"></span> <span class="vspacer"></span>
             <p class="white-text title focus text-left">'.$program['title'].'</p>
             <p class="white-text text-left">
                '.($program['target'] - $program['registered']).' Chances left
@@ -93,9 +94,6 @@ $html = '<!DOCTYPE html>
             
         </div>
         </div>
-
-      
-      </div>
     </header>';
 
    $html .='<div class="w-100 margin-auto flex-row flex-between flex-middle">
