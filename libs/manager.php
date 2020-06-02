@@ -1033,6 +1033,59 @@ class DB{
         else return false;
     }
 
+    // check if job application already exists
+    static function jobAppExists($cid,$jid){
+        $sql = "select * from job_applications where candidate_id=".$cid." and job_id=".$jid;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query && mysqli_num_rows($query) > 0) return true;
+        else return false;
+    }
+    //create job application
+    static function applyJob($candidate_id,$job_id){
+        $date_created = time();
+        $sql = 'insert into job_applications (job_id,candidate_id,date_created) values('.$job_id.','.$candidate_id.','.$date_created.')';
+        $query = mysqli_query(self::connect(),$sql);
+        if($query) return true;
+        else return false;
+    }
+
+    //get list of job applications
+    static function getJobApplications($job_id){
+        $sql = "select u.id as uid,u.name,u.email,u.phone,j.id as jid,j.position,j.company,ja.id as jaid,ja.date_created,ja.status from user as u join job_applications as ja on u.id = ja.candidate_id join jobs as j on j.id=ja.job_id";
+        if($job_id != null) $sql .= " where j.id=".$job_id;
+        $result = array();
+        $query = mysqli_query(self::connect(),$sql);
+        if(mysqli_num_rows($query) > 0){
+            while($r = mysqli_fetch_row($query)){
+                $rs['uid'] = $r[0];
+                $rs['name'] = $r[1];
+                $rs['email'] = $r[2];
+                $rs['qualification'] = self::getHighestQualification($r[2]);
+                $rs['phone'] = $r[3];
+                $rs['jid'] = $r[4];
+                $rs['position'] = $r[5];
+                $rs['company'] = $r[6];
+                $rs['jaid'] = $r[7];
+                $rs['date_created'] = $r[8];
+                $rs['status'] = self::getJobApplicationStatus($r[9]);
+                $result[] = $rs;
+            }
+            return $result;
+        }
+        else return false;
+    }
+
+    //get job application status
+    static function getJobApplicationStatus($status_id){
+        switch($status_id){
+            case 0:
+                return "Received";
+            case 1:
+                return "Accepted";
+            case 2: 
+                return "Rejected";
+        }
+    }
 //end jobs
 
 //start applications

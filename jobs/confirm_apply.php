@@ -8,9 +8,6 @@ if(!isset($_SESSION['user'])) header($location);
 $admin = DB::isAdmin($_SESSION['user']);
 
     $user = DB::getUser($_SESSION['user']);
-    $job_id = $_GET['jid'];
-    $job = DB::getJobById($job_id);
-    $readonly = $admin ? '':'readonly';
     
 echo '<!DOCTYPE html>
 <html lang="en">
@@ -43,6 +40,7 @@ echo '<!DOCTYPE html>
   href="https://fonts.googleapis.com/css?family=Robot|Montserrat|Open+Sans&display=swap"
   rel="stylesheet"
 />
+<link rel="stylesheet" href="../styles/css/progress-circle.css"/>
 <link rel="icon" href="../images/favicon.png" />
 
 <title>ITM Tanzania - Job Portal</title>
@@ -68,12 +66,25 @@ echo '<!DOCTYPE html>
 </header>';
 
 $message = "";
+if(isset($_POST['btnSubmit'])){
+    $cid = $_POST['cid'];
+    $jid = $_POST['jid'];
+    $job = DB::getJobById($jid);
+    if(!DB::jobAppExists($cid,$jid)){
+        $application = DB::applyJob($cid,$jid);
+    
+       
+        if($application) $message = "Congratulations! Your application is well received.";
+        else $message = "Sorry! Could not process your application. Please try again later!";
+    }
+    else $message = "You have already applied. Your application is being processed and you will be notified of any progress!";
+}
 
-echo '
+    echo '
 <section class="min-width-full margin-auto flex-row flex-start flex-middle primary-bg">
-    <div class="margin-auto flex-row flex-start flex-middle padding-small white-text">
-        <p class="title">Job Details</p>
-        
+    <div class="margin-auto flex-column flex-start flex-middle padding-small white-text">
+        <p class="title">Job Application</p>
+        <span class="subtitle">'.$job['position'].'</span>
     <div>
     
 </section>';
@@ -84,44 +95,24 @@ echo '<section class="w-100 margin-std " id="">
 <p class="text-center error-text">'.$message.'
   
 </p>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="position" class="text-right padding-small w-50 primary-text">Job Position</span>
-  <span class=" padding-small w-50">'.$job['position'].'</span>
+<div class="form-group flex-column flex-center  padding-small">
 </div>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="description" class="text-right padding-small w-50 primary-text">Job Description</span>
-  <span class=" padding-small w-50"
-  >'.$job['description'].'</span>
+<div class="form-group flex-row flex-center padding-small">
+ 
+  <span class="text-center dark-text padding-small w-50"></span>
 </div>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="company" class="text-right padding-small w-50 primary-text">Company</span>
-  <span class=" padding-small w-50">'.$job['company'].'</span>
-</div>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="contact" class="text-right padding-small w-50 primary-text">Contact E-maill</span>
-  <span class=" padding-small w-50">'.$job['contact'].'
-  </span>
-</div>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="deadline" class="text-right padding-small w-50 primary-text">Application Deadline</span>
-  <span class=" padding-small w-50">'.date('d M Y',$job['deadline']).'
-  </span>
-</div>
+
+
 <span class="vspacer"></span>';
 echo '<div class="form-group flex-row flex-space flex-middle margin-auto">';
-if($admin){
 
-echo'  <a class="round-corner text-center button border-white-all primary-bg white-text"
-    href="edit_job.php?jid='.$job['id'].'"
-    >EDIT</a>';
-}
  $back = $admin ? '<a
     href="../admin/admin.php"
     class="plain-link text-center primary-text"
     >CLOSE</a>' : '<a
     href="job_listings.php"
     class="plain-link text-center primary-text"
-    >CLOSE</a><a class="plain-link text-center primary-text" href="apply.php?cid='.$user['id'].'&jid='.$job_id.'">APPLY</a>';
+    >CLOSE</a>';
 echo $back .'</div>
 <span class="vspacer"></span>
 </div>';

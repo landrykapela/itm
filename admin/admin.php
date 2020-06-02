@@ -75,9 +75,12 @@ echo '
     <div class="margin-auto flex-row flex-start flex-middle padding-small">
         <span id="btn-candidates" class="button accent-bg white-text padding-std margin-std">Candidates</span>
         
-    <div>
+    </div>
     <div class="margin-auto flex-row flex-end flex-middle padding-small">
         <span id="btn-listings" class="button primary-bg white-text padding-std margin-std">Jobs</span>
+    </div>
+    <div class="margin-auto flex-row flex-end flex-middle padding-small">
+        <span id="btn-applications" class="button primary-bg white-text padding-std margin-std">Applications</span>
     </div>
 </section>';
 echo '<section class="w-100 margin-std hidden" id="listings">
@@ -117,7 +120,22 @@ for($i=0;$i<sizeof($candidates);$i++){
    echo' </tbody>
 </table>
 </section>';
-
+echo '<section class="w-100 margin-std hidden" id="applications">
+<p class="title primary-text">Job Applications</p>
+<table class="w-100 margin-auto text-left">
+    <thead class="primary-bg white-text"><tr><td>Applicant Name</td><td>Qualification</td><td>Profession</td><td>Position</td><td>Date Applied</td><td>Status</td></tr></thead>
+    <tbody>';
+$applications = DB::getJobApplications(null);
+for($i=0;$i<sizeof($applications);$i++){
+  $application = $applications[$i];
+  
+  echo '<tr><td><a class="plain-link" href="admin_profile.php?u='.$application['uid'].'">'.$application['name'].'</a></td><td><a href="admin_profile.php?u='.$application['uid'].'">'.$application['qualification']['level'].'</a></td><td><a href="admin_profile.php?u='.$application['uid'].'">'.$application['qualification']['major'].'</a></td><td><a href="admin_profile.php?u='.$application['uid'].'">'.$application['position'].'</a></td><td><a href="admin_profile.php?u='.$application['uid'].'">'.date('d M Y',$application['date_created']).'</a></td><td><a href="admin_profile.php?u='.$application['uid'].'">'.$application['status'].'</a></td></tr>';
+  
+}
+        
+   echo' </tbody>
+</table>
+</section>';
 echo '<section class="w-100 margin-std hidden" id="search-form">
 <p class="title primary-text">Advanced Search</p>
 <form class="w-100 margin-auto flex-column flex-center" action="search_result.php" method="post">
@@ -167,9 +185,11 @@ echo '
     const btnCandidates = document.getElementById("btn-candidates");
     const btnSearch = document.getElementById("btn-search");
     const btnListings = document.getElementById("btn-listings");
+    const btnApplications = document.getElementById("btn-applications");
     const candidates = document.getElementById("candidates");
     const listings = document.getElementById("listings");
     const search = document.getElementById("search-form");
+    const applications = document.getElementById("applications");
     
     if(btnSearch){
         btnSearch.addEventListener("click",()=>{
@@ -182,6 +202,10 @@ echo '
             btnListings.classList.add("primary-bg");
             candidates.classList.add("hidden");
             listings.classList.add("hidden");
+
+          btnApplications.classList.remove("accent-bg");
+          btnApplications.classList.add("primary-bg");
+          applications.classList.add("hidden");
         });
     }
     if(btnCandidates){
@@ -192,6 +216,9 @@ echo '
             btnListings.classList.add("primary-bg");
             candidates.classList.remove("hidden");
             listings.classList.add("hidden");
+            btnApplications.classList.remove("accent-bg");
+            btnApplications.classList.add("primary-bg");
+            applications.classList.add("hidden");
 
             btnSearch.classList.add("primary-bg");
             btnSearch.classList.remove("accent-bg");
@@ -206,12 +233,32 @@ echo '
             btnListings.classList.remove("primary-bg");
             candidates.classList.add("hidden");
             listings.classList.remove("hidden");
+            btnApplications.classList.remove("accent-bg");
+            btnApplications.classList.add("primary-bg");
+            applications.classList.add("hidden");
 
             btnSearch.classList.add("primary-bg");
             btnSearch.classList.remove("accent-bg");
             search.classList.add("hidden");
         });
     }
+    if(btnApplications){
+      btnApplications.addEventListener("click",()=>{
+          btnCandidates.classList.add("primary-bg");
+          btnCandidates.classList.remove("accent-bg");
+          btnApplications.classList.add("accent-bg");
+          btnApplications.classList.remove("primary-bg");
+          applications.classList.remove("hidden");
+          btnListings.classList.remove("accent-bg");
+          btnListings.classList.add("primary-bg");
+          candidates.classList.add("hidden");
+          listings.classList.add("hidden");
+          applications.classList.remove("hidden");
+          btnSearch.classList.add("primary-bg");
+          btnSearch.classList.remove("accent-bg");
+          search.classList.add("hidden");
+      });
+  }
     </script>
 ';
 echo "</body>";

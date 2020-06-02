@@ -8,10 +8,15 @@ if(!isset($_SESSION['user'])) header($location);
 $admin = DB::isAdmin($_SESSION['user']);
 
     $user = DB::getUser($_SESSION['user']);
+    $candidate = DB::getUserById($_GET['cid']);
     $job_id = $_GET['jid'];
     $job = DB::getJobById($job_id);
     $readonly = $admin ? '':'readonly';
-    
+    $profile = explode(",",$candidate['profile']);
+    $completion = 0;
+    foreach($profile as $key => $value){
+        $completion += $value;
+    }
 echo '<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,6 +48,7 @@ echo '<!DOCTYPE html>
   href="https://fonts.googleapis.com/css?family=Robot|Montserrat|Open+Sans&display=swap"
   rel="stylesheet"
 />
+<link rel="stylesheet" href="../styles/css/progress-circle.css"/>
 <link rel="icon" href="../images/favicon.png" />
 
 <title>ITM Tanzania - Job Portal</title>
@@ -68,12 +74,12 @@ echo '<!DOCTYPE html>
 </header>';
 
 $message = "";
-
+if($job['deadline'] < time()) $message = "Sorry, this application is closed.";
 echo '
 <section class="min-width-full margin-auto flex-row flex-start flex-middle primary-bg">
-    <div class="margin-auto flex-row flex-start flex-middle padding-small white-text">
-        <p class="title">Job Details</p>
-        
+    <div class="margin-auto flex-column flex-start flex-middle padding-small white-text">
+        <p class="title">Job Application</p>
+        <span class="subtitle">'.$job['position'].'</span>
     <div>
     
 </section>';
@@ -84,45 +90,27 @@ echo '<section class="w-100 margin-std " id="">
 <p class="text-center error-text">'.$message.'
   
 </p>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="position" class="text-right padding-small w-50 primary-text">Job Position</span>
-  <span class=" padding-small w-50">'.$job['position'].'</span>
+<div class="form-group flex-column flex-center  padding-small"><span class="text-center">Profile Completion</span>
+    <div class="progress-container text-center"><div class="progress-circle progress-'.$completion.' "><span>'.$completion.'</span></div>';
+  if($completion < 50) echo '<p class="primary-text">Please update your profile to increase your chance of selection</p>';
+echo '</div>
+<div class="form-group flex-row flex-center padding-small">
+ 
+  <span class="text-center dark-text padding-small w-50">By clicking apply, you agree to the terms of use of this platform and that your personal and professional information will be shared with employers or their representatives. </span>
 </div>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="description" class="text-right padding-small w-50 primary-text">Job Description</span>
-  <span class=" padding-small w-50"
-  >'.$job['description'].'</span>
-</div>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="company" class="text-right padding-small w-50 primary-text">Company</span>
-  <span class=" padding-small w-50">'.$job['company'].'</span>
-</div>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="contact" class="text-right padding-small w-50 primary-text">Contact E-maill</span>
-  <span class=" padding-small w-50">'.$job['contact'].'
-  </span>
-</div>
-<div class="form-group flex-row flex-start  padding-small">
-  <span for="deadline" class="text-right padding-small w-50 primary-text">Application Deadline</span>
-  <span class=" padding-small w-50">'.date('d M Y',$job['deadline']).'
-  </span>
-</div>
-<span class="vspacer"></span>';
-echo '<div class="form-group flex-row flex-space flex-middle margin-auto">';
-if($admin){
 
-echo'  <a class="round-corner text-center button border-white-all primary-bg white-text"
-    href="edit_job.php?jid='.$job['id'].'"
-    >EDIT</a>';
-}
+
+<span class="vspacer"></span>';
+echo '<form action="confirm_apply.php" enctype="multipart/form-data" method="post"><input type="hidden" value='.$candidate['id'].' name="cid" id="cid"/><input type="hidden" name="jid" id="jid" value="'.$job_id.'" /><div class="form-group flex-row flex-space flex-middle margin-auto">';
+
  $back = $admin ? '<a
     href="../admin/admin.php"
     class="plain-link text-center primary-text"
     >CLOSE</a>' : '<a
     href="job_listings.php"
     class="plain-link text-center primary-text"
-    >CLOSE</a><a class="plain-link text-center primary-text" href="apply.php?cid='.$user['id'].'&jid='.$job_id.'">APPLY</a>';
-echo $back .'</div>
+    >CLOSE</a>';
+echo $back .'<input type="submit" name="btnSubmit" id="btnSubmit" class="button primary-bg border-white-all round-corner text-center white-text" value="APPLY NOW"/></div>
 <span class="vspacer"></span>
 </div>';
 echo "</body>";
