@@ -2,12 +2,18 @@
 //menus
 const popupClose = document.getElementById("close-popup");
 const popup = document.getElementById("popup");
+const contactPopup = document.getElementById("popup2");
+const popup2Close = document.getElementById("close-popup2");
 if (popupClose) {
   popupClose.addEventListener("click", () => {
     popup.classList.add("hidden");
   });
 }
-
+if (popup2Close) {
+  popup2Close.addEventListener("click", () => {
+    contactPopup.classList.add("hidden");
+  });
+}
 const nav = document.getElementById("navigation");
 if (nav) {
   let navItems = Array.from(nav.children);
@@ -50,11 +56,13 @@ if (nav) {
       let expandable = document.getElementById("expandable");
       cn.addEventListener("mouseover", () => {
         expandable.classList.remove("hidden");
-        cn.classList.add("primary-bg");
+        // cn.classList.add("accent-bg");
+        // cn.classList.add("dark-text");
       });
       cn.addEventListener("mouseout", () => {
         expandable.classList.add("hidden");
-        cn.classList.remove("primary-bg");
+        // cn.classList.remove("accent-bg");
+        // cn.classList.add("dark-text");
       });
     }
   });
@@ -296,5 +304,40 @@ const btnSubscribe = document.getElementById("btn-subscribe");
 if (btnSubscribe) {
   btnSubscribe.addEventListener("click", () => {
     popup.classList.remove("hidden");
+  });
+}
+
+const btnContactUs = document.getElementById("btnContactUs");
+if (btnContactUs) {
+  btnContactUs.addEventListener("click", () => {
+    contactPopup.classList.remove("hidden");
+  });
+}
+
+const btnRequestQuote1 = document.getElementById("request_quote1");
+if (btnRequestQuote1) {
+  btnRequestQuote1.addEventListener("click", () => {
+    contactPopup.classList.remove("hidden");
+  });
+}
+
+const btnRequestQuote2 = document.getElementById("request_quote2");
+if (btnRequestQuote2) {
+  btnRequestQuote2.addEventListener("click", () => {
+    contactPopup.classList.remove("hidden");
+  });
+}
+
+const btnRequestQuote3 = document.getElementById("request_quote3");
+if (btnRequestQuote3) {
+  btnRequestQuote3.addEventListener("click", () => {
+    contactPopup.classList.remove("hidden");
+  });
+}
+
+const btnRequestQuote4 = document.getElementById("request_quote4");
+if (btnRequestQuote4) {
+  btnRequestQuote4.addEventListener("click", () => {
+    contactPopup.classList.remove("hidden");
   });
 }

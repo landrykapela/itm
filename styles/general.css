@@ -13,15 +13,29 @@
   #menu {
     display: none;
   }
-  #popup {
+  #form-feedback {
+    z-index: 999999999999999999999999999999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: #6ff1e6;
+    color: black;
+    padding: 1em;
+    font-size: large;
+  }
+  #popup,
+  #popup2 {
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
-    z-index: 99999999;
+    z-index: 9999999999999999;
     text-align: center;
   }
-  #close-popup {
+  #close-popup,
+  #close-popup2 {
     position: relative;
     top: 0;
     right: 0;
@@ -44,7 +58,22 @@
     padding: 0.25em 0.5em;
     margin: 0.5em;
   }
+  #popup2 > form {
+    margin-top: 40px;
+  }
+  #popup2 > form input[type="text"],
+  #popup2 > form input[type="email"],
+  #popup2 > form textarea {
+    width: 80%;
+    outline: none;
+    height: 2em;
+    padding: 0.25em 0.5em;
+    margin: 0.5em;
+  }
 
+  #popup2 > form textarea {
+    height: 5em;
+  }
   /* sizes */
   .v-100 {
     height: 100%;
@@ -377,6 +406,11 @@
     background-image: url("../images/industrial.jpg");
     background-size: cover;
   }
+
+  .bg-img-header9 {
+    background-image: url("../images/customer_care.jpg");
+    background-size: cover;
+  }
   .bg-img-header_ {
     background-image: url("../images/training_new.jpg");
     background-size: cover;
@@ -447,6 +481,7 @@
   a.button {
     text-decoration: none;
   }
+
   .error-text {
     color: red;
   }
@@ -551,28 +586,27 @@
     position: relative;
   }
   #expandable {
-    z-index: 99999999;
-    background-color: #132a86;
+    background-color: #6ff1e6;
     text-align: left;
     position: absolute;
     /* left: 0; */
     right: 75px;
     width: 300px;
-    padding: 0.5em;
+    padding: 1em 0.5em;
     /* max-width: 300px; */
   }
   #expandable a,
   #expandable a:visited {
-    color: white;
+    color: #132a86;
     text-decoration: none;
-    width: calc(100% - 0.5em);
-    /* margin-left: -1em; */
+    width: 100%;
     padding: 0.5em;
   }
   #expandable a:hover {
-    background-color: #6ff1e6;
-    color: #132a86;
+    color: white;
+    background-color: #132a86;
     text-decoration: none;
+    margin-left: -0.5em;
   }
   /* layouts */
   .mobile-only {

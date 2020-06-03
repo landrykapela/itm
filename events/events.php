@@ -87,13 +87,14 @@ $html = '<!DOCTYPE html>
     <span class="vspacer"></span>
     <span class="vspacer"></span>
   </div>
+  
   <div
   id="floating-header"
   class="floating-header flex-row flex-between flex-top w-100-no-padding padding-std margin-auto"
 >
   <img src="../images/logo.png" class="logo" alt="ITM logo" />
   <div class="flex-column flex-center flex-end">
-    <div class="flex-row flex-end margin-std-right">
+    <div class="flex-row flex-end margin-std-right desktop-only">
       <img src="../images/tanzania.png" alt="ITM Tanzania" class="flag" />
       <img
         src="../images/rwanda.png"
@@ -135,7 +136,7 @@ $html = '<!DOCTYPE html>
     <nav class="flex-row flex-center margin-std-right" id="navigation">
       <span id="home">Home</span>
       <span id="about">About</span>
-      <span id="services">Services</span>
+      <span id="services">Services<span id="expandable" class="hidden flex-column flex-top flex-start" ><a href="../services.html#hr">Human Resources Solutions</a><a href="../services.html#sales">Sales and Distribution</a><a href="../services.html#industrial">Industrial Solutions</a><a href="../services.html#b2b">Business-2-Business</a></span></span>
       <span id="jobs">Jobs</span>
       <span id="training">Training</span>
       <span id="news" class="active">News & Events</span>

@@ -96,7 +96,7 @@ class="min-width-full v-100  flex-row flex-center"
 $education = DB::getEducationProfile($user['email']);
 echo '<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">';
 if(!$education){
-  echo '<p class="subtitle">Nothing to show</p>';
+  echo '<p class="subtitle text-left">Nothing to show</p>';
 }
 else{
   // echo json_encode($education);
@@ -130,10 +130,10 @@ class="min-width-full v-100  flex-row flex-center"
 $work = DB::getWorkProfile($user['email']);
 // echo "work: ".json_encode($work);
 echo '<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">';
-if(!$work) echo '<p class="subtitle">Nothing to show</p>';
+if(!$work) echo '<p class="subtitle text-left">Nothing to show</p>';
 else{
   for($i=0; $i<sizeof($work);$i++){
-    echo '<span class="subtitle">'.$work[$i]['title'].'</span>';
+    echo '<span class="subtitle text-left">'.$work[$i]['title'].'</span>';
     echo '<span>'.$work[$i]['institution'].'</span>';
     echo '<span>'.DB::getCountry($work[$i]['country']).'</span>';
     echo '<span>'.DB::getMonth($work[$i]['month_start']).' '.$work[$i]['year_start'].' - '.($work[$i]['year_end']== -1 ? 'Present': (DB::getMonth($work[$i]['month_end']).' - '.$work[$i]['year_end'])).'</span>';
@@ -166,10 +166,10 @@ class="min-width-full v-100  flex-row flex-center"
 $reference = DB::getReferenceProfile($user['email']);
 
 echo '<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">';
-if(!$reference) echo '<p class="subtitle">Nothing to show</p>';
+if(!$reference) echo '<p class="subtitle text-left">Nothing to show</p>';
 else{
   for($i=0; $i<sizeof($reference);$i++){
-    echo '<span class="subtitle">'.$reference[$i]['name'].'</span>';
+    echo '<span class="subtitle text-left">'.$reference[$i]['name'].'</span>';
     echo '<span>'.$reference[$i]['title'].'</span>';
     echo '<span>'.$reference[$i]['contact'].'</span>';
     echo '<span>'.$reference[$i]['phone'].'</span>';

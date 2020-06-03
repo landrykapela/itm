@@ -14,6 +14,7 @@
       name="twitter:image"
       content="https://landrykapela.github.io/itm/images/office.jpg"
     />
+    <meta charset="utf-8">
     <meta
       name="keyword"
       content="ITM, ITM Africa, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
@@ -36,13 +37,65 @@
     <title>ITM Tanzania</title>
   </head>
   <body>
+    <div id="form-feedback" class="hidden"></div>
+    <div
+    id="popup2"
+    class="padding-std min-width-full black-bg-transparent flex-column flex-center-flex-middle hidden"
+  >
+    <span class="vspacer"></span>
+    <form action="../admin/contact.php" method="POST"
+      class="margin-auto flex-column flex-middle flex-center w-50 primary-bg padding-std"
+    >
+      <span id="close-popup2" class="round white-bg flex-row flex-center"
+        ><i class="material-icons">close</i></span
+      ><span class="vspacer"></span>
+      <span class="white-text"
+        >Please let us know how we can assist you</span
+      >
+      
+      <span class="vspacer"></span>
+      <input
+        class="round-corner"
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Enter your e-mail address"
+      />
+      <!-- <label for="name">Name</label> -->
+      <input
+        class="round-corner"
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Enter your full name"
+      />
+      <input
+        class="round-corner"
+        type="text"
+        id="phone"
+        name="phone"
+        placeholder="Enter your phone number"
+      />
+      <textarea cols=20 rows=10 id="body" name="body"></textarea>
+      <input
+        class="button primary-bg border-white-all white-text round-corner"
+        type="submit"
+        name="btnContact"
+        id="btnContact"
+        value="SUBMIT"
+      />
+    </form>
+
+    <span class="vspacer"></span>
+    <span class="vspacer"></span>
+  </div>
     <div
     id="floating-header"
     class="floating-header flex-row flex-between flex-top w-100-no-padding padding-std margin-auto"
   >
     <img src="images/logo.png" class="logo" alt="ITM logo" />
     <div class="flex-column flex-center flex-end">
-      <div class="flex-row flex-end margin-std-right">
+      <div class="flex-row flex-end margin-std-right desktop-only">
         <img src="images/tanzania.png" alt="ITM Tanzania" class="flag" />
         <img
           src="images/rwanda.png"
@@ -84,7 +137,7 @@
       <nav class="flex-row flex-center margin-std-right" id="navigation">
         <span id="home">Home</span>
         <span id="about">About</span>
-        <span id="services" class="active">Services</span>
+        <span id="services" class="active">Services<span id="expandable" class="hidden flex-column flex-top flex-start" ><a href="../services.html#hr">Human Resources Solutions</a><a href="../services.html#sales">Sales and Distribution</a><a href="../services.html#industrial">Industrial Solutions</a><a href="../services.html#b2b">Business-2-Business</a></span></span>
         <span id="jobs">Jobs</span>
         <span id="training">Training</span>
         <span id="news">News & Events</span>
@@ -99,12 +152,12 @@
     >
      
       <div
-        class="dark-bg-transparent flex-column flex-center margin-auto flex-middle v-100"
+        class="min-width-full dark-bg-transparent flex-column flex-center margin-auto flex-middle v-100"
       ><span class="vspacer"></span>
       <span class="vspacer"></span>
       <span class="vspacer"></span><span class="vspacer"></span><span class="vspacer"></span>
         <p class="title white-text focus">Our Services</p>
-        <p class="w-75 white-text">We are committed to a perspective of dynamic satisfaction for our customersand we are actively involved in a progressive enhancement for the quality of our products and services. It is within this scope that we run on a customized solution-based approach to companies to assist our partners in solving their operational problems in a permanent, efficient and effectiveway</p></span><span class="vspacer"></span><span class="vspacer"></span><span class="button round-corner primary-bg border-white-all white-text">Get in Touch</span><span class="vspacer"></span>
+        <p class="w-75 white-text">We are committed to a perspective of dynamic satisfaction for our customersand we are actively involved in a progressive enhancement for the quality of our products and services. It is within this scope that we run on a customized solution-based approach to companies to assist our partners in solving their operational problems in a permanent, efficient and effectiveway</p></span><span class="vspacer"></span><span class="vspacer"></span><span id="btnContactUs" class="button round-corner primary-bg border-white-all white-text">Get in Touch</span><span class="vspacer"></span>
       </div>
       
     </header>
@@ -167,7 +220,7 @@
         </div>
         </div>
        <span class="vspacer"></span>
-       <span class="button round-corner primary-bg border-white-all white-text margin-auto">Request a Quote</span>
+       <span id="request_quote1" class="button round-corner primary-bg border-white-all white-text margin-auto">Request a Quote</span>
        
 
     </section>
@@ -195,7 +248,7 @@
             </ul>
        </p>
        </div>
-       <span class="button round-corner border-white-all white-text margin-auto">Request a Quote</span>
+       <span id="request_quote2" class="button round-corner border-white-all white-text margin-auto">Request a Quote</span>
        <span class="vspacer"></span>
       </section>
       <section class="min-width-full bg-img-header8 white-text flex-column flex-middle flex-center " id="industrial">
@@ -225,7 +278,7 @@
             <p class="text-small ">E-platforms, digital media and engineered innovations.</p>
          </div>
      </div>
-       <span class="button round-corner primary-bg border-white-all white-text margin-auto">Request a Quote</span>
+       <span  id="request_quote3" class="button round-corner primary-bg border-white-all white-text margin-auto">Request a Quote</span>
        <span class="vspacer"></span>
     </section>
     <section  class="min-width-full flex-column flex-center flex-center padding-std accent-bg " id="b2b">
@@ -260,9 +313,9 @@
        </ul>
       </div>
       <span class="vspacer"></span>
-       <span class="button round-corner primary-bg border-white-all white-text margin-auto">Request a Quote</span>
+       <span  id="request_quote4" class="button round-corner primary-bg border-white-all white-text margin-auto">Request a Quote</span>
     </section>
-    <section  class="min-width-full flex-column flex-center flex-top margin-auto padding-std white-bg " id="consultation">
+    <section  class="min-width-full flex-column flex-center flex-top margin-auto padding-std bg-img-header9 " id="consultation">
       <div class="w-100 flex-row flex-space flex-top margin-std">
         <p class="title text-center primary-text ">Schedule A Free Consultation</p>
         </div>
@@ -290,6 +343,17 @@
     </div>
 
     <script src="js/general.js"></script>
-    
+    <script>
+      window.addEventListener("load",()=>{
+        console.log("loaded...",window.location.search);
+        if(window.location.search && window.location.search.length > 0){
+          let feedback = decodeURI(window.location.search.split("=")[1]);
+          const fbContainer = document.getElementById("form-feedback");
+          fbContainer.textContent = feedback;
+          fbContainer.classList.remove('hidden');
+          fbContainer.classList.add("can-fade");
+        }
+      });
+    </script>
   </body>
 </html>

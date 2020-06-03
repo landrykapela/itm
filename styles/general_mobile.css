@@ -22,8 +22,9 @@
       cursor: pointer;
       position:fixed;
       top:2em;right:2em;
+      z-index: 999999999999999999999999999;
   }
-  #popup {
+  #popup,#popup2 {
     /* display: none; */
     position: fixed;
     width: 100%;
@@ -74,13 +75,10 @@
     overflow: hidden;
   }
   .w-100,
-  .w-75,.w-50,
+  .w-75,.w-50,.w-40,
   .w-25{
     width: calc(100% - 1em);
-  }
-  .w-50,
-  .w-25 {
-    margin:2em;
+    padding:1em;
   }
 
   .w-100-no-padding,
@@ -119,11 +117,22 @@
     width: 100%;
     /* margin: 2em -2em -2em 2em; */
   }
+  .item-image {
+    width: 180px;
+    height: 160px;
+    border-radius: 50%;
+  }
   /* logo */
   .logo {
+    padding: 1em;
     width: 80px;
   }
   /* menu bar */
+  #floating-header{
+    /* margin-top:30em; */
+    display: flex;
+    flex-direction: column;
+  }
   #expandable{
     display: none;
   }
@@ -133,7 +142,7 @@
     margin:0 auto;
     width:100%;
     position:fixed;
-    top:4em;z-index:9999999;
+    top:2em;z-index:99999999999999999;
     overflow: hidden;
   }
   #navigation span{
@@ -343,6 +352,23 @@
     background-image: url("../images/banner3.jpg");
     background-size: cover;
   }
+  .bg-img-header7 {
+    background-image: url("../images/ladies.jpg");
+    background-size: cover;
+  }
+  .bg-img-header8 {
+    background-image: url("../images/industrial.jpg");
+    background-size: cover;
+  }
+
+  .bg-img-header9 {
+    background-image: url("../images/customer_care.jpg");
+    background-size: cover;
+  }
+  .bg-img-header_ {
+    background-image: url("../images/training_new.jpg");
+    background-size: cover;
+  }
   .bg-img-team {
     background-image: url("../images/team-image.jpg");
     background-size: cover;
@@ -408,7 +434,7 @@
     text-align: center;
   }
   .text-left {
-    /* text-align: left; */
+    text-align: left;
   }
   /* .text-right {
     text-align: right;

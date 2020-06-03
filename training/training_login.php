@@ -59,7 +59,7 @@ class="floating-header flex-row flex-between flex-top w-100-no-padding padding-s
 >
 <img src="../images/logo.png" class="logo" alt="ITM logo" />
 <div class="flex-column flex-center flex-end">
-  <div class="flex-row flex-end margin-std-right">
+  <div class="flex-row flex-end margin-std-right desktop-only">
     <img src="../images/tanzania.png" alt="ITM Tanzania" class="flag" />
     <img
       src="../images/rwanda.png"

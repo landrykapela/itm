@@ -127,7 +127,7 @@ echo '<p class="error-text">'.$msg.'</p>';
 echo '<section class="w-100 margin-std " id="candidates">
 <p class="title primary-text"></p>
 <table class="w-100 margin-auto text-left">
-    <thead class="primary-bg white-text"><tr><td>Title/Theme</td><td>Description</td><td>Start Date</td><td>End Date</td></tr></thead>
+    <thead class="primary-bg white-text"><tr><td>Title/Theme</td><td class="desktop-only">Description</td><td>Start Date</td><td>End Date</td></tr></thead>
     <tbody>';
 
 if(!$programs || count($programs) == 0){
@@ -137,7 +137,7 @@ else{
 for($i=0;$i<sizeof($programs);$i++){
   $program = $programs[$i];
   
-  echo '<tr><td><a class="plain-link" href="training_detail.php?id='.$program['id'].'">'.$program['title'].'</a></td><td><a href="training_detail.php?id='.$program['id'].'">'.(strlen($program['description']) > 72 ? substr($program['description'],0,72) : $program['description']).'</a></td><td><a href="training_detail.php?id='.$program['id'].'">'.date('d M Y',$program['start_date']).'</a></td><td><a href="training_detail.php?id='.$program['id'].'">'.date('d M Y',$program['end_date']).'</a></td></tr>';
+  echo '<tr><td><a class="plain-link" href="training_detail.php?id='.$program['id'].'">'.$program['title'].'</a></td><td class="desktop-only"><a class="plain-link" href="training_detail.php?id='.$program['id'].'">'.(strlen($program['description']) > 72 ? substr($program['description'],0,72) : $program['description']).'</a></td><td><a class="plain-link" href="training_detail.php?id='.$program['id'].'">'.date('d M Y',$program['start_date']).'</a></td><td><a class="plain-link" href="training_detail.php?id='.$program['id'].'">'.date('d M Y',$program['end_date']).'</a></td></tr>';
   }
 }
         
