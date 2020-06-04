@@ -37,6 +37,7 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -59,7 +60,7 @@ class="floating-header flex-row flex-between flex-top w-100-no-padding padding-s
 >
 <img src="../images/logo.png" class="logo" alt="ITM logo" />
 <div class="flex-column flex-center flex-end">
-  <div class="flex-row flex-end margin-std-right desktop-only">
+  <div class="flex-row flex-end margin-std-right no-mobile">
     <img src="../images/tanzania.png" alt="ITM Tanzania" class="flag" />
     <img
       src="../images/rwanda.png"

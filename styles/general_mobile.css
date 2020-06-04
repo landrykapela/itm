@@ -492,7 +492,7 @@
  
   /* layouts */
 
-  .desktop-only{
+  .desktop-only,.large-only,.no-mobile{
     display:none;
   }
   .squares {

@@ -21,6 +21,7 @@ echo '<!DOCTYPE html>
     />
     <link href="../styles/general.css" rel="stylesheet" />
     <link href="../styles/general_mobile.css" rel="stylesheet" />
+    <link href="../styles/general_large.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="../slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css" />
     <link
@@ -42,7 +43,7 @@ echo '<!DOCTYPE html>
   >
     <img src="../images/logo.png" class="logo" alt="ITM logo" />
     <div class="flex-column flex-center flex-end">
-      <div class="flex-row flex-end margin-std-right desktop-only">
+      <div class="flex-row flex-end margin-std-right no-mobile">
         <img src="../images/tanzania.png" alt="ITM Tanzania" class="flag" />
         <img
           src="../images/rwanda.png"

@@ -35,6 +35,7 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"

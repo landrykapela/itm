@@ -1,4 +1,4 @@
-@media only screen and (min-width: 767px) {
+@media only screen and (min-width: 1281px) {
   body {
     width: 100%;
     background-color: white; /*#132a86;*/
@@ -9,6 +9,7 @@
     font-family: "Open sans", sans-serif;
     scroll-behavior: smooth;
     overflow-x: hidden;
+    font-size: 1em;
   }
   #menu {
     display: none;
@@ -20,6 +21,7 @@
     left: 0;
     right: 0;
     text-align: center;
+    /* background-color: red; */
     background-color: #6ff1e6;
     color: black;
     padding: 1em;
@@ -329,7 +331,7 @@
   h1,
   h2 {
     font-family: "Open Sans", sans-serif;
-    font-size: 2rem;
+    font-size: 2.5em;
   }
   h3,
   h4,
@@ -340,14 +342,14 @@
     margin-bottom: -3em;
   }
   .title {
-    font-size: 2rem;
+    font-size: 3rem;
     margin-bottom: 0.5em;
   }
   .subtitle {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
   .text-small {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   .focus {
     font-weight: bolder;
@@ -610,10 +612,9 @@
   }
   /* layouts */
   .mobile-only,
-  .large-only {
+  .desktop-only {
     display: none;
   }
-
   .horizontal-scroll-wrapper {
     animation: myscroll 5s linear forwards;
     width: 100%;
@@ -622,11 +623,11 @@
     border-left: 1px solid red;
   }
   /* .horizontal-scroll-wrapper > div {
-  width: 100px;
-  height: 100px;
-  transform: rotate(90deg);
-  transform-origin: right top;
-} */
+    width: 100px;
+    height: 100px;
+    transform: rotate(90deg);
+    transform-origin: right top;
+  } */
   .squares {
     padding: 2px;
     display: block;
@@ -674,11 +675,9 @@
     position: relative;
     bottom: 0;
   }
-  /* header {
-  width: calc(100% - 5em);
-  padding: 0.5em;
-  margin: 0 auto;
-} */
+  header {
+    height: 80vh;
+  }
   .floating-header {
     position: fixed;
     top: 0;
@@ -712,7 +711,7 @@
   }
   .copyright {
     padding: 1em;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
   main,
   section {
@@ -723,7 +722,7 @@
     padding: 1em;
     display: block;
     /* background-image: url("../images/title_tag.png");
-  background-size: cover; */
+    background-size: cover; */
   }
 
   .can-go-right {
