@@ -206,9 +206,9 @@ if (backToTop) {
 
 window.addEventListener("scroll", (e) => {
   if (window.scrollY > 0.1 * window.innerHeight) {
-    document.getElementById("floating-header").classList.add("primary-bg");
+    document.getElementById("floating-header").classList.add("white-bg");
   } else
-    document.getElementById("floating-header").classList.remove("primary-bg");
+    document.getElementById("floating-header").classList.remove("white-bg");
   if (window.scrollY > 0.75 * window.innerHeight) {
     backToTop.classList.remove("hidden");
   } else backToTop.classList.add("hidden");
@@ -219,7 +219,6 @@ const nav2 = document.getElementById("navigation2");
 const menuButton2 = document.getElementById("menu2");
 if (menuButton) {
   menuButton.addEventListener("click", (event) => {
-    
     if (nav.style.display === "none") {
       nav.style.display = "flex";
       menuButton.innerHTML = '<i class="material-icons">close</i>';
@@ -231,7 +230,7 @@ if (menuButton) {
 }
 if (menuButton2) {
   menuButton2.addEventListener("click", (event) => {
-      console.log("received");
+    console.log("received");
     if (nav2.style.display === "none") {
       nav2.style.display = "flex";
       nav2.classList.remove("flex-row");
