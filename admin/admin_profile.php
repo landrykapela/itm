@@ -36,6 +36,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <!-- // Add the new slick-theme.css if you want the default styling -->
 <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css" />
@@ -57,17 +59,17 @@ echo '<!DOCTYPE html>
   class="min-width-full flex-column flex-top flex-start margin-auto"
 >
   <div
-    class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
+    class="flex-row flex-start flex-middle w-100 padding-std margin-auto"
   >
     
-  <nav class="flex-row flex-center white-bg" id="navigation">
+  <nav class="flex-row flex-center white-bg" id="navigation2">
   <a href="admin_account.php" >Account</a>
-  <a href="..events/events_admin.php" >Events</a>
+  <a href="../events/events_admin.php" >Events</a>
   <a href="../training/training_admin.php" >Training</a>
-  <a href="../jobs/job_listings.php">Jobs</a>
+  <a href="admin.php">Jobs</a>
   <a href="signout.php" >Signout</a>
 </nav>
-    <span id="menu"><i class="material-icons">menu</i></span>
+    <span id="menu2"><i class="material-icons primary-text mobile-only">menu</i></span>
   </div>
 </header>
     
@@ -136,7 +138,7 @@ else{
     echo '<span>'.$work[$i]['institution'].'</span>';
     echo '<span>'.DB::getCountry($work[$i]['country']).'</span>';
     echo '<span>'.DB::getMonth($work[$i]['month_start']).' '.$work[$i]['year_start'].' - '.DB::getMonth($work[$i]['month_end']).' '.$work[$i]['year_end'].'</span>';
-    echo '<span class="text-left">'.$work[$i]['tasks'].'</span>';
+    echo '<br/><span class="text-left">'.str_replace("\r\n","<br/>",$work[$i]['tasks']).'</span>';
     echo '<span class="vspacer-small"></span>';
     echo '<span class="vspacer-small"></span>';
   }

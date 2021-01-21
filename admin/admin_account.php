@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set("display_errors",1);
+// ini_set("display_errors",1);
 require('../libs/manager.php');
 $msg = "";
 $location = ((isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') ? "https://" : "http://");
@@ -36,6 +36,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -55,13 +57,13 @@ echo '<!DOCTYPE html>
   class="min-width-full flex-column flex-top flex-start margin-auto"
 >
   <div
-    class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
+    class="flex-row flex-start flex-middle w-100 padding-std margin-auto"
   >
   <nav class="flex-row flex-center white-bg" id="navigation">
   <a href="admin_account.php" >Account</a>
   <a href="../events/events_admin.php" >Events</a>
   <a href="../training/training_admin.php" >Training</a>
-  <a href="../jobs/job_listings.php">Jobs</a>
+  <a href="admin.php">Jobs</a>
   <a href="signout.php" >Signout</a>
 </nav>
     <span id="menu"><i class="material-icons">menu</i></span>
@@ -112,9 +114,13 @@ class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
 <p class="title">Group Mail</p><span class="text-left white-text">Send group mail to recipients in mailing list</span>
+';
+// $recipients = DB::getMailingList();
+// for($i=0;$i<sizeof($recipients);$i++){
+//     echo $recipients[$i]['email'].",";
+// }
 
-
-</div>
+echo '</div>
 <div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">
 <form class="w-100 margin-auto text-left" action="" method="POST">
 <span class="vspacer"></span>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set("display_errors",1);
+// ini_set("display_errors",1);
 require('../libs/manager.php');
 $location = "Location: ".($_SERVER['HTTPS'] ? "https://":"http://");
 $location .= $_SERVER['HTTP_HOST']."/jobs/signup.html#login";
@@ -16,6 +16,44 @@ else{
     $user = DB::getUser($_SESSION['user']);
     $job_id = $_GET['jid'];
     $job = DB::getJobById($job_id);
+
+$message = "";
+if(isset($_POST['btnSaveJob'])){
+
+    $contact = filter_var($_POST['contact'],FILTER_SANITIZE_STRING);
+    if(!filter_var($contact,FILTER_VALIDATE_EMAIL)){
+        $message = "Invalid e-mail address";
+    
+    }
+    else{
+    $position = filter_var($_POST['position'],FILTER_SANITIZE_STRING);
+    $description = filter_var($_POST['description'],FILTER_SANITIZE_STRING);
+    $company = filter_var($_POST['company'],FILTER_SANITIZE_STRING);
+    $deadline = strtotime($_POST['deadline']);
+    $j = array();
+    $j['position'] = $position;
+    $j['description'] = $description;
+    $j['company'] = $company;
+    $j['contact'] = $contact;
+    $j['deadline'] = $deadline;
+    $j['last_updated'] = time();
+    
+    $action = DB::updateJob($j,$job_id);
+    if(!$action){
+        $message = "Something went wrong";
+        
+    }
+    else{
+        $message = "Job successfully updated!";
+        $job = $action;
+    }
+    }
+}
+if(isset($_POST['btnDeleteJob'])){
+    $action = DB::deleteJob($job_id);
+    if($action) $message = "Job post successfully deleted!";
+    else $message = "Could not delete this job post! Please check with the platform admin.";
+}
     
 echo '<!DOCTYPE html>
 <html lang="en">
@@ -39,6 +77,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <!-- // Add the new slick-theme.css if you want the default styling -->
 <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css" />
@@ -75,39 +115,6 @@ echo '<!DOCTYPE html>
   </div>
   
 </header>';
-
-$message = "";
-if(isset($_POST['btnSaveJob'])){
-
-    $contact = filter_var($_POST['contact'],FILTER_SANITIZE_STRING);
-    if(!filter_var($contact,FILTER_VALIDATE_EMAIL)){
-        $message = "Invalid e-mail address";
-    
-    }
-    else{
-    $position = filter_var($_POST['position'],FILTER_SANITIZE_STRING);
-    $description = filter_var($_POST['description'],FILTER_SANITIZE_STRING);
-    $company = filter_var($_POST['company'],FILTER_SANITIZE_STRING);
-    $deadline = strtotime($_POST['deadline']);
-    $j = array();
-    $j['position'] = $position;
-    $j['description'] = $description;
-    $j['company'] = $company;
-    $j['contact'] = $contact;
-    $j['deadline'] = $deadline;
-    $j['last_updated'] = time();
-    
-    $action = DB::updateJob($j,$job_id);
-    if(!$action){
-        $message = "Something went wrong";
-        
-    }
-    else{
-        $message = "Job successfully updated!";
-        $job = $action;
-    }
-    }
-}
 
 echo '
 <section class="min-width-full margin-auto flex-row flex-start flex-middle primary-bg">
@@ -183,6 +190,11 @@ echo'  <input value="'.date('d M Y',$job['deadline']).'" onfocus="'.$focus.'" on
     id="btnSaveJob"
     class="form-control button border-white-all round-corner text-center primary-bg white-text"
     value="SAVE" />
+    <input type="submit"
+    name="btnDeleteJob"
+    id="btnDeleteJob"
+    class="form-control button border-white-all round-corner text-center alert-bg white-text"
+    value="DELETE" />
   <a
     href="../admin/admin.php"
     class="plain-link text-center round-corner primary-text"

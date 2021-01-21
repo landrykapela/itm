@@ -37,6 +37,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -55,19 +57,18 @@ echo '<!DOCTYPE html>
   id="header"
   class="min-width-full flex-column flex-top flex-start margin-auto"
 >
-  <div
-    class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
+   <div
+    class="flex-row flex-start flex-middle w-100 padding-std margin-auto"
   >
     
-      
-  <nav class="flex-row flex-center white-bg" id="navigation">
+  <nav class="flex-row flex-center white-bg" id="navigation2">
   <a href="admin_account.php" >Account</a>
   <a href="../events/events_admin.php" >Events</a>
   <a href="../training/training_admin.php" >Training</a>
-  <a href="../jobs/job_listings.php">Jobs</a>
+  <a href="admin.php">Jobs</a>
   <a href="signout.php" >Signout</a>
 </nav>
-    <span id="menu"><i class="material-icons">menu</i></span>
+    <span id="menu2"><i class="material-icons primary-text mobile-only">menu</i></span>
   </div>
   
 </header>';

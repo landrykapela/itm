@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set("display_errors",1);
+// ini_set("display_errors",1);
 require('../libs/manager.php');
 $isAdmin = false;
 if(!isset($_SESSION['app'])){
@@ -50,6 +50,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"

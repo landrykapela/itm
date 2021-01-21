@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set("display_errors",1);
+// ini_set("display_errors",1);
 require('../libs/manager.php');
 $location = "Location: ".(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS'])=="on" ? "https://":"http://");
 $location .= $_SERVER['HTTP_HOST']."/jobs/signup.html#login";
@@ -34,6 +34,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -91,7 +93,7 @@ echo '<section class="w-100 margin-std " id="">
 <div class="form-group flex-row flex-start  padding-small">
   <span for="description" class="text-right padding-small w-50 primary-text">Job Description</span>
   <span class=" padding-small w-50"
-  >'.$job['description'].'</span>
+  >'.str_replace("\r\n","<br/>",$job['description']).'</span>
 </div>
 <div class="form-group flex-row flex-start  padding-small">
   <span for="company" class="text-right padding-small w-50 primary-text">Company</span>
@@ -108,9 +110,10 @@ echo '<section class="w-100 margin-std " id="">
   </span>
 </div>
 <span class="vspacer"></span>';
+echo '<div class="form-group flex-row flex-space flex-middle margin-auto">';
 if($admin){
-echo '<div class="form-group flex-row flex-space flex-middle">
-  <a class="round-corner text-center button border-white-all primary-bg white-text"
+
+echo'  <a class="round-corner text-center button border-white-all primary-bg white-text"
     href="edit_job.php?jid='.$job['id'].'"
     >EDIT</a>';
 }
@@ -120,7 +123,7 @@ echo '<div class="form-group flex-row flex-space flex-middle">
     >CLOSE</a>' : '<a
     href="job_listings.php"
     class="plain-link text-center primary-text"
-    >CLOSE</a>';
+    >CLOSE</a><a class="plain-link text-center primary-text" href="apply.php?cid='.$user['id'].'&jid='.$job_id.'">APPLY</a>';
 echo $back .'</div>
 <span class="vspacer"></span>
 </div>';

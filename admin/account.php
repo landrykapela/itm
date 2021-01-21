@@ -32,6 +32,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -51,7 +53,7 @@ echo '<!DOCTYPE html>
   class="min-width-full flex-column flex-top flex-start margin-auto"
 >
   <div
-    class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
+    class="flex-row flex-start flex-middle w-100 padding-std margin-auto"
   >
     
     <nav class="flex-row flex-center white-bg" id="navigation">
@@ -68,8 +70,10 @@ echo ' <section
 class="min-width-full v-100  flex-row flex-center"
 >
 <div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
-<p class="title">Personal Info</p><a class="button primary-bg border-white-all round-corner" href="edit_profile.php?e='.$user['id'].'">Edit</a>
-
+<p class="title">Personal Info</p>
+<div class="flex-row flex-space margin-small">
+<a class="button primary-bg border-white-all round-corner" href="edit_profile.php?e='.$user['id'].'">Edit</a>&nbsp;&nbsp;<a class="button primary-bg border-white-all round-corner" href="edit_profile.php?d='.$user['id'].'">Delete My Account</a>
+</div>
 
 </div>
 <div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">

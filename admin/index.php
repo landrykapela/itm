@@ -17,11 +17,11 @@ if(isset($_POST['submit'])){
         $name = filter_var($_POST['name'],FILTER_SANITIZE_STRING);
     $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
     $password = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
-        $subscribe = ($_POST['subscribe'] == 1) ? true : false;
+        $subscribe = (isset($_POST['subscribe']) && $_POST['subscribe'] == 1) ? true : false;
 
     $encrypted_password = password_hash($password,PASSWORD_BCRYPT);
 
-    $action = DB::createUser($email,$name,$phone,$encrypted_password,$subscribe);
+   $action = DB::createUser($email,$name,$phone,$encrypted_password,$subscribe);
 
     if($action){
         session_start();

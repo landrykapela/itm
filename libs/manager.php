@@ -22,7 +22,7 @@ class DB{
         echo "Cool";
     }
     static function connect(){
-        $connect = mysqli_connect(HOST,USER,DB,PWORD) or die("Unable to connect to database ".mysqli_error());
+        $connect = mysqli_connect(HOST,USER,PWORD,DB) or die("Unable to connect to database ");
         return $connect;
     }
 
@@ -42,8 +42,20 @@ class DB{
         }
         
     }
+    static function activateMailingListItem($email){
+        $sql = "update mailing_list set status=1 where email='".$email."'";
+        $query = mysqli_query(self::connect(),$sql);
+        if($query) return true;
+        else return false;
+    }
+      static function deactivateMailingListItem($email){
+        $sql = "update mailing_list set status=0 where email='".$email."'";
+        $query = mysqli_query(self::connect(),$sql);
+        if($query) return true;
+        else return false;
+    }
     static function getMailingList(){
-        $sql = "select email,name from mailing_list";
+        $sql = "select email,name from mailing_list where status=1";
         $query = mysqli_query(self::connect(),$sql);
         $result = array();
         if($query){
@@ -118,7 +130,9 @@ class DB{
                           href="https://fonts.googleapis.com/css?family=Robot|Montserrat|Open+Sans&display=swap"
                           rel="stylesheet"
                         />
-                        <link rel="icon" href="images/favicon.png" />
+                        <link href="https://itmafrica.co.tz/styles/general.css rel="stylesheet"/>
+                        <link href="https://itmafrica.co.tz/styles/general_large.css rel="stylesheet"/><link href="https://itmafrica.co.tz/styles/general_mobile.css rel="stylesheet"/>
+                        <link rel="icon" href="https://itmafrica.co.tz/images/favicon.png" />
                     
                         <title>ITM Tanzania - Newsletter</title>
                       </head><body>
@@ -129,7 +143,7 @@ class DB{
       <div
         class="white-bg flex-row flex-between flex-middle w-100 padding-std margin-auto"
       >
-        <img src="images/logo.png" class="logo" alt="ITM logo" />
+        <img src="https://itmafrica.co.tz/images/logo.png" class="logo" alt="ITM logo" />
         
       </div>
     </header>
@@ -140,18 +154,29 @@ class DB{
                       <div></section>';
                       
                       
-                      $recipients = self::getMailingList();
+                      $recipients = array();
+                      $list = self::getMailingList();
+                      for($i=0; $i<sizeof($list);$i++){
+                          $l = $list[$i];
+                          $recipients[] = $l['email'];
+                      }
+                    
                       $headers  = 'MIME-Version: 1.0' . "\r\n";
                       $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                        
                       // Create email headers
-                      $headers .= 'From: events@itmtanzania.co.tz'."\r\n".
+                      $headers .= 'From: customercare@itmtanzania.co.tz'."\r\n".
                           'Reply-To: no-reply@itmtanzania.co.tz'."\r\n" .
                           'X-Mailer: PHP/' . phpversion();
 
                           $html_message = $html_head . $html_message;
+                          $to = "";
+                          for($i=0;$i<sizeof($recipients);$i++){
+                              if($i < sizeof($recipients)-1) $to .= $recipients[$i]['email'].", ";
+                              else $recipients[$i]['email'];
+                          }
 
-                          $action = mail($recipients[1]['email'],$subject,$html_message,$headers);
+                          $action = mail($to,$subject,$html_message,$headers);
                     if($action){
                         $result['status'] = true;
                         $result['message'] = "Email was sent successfully";
@@ -169,7 +194,8 @@ class DB{
     //users
     static function createUser($email,$name,$phone,$password,$subscribe){
         $sql = "insert into user (email,name,phone,password) values ('".$email."','".$name."','".$phone."','".$password."')";
-        $query = mysqli_query(self::connect(),$sql);
+        $con = self::connect();
+        $query = mysqli_query($con,$sql);
         if($query){
             if($subscribe) self::addToMailingList($email,$name);
             return true;
@@ -200,13 +226,14 @@ class DB{
         $query = mysqli_query(self::connect(),$sql);
         if(mysqli_num_rows($query) > 0){
             $password = self::randomPassword();
-            echo $password;
+            
             $hash = password_hash($password,PASSWORD_BCRYPT);
             $sql2 = "update user set password ='".$hash."' where email='".$email."'";
             $query2 = mysqli_query(self::connect(),$sql2);
             if($query2){
-                $mail = mail($email,"Password Reset","Your password has been reset. Please use ".$password." next time you login");
-                return $mail;
+                $headers ="From: ITM Tanzania\r\nReply-To: noreply@itmafrica.co.tz\r\n";
+                mail($email,"Password Reset","Your password has been reset. Please use ".$password." next time you login",$headers);
+                return true;
             }
             else return false;
         }
@@ -236,6 +263,23 @@ class DB{
             return mysqli_fetch_array($query);
         }
         else return false;
+    }
+    // delete user account; use carefully
+    static function deleteUser($userid){
+        $user = self::getUserById($userid);
+        if(!$user){
+            return false;
+        }
+        else{
+            $query = mysqli_query(self::connect(),"delete from user where email='".$user['email']."'");
+            if($query){
+                mysqli_query(self::connect(),"delete from work where email='".$user['email']."'");
+                mysqli_query(self::connect(),"delete from education where email='".$user['email']."'");
+                mysqli_query(self::connect(),"delete from reference where email='".$user['email']."'");
+                 mysqli_query(self::connect(),"delete from mailing_list where email='".$user['email']."'");
+                return true;
+            }
+        }
     }
     static function updateUserInfo($id,$data){
         if($data == null){
@@ -555,7 +599,7 @@ class DB{
     }
 
     static function searchCandidates($options){
-        $sql = "select u.id,u.name,u.email,u.phone,e.level,e.major,e.institution,e.title from user as u left join education as e on e.user where u.id=e.user and u.id <>1 ";
+        $sql = "select u.id,u.name,u.email,u.phone,e.level,e.major,e.institution,e.title from user as u left join education as e on e.user where u.id=e.user and u.id <>1 order by u.name asc";
         if($options != null){
             $condition = "";
             
@@ -697,7 +741,7 @@ class DB{
         else return false;
     }
     static function listCandidates(){
-        $sql = "select * from user where id <> 1 order by name asc";
+        $sql = "select * from user where id <> 1 order by id desc";
         $query = mysqli_query(self::connect(),$sql);
         $result = array();
         while($row = mysqli_fetch_row($query)){
@@ -713,7 +757,7 @@ class DB{
 //training programs
     static function getTrainingPrograms(){
         
-        $sql = "select * from training where status = 0 order by start_date desc";
+        $sql = "select * from training where status = 0 order by start_date asc";
         $query= mysqli_query(self::connect(),$sql);
         if($query){
             
@@ -963,6 +1007,16 @@ class DB{
             }else return false;
     }
 
+    //delete job
+    static function deleteJob($jid){
+        $sql = "update jobs set status=1 where id=".$jid;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query){
+            return true;
+        }
+        else return false;
+    }
+
     //get job by id
     static function getJobById($jid){
         $result = array();
@@ -990,7 +1044,7 @@ class DB{
     static function getJobListings(){
         $result = array();
         $deadline = time();
-        $sql = "select * from jobs where deadline >= ".$deadline." order by date_created desc";
+        $sql = "select * from jobs where status=0 and deadline >= ".$deadline." order by date_created desc";
         $query = mysqli_query(self::connect(),$sql);
         if($query){
             while($r=mysqli_fetch_row($query)){
@@ -1033,6 +1087,59 @@ class DB{
         else return false;
     }
 
+    // check if job application already exists
+    static function jobAppExists($cid,$jid){
+        $sql = "select * from job_applications where candidate_id=".$cid." and job_id=".$jid;
+        $query = mysqli_query(self::connect(),$sql);
+        if($query && mysqli_num_rows($query) > 0) return true;
+        else return false;
+    }
+    //create job application
+    static function applyJob($candidate_id,$job_id){
+        $date_created = time();
+        $sql = 'insert into job_applications (job_id,candidate_id,date_created) values('.$job_id.','.$candidate_id.','.$date_created.')';
+        $query = mysqli_query(self::connect(),$sql);
+        if($query) return true;
+        else return false;
+    }
+
+    //get list of job applications
+    static function getJobApplications($job_id){
+        $sql = "select u.id as uid,u.name,u.email,u.phone,j.id as jid,j.position,j.company,ja.id as jaid,ja.date_created,ja.status from user as u join job_applications as ja on u.id = ja.candidate_id join jobs as j on j.id=ja.job_id";
+        if($job_id != null) $sql .= " where j.id=".$job_id;
+        $result = array();
+        $query = mysqli_query(self::connect(),$sql);
+        if(mysqli_num_rows($query) > 0){
+            while($r = mysqli_fetch_row($query)){
+                $rs['uid'] = $r[0];
+                $rs['name'] = $r[1];
+                $rs['email'] = $r[2];
+                $rs['qualification'] = self::getHighestQualification($r[2]);
+                $rs['phone'] = $r[3];
+                $rs['jid'] = $r[4];
+                $rs['position'] = $r[5];
+                $rs['company'] = $r[6];
+                $rs['jaid'] = $r[7];
+                $rs['date_created'] = $r[8];
+                $rs['status'] = self::getJobApplicationStatus($r[9]);
+                $result[] = $rs;
+            }
+            return $result;
+        }
+        else return false;
+    }
+
+    //get job application status
+    static function getJobApplicationStatus($status_id){
+        switch($status_id){
+            case 0:
+                return "Received";
+            case 1:
+                return "Accepted";
+            case 2: 
+                return "Rejected";
+        }
+    }
 //end jobs
 
 //start applications
@@ -1621,7 +1728,7 @@ static function searchApplications($options){
         
     }
     static function getLevels(){
-        $levels = array("Doctorate","Master","Bachelor","Diploma","Certificate");
+        $levels = array("Doctorate","Master","Bachelor","Diploma","Certificate","ACSEE Certificate","CSEE Certificate");
         return $levels;
     }
     static function months(){

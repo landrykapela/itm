@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set("display_errors",1);
+// ini_set("display_errors",1);
 require('../libs/manager.php');
 $location = "Location: ".(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS'])=="on" ? "https://":"http://");
 $location .= $_SERVER['HTTP_HOST']."/jobs/signup.html#login";
@@ -28,9 +28,10 @@ echo '<!DOCTYPE html>
       name="keyword"
       content="ITM, ITM Africa, Jobs, empolyment, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
     />
-    <link href="../styles/general.css" rel="stylesheet" />
-    <link href="../styles/general_mobile.css" rel="stylesheet" />
-    
+<link href="../styles/general.css" rel="stylesheet" />
+<link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -49,18 +50,18 @@ echo '<!DOCTYPE html>
       class="min-width-full flex-column flex-top flex-start margin-auto"
     >
       <div
-        class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
-      >
-        
-      <nav class="flex-row flex-center white-bg" id="navigation">
-      <a href="admin_account.php" >Account</a>
-      <a href="../events/events_admin.php" >Events</a>
-      <a href="../training/training_admin.php" >Training</a>
-      <a href="../jobs/job_listings.php">Jobs</a>
-      <a href="signout.php" >Signout</a>
-    </nav>
-        <span id="menu"><i class="material-icons">menu</i></span>
-      </div>
+    class="flex-row flex-start flex-middle w-100 padding-std margin-auto"
+  >
+    
+  <nav class="flex-row flex-center white-bg" id="navigation2">
+  <a href="admin_account.php" >Account</a>
+  <a href="../events/events_admin.php" >Events</a>
+  <a href="../training/training_admin.php" >Training</a>
+  <a href="admin.php">Jobs</a>
+  <a href="signout.php" >Signout</a>
+</nav>
+    <span id="menu2"><i class="material-icons primary-text mobile-only">menu</i></span>
+  </div>
     </header>
     
 ';
@@ -105,7 +106,7 @@ class="min-width-full v-100  flex-row flex-center"
 
 </div>
 <div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">
-<form class="w-100 flex-column flex-start flex-top accent-bg dark-text padding-std" action="" method="POST">
+<form class="w-70 flex-column flex-start flex-top accent-bg dark-text padding-std" action="" method="POST">
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="name">Full Name</label>
 <input type="text" name="name" id="name" placeholder="Full name..." value="'.$user['name'].'" class="w-100 form-control padding-small"/>
@@ -113,7 +114,7 @@ class="min-width-full v-100  flex-row flex-center"
 
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="email">E-mail</label>
-<input type="email" name="email" id="email" placeholder="Email..." value="'.$user['email'].'" class="w-100 form-control padding-small"/>
+<input type="text" name="email" id="email" placeholder="Email..." value="'.$user['email'].'" class="w-100 form-control padding-small"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="phone">Phone</label>

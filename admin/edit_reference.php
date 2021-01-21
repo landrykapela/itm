@@ -45,9 +45,10 @@ echo '<!DOCTYPE html>
       name="keyword"
       content="ITM, ITM Africa, Jobs, empolyment, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
     />
-    <link href="../styles/general.css" rel="stylesheet" />
-    <link href="../styles/general_mobile.css" rel="stylesheet" />
-    
+<link href="../styles/general.css" rel="stylesheet" />
+<link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -66,7 +67,7 @@ echo '<!DOCTYPE html>
       class="min-width-full flex-column flex-top flex-start margin-auto"
     >
       <div
-        class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
+        class="flex-row flex-start flex-middle w-100 padding-std margin-auto"
       >
         
         <nav class="flex-row flex-center white-bg" id="navigation">
@@ -134,43 +135,43 @@ if(isset($_POST['submitDel'])){
 echo ' <span class="error-text">'.$msg.'</span><section
 class="min-width-full v-100  flex-row flex-center"
 >
-<div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
+<div class="w-40  padding-std flex-column flex-top flex-middle  primary-bg white-text">
 <p class="title">Reference</p><a class="button primary-bg border-white-all round-corner" href="profile.php">Close</a>
 
 
 </div>
 <div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">
-<form class="w-100 flex-column flex-start flex-top accent-bg dark-text padding-std" action="" method="POST">
+<form class="margin-auto w-80 flex-column flex-start flex-top accent-bg dark-text padding-std" action="" method="POST">
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="name">Name of Referee</label>
-<input type="text" name="name" id="name" placeholder="Enter the name of the referee" class="w-100 form-control padding-small" value="'.$referee['name'].'"/>
+<input type="text" name="name" id="name" placeholder="Enter the name of the referee" class="w-100  padding-small" value="'.$referee['name'].'"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="title">Title/Company</label>
-<input type="text" name="title" id="title" placeholder="Title or company" class="w-100 form-control padding-small" value="'.$referee['title'].'"/>
+<input type="text" name="title" id="title" placeholder="Title or company" class="w-100  padding-small" value="'.$referee['title'].'"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="contact">Referee E-mail </label>
-<input type="email" name="contact" id="contact" placeholder="E-mail address" class="w-100 form-control padding-small" value="'.$referee['contact'].'"/>
+<input type="text" name="contact" id="contact" placeholder="E-mail address" class="w-100  padding-small" value="'.$referee['contact'].'"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="contact">Referee Phone Number </label>
-<input type="text" name="phone" id="phone" placeholder="Phone number..." class="w-100 form-control padding-small" value="'.$referee['phone'].'"/>
+<input type="text" name="phone" id="phone" placeholder="Phone number..." class="w-100  padding-small" value="'.$referee['phone'].'"/>
 </div>
 
 <div class="w-100 padding-small flex-column flex-start flex-top">';
 if($task == 'update') {
   echo'
-<input type="submit" name="submitUpdate" id="submitUpdate" value="UPDATE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>';
+<input type="submit" name="submitUpdate" id="submitUpdate" value="UPDATE" class="button round-corner primary-bg border-white-all white-text padding-small"/>';
 }
 else{
    if($task == 'delete') {
      echo'
-<input type="submit" name="submitDel" id="submitDel" value="DELETE" class="button round-corner alert-bg border-white-all white-text w-100 form-control padding-small"/>';
+<input type="submit" name="submitDel" id="submitDel" value="DELETE" class="button round-corner alert-bg border-white-all white-text padding-small"/>';
    }
 else {
    echo'
-<input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>';
+<input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text padding-small"/>';
 }
 }
 echo '</div></form>

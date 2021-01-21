@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set("display_errors",1);
+// ini_set("display_errors",1);
 require('../libs/manager.php');
 $location = "Location: ".(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS'])=="on" ? "https://":"http://");
 $location .= $_SERVER['HTTP_HOST']."/jobs/signup.html#login";
@@ -30,6 +30,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -90,7 +92,7 @@ echo '<section class="w-100 margin-std" id="listings">
      else{
        for($i=0; $i<sizeof($jobs);$i++){
          $job = $jobs[$i];
-         echo '<tr><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.$job['position'].'</a></td><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.(strlen($job['description']) > 64 ? substr($job['description'],0,64):$job['description']).'</a></td><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['date_created']).'</a></td><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['deadline']).'</a></td></tr>';
+         echo '<tr><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.$job['position'].'</a></td><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.(strlen($job['description']) > 160 ? substr($job['description'],0,160)."...":$job['description']).'</a></td><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['date_created']).'</a></td><td><a href="job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['deadline']).'</a></td></tr>';
        }
        echo '</tbody></table>';
      }   

@@ -36,6 +36,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <!-- // Add the new slick-theme.css if you want the default styling -->
 <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css" />
@@ -174,7 +176,7 @@ echo '<section class="w-100 margin-std " id="">
     class="form-control button border-white-all round-corner text-center primary-bg white-text"
     value="SAVE" />
   <a
-    href="admin.php"
+    href="../admin/admin.php"
     class="plain-link text-center round-corner primary-text"
     >CANCEL</a>
 </div>

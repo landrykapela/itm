@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set("display_errors",1);
+// ini_set("display_errors",1);
 require('../libs/manager.php');
 unset($_SESSION['app']);
 if(isset($_SESSION['user']) && !DB::isAdmin($_SESSION['user'])) $user = DB::getUser($_SESSION['user']);
@@ -34,6 +34,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -71,27 +73,68 @@ function hideCompanyDetails(){
     an.classList.remove("hidden");
 }
 </script>
-
-<header
-  id="header"
-  class="min-width-full flex-column flex-top flex-start margin-auto"
->
-  <div
-    class="flex-row flex-between flex-middle w-100 padding-std margin-auto"
+<div
+    id="floating-header"
+    class="floating-header flex-row flex-between flex-top w-100-no-padding padding-std margin-auto"
   >
-  <img src="../images/logo.png" class="logo" alt="ITM logo" />
-  <nav class="flex-row flex-center" id="navigation">
-    <span id="home">Home</span>
-    <span id="about">About</span>
-    <span id="services">Services</span>
-    <span id="jobs">Jobs</span>
-    <span id="training" class="active">Training</span>
-    <span id="news">News & Events</span>
-    <!-- <span id="contacts">Contacts</span> -->
-  </nav>
+    <img src="../images/logo.png" class="logo" alt="ITM logo" />
+    <div class="flex-column flex-center flex-end">
+      <div class="flex-row flex-end margin-std-right no-mobile">
+        <img src="../images/tanzania.png" alt="ITM Tanzania" class="flag" />
+        <img
+          src="../images/rwanda.png"
+          alt="ITM Rwanda"
+          class="flag"
+          onclick="window.location=\'https://itmafrica.rw\';"
+        />
+        <img
+          src="../images/angola.png"
+          alt="ITM Angola"
+          class="flag"
+          onclick="window.location=\'https://itmafrica.ao\';"
+        />
+        <img
+          src="../images/drc.png"
+          alt="ITM Group"
+          class="flag"
+          onclick="window.location=\'https://itmafrica.com\';"
+        />
+        <img
+          src="../images/south_africa.png"
+          alt="ITM South Africa"
+          class="flag"
+          onclick="window.location=\'https://itmkatope.co.za\';"
+        />
+        <img
+          src="../images/germany.png"
+          alt="ITM Germany"
+          class="flag"
+          onclick="window.location=\'https://itmnexus.com\';"
+        />
+        <img
+          src="../images/nigeria.png"
+          alt="ITM Nigeria"
+          class="flag"
+          onclick="window.location=\'https://itmafrica.com.ng\';"
+        />
+      </div>
+      <nav class="flex-row flex-center margin-std-right" id="navigation">
+        <span id="home">Home</span>
+        <span id="about">About</span>
+        <span id="services">Services<span id="expandable" class="hidden flex-column flex-top flex-start" ><a href="../services.html#hr">Human Resources Solutions</a><a href="../services.html#sales">Sales and Distribution</a><a href="../services.html#industrial">Industrial Solutions</a><a href="../services.html#b2b">Business-2-Business</a></span></span>
+        <span id="jobs">Jobs</span>
+        <span id="training class="active"">Training</span>
+        <span id="news">News & Events</span>
+        <!-- <span id="contacts">Contacts</span> -->
+      </nav>
+    </div>
     <span id="menu"><i class="material-icons">menu</i></span>
   </div>
-  
+<header
+  id="header"
+  class="primary-bg min-width-full flex-column flex-top flex-start margin-auto"
+>
+  <span class="vspacer"></span><span class="vspacer"></span><span class="vspacer"></span><span class="vspacer"></span>
 </header>';
 $msg = "";
 $programs = DB::getTrainingPrograms();
@@ -136,14 +179,14 @@ if(isset($_POST['btnApply'])){
     }
 }
 
-echo '<p class="error-text">'.$msg.'</p>
+echo '
 <section class="min-width-full margin-auto flex-row flex-center flex-middle primary-bg white-text">
    
     <span id="btn-search" class="title padding-std">Training Program Application</span> 
     
     </div>
 </section>';
-echo '<section class="w-100 margin-std" >
+echo '<section class="w-100 margin-std" ><p class="error-text">'.$msg.'</p>
 <p class="title primary-text text-center" id="program_title">';
 if(isset($program['title'])) echo $program['title']; 
 echo '</p>

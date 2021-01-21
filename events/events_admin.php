@@ -40,6 +40,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <!-- // Add the new slick-theme.css if you want the default styling -->
 <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css" />
@@ -61,14 +63,14 @@ echo '<!DOCTYPE html>
   class="min-width-full flex-column flex-top flex-start margin-auto"
 >
   <div
-    class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
+    class="flex-row flex-start flex-middle w-100 padding-std margin-auto"
   >
     
     <nav class="flex-row flex-center white-bg" id="navigation">
       <a href="../admin/admin_account.php" >Account</a>
       <a href="events_admin.php" >Events</a>
       <a href="../training/training_admin.php" >Training</a>
-      <a href="../jobs/job_listings.php">Jobs</a>
+      <a href="../admin/admin.php">Jobs</a>
       <a href="../admin/signout.php" >Signout</a>
     </nav>
     <span id="menu"><i class="material-icons">menu</i></span>
@@ -230,7 +232,7 @@ else{
 for($i=0;$i<sizeof($events);$i++){
   $event = $events[$i];
   
-  echo '<tr><td><a class="plain-link" href="event_detail.php?id='.$event['id'].'">'.$event['title'].'</a></td><td><a href="event_detail.php?id='.$event['id'].'">'.(strlen($event['content']) > 72 ? substr($event['content'],0,72) : $event['content']).'</a></td><td><a href="event_detail.php?id='.$event['id'].'">'.date('d M Y',$event['event_date']).'</a></td></tr>';
+  echo '<tr><td><a class="plain-link" href="event_detail.php?id='.$event['id'].'">'.$event['title'].'</a></td><td><a href="event_detail.php?id='.$event['id'].'">'.(strlen($event['content']) > 255 ? substr($event['content'],0,254) : $event['content']).'</a></td><td><a href="event_detail.php?id='.$event['id'].'">'.date('d M Y',$event['event_date']).'</a></td></tr>';
   }
 }
         
@@ -244,11 +246,11 @@ echo '<section class="w-100 margin-std hidden" id="search-form">
 <div class=" text-center flex-row flex-center flex-top">
    <div class="flex-column flex-center flex-top margin-std">
     
-    <input type="text" name="search" id="search" placeholder="keyword..." class="form-control padding-small"/>
+    <input type="text" name="search" id="search" placeholder="keyword..." class=" padding-small"/>
    </div>
   </div>
 <div class="text-center flex-column flex-center flex-middle">
-    <input type="submit" name="submitSearch" id="submitSearch" value="Search" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>
+    <input type="submit" name="submitSearch" id="submitSearch" value="Search" class="button round-corner primary-bg border-white-all white-text padding-small"/>
     </div>
 </form>';
 

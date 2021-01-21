@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set("display_errors",1);
+// ini_set("display_errors",1);
 require('../libs/manager.php');
 $location = "Location: ".((isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') ? "https://":"http://") .$_SERVER['HTTP_HOST']."/jobs/signup.html#login";
 if(!isset($_SESSION['user'])) header($location);
@@ -29,6 +29,8 @@ $html = '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -43,13 +45,11 @@ $html = '<!DOCTYPE html>
 <title>ITM Tanzania - Resume</title>
 </head>
 <body width="100%">
-<span class="vspacer"></span>
 <h2>Curriculum Vitae</h2>
-<span class="vspacer"></span>
  <section
 class="min-width-full v-100  flex-row flex-center"
 >
-<div class="w-25  padding-std flex-column flex-top flex-start  primary-bg white-text">
+<div class="w-25  padding-std flex-column flex-top flex-middle  primary-bg white-text">
 <p class="subtitle">Personal Info</p>
 </div>
 <div class="w-75 flex-column flex-start flex-top accent-bg dark-text padding-std">
@@ -65,7 +65,7 @@ $html .= '<p>'.$location.'</p>
 </section> <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
-<div class="w-25  padding-std flex-column flex-top flex-start  primary-bg white-text">
+<div class="w-25  padding-std flex-column flex-top flex-middle  primary-bg white-text">
 <p class="subtitle">Education Background</p>
 
 
@@ -87,7 +87,7 @@ else{
 $html .= '</section><span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
-<div class="w-25  padding-std flex-column flex-top flex-start  primary-bg white-text">
+<div class="w-25  padding-std flex-column flex-top flex-middle  primary-bg white-text">
 <p class="subtitle">Professional Experience</p>
 
 
@@ -102,7 +102,7 @@ else{
     $html .='<span>'.$work[$i]['institution'].'</span>';
     $html .='<span>'.DB::getCountry($work[$i]['country']).'</span>';
     $html .='<span>'.DB::getMonth($work[$i]['month_start']).' '.$work[$i]['year_start'].' - '.($work[$i]['year_end']== -1 ? 'Present': (DB::getMonth($work[$i]['month_end']).' - '.$work[$i]['year_end'])).'</span>';
-    $html .='<span class="text-left w-75">'.$work[$i]['tasks'].'</span>';
+    $html .='<br/><span class="text-left w-75">'.str_replace("\r\n","<br/>",$work[$i]['tasks']).'</span>';
     $html .='<span class="vspacer-small"></span>';
     $html .='<span class="vspacer-small"></span>';
     
@@ -119,7 +119,7 @@ $html .='</div>
 $html .=' <span class="vspacer-small"></span><section
 class="min-width-full v-100  flex-row flex-center"
 >
-<div class="w-25  padding-std flex-column flex-top flex-start  primary-bg white-text">
+<div class="w-25  padding-std flex-column flex-top flex-middle  primary-bg white-text">
 <p class="subtitle">Reference</p></div>';
 $reference = DB::getReferenceProfile($user['email']);
 

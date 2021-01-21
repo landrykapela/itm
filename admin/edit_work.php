@@ -45,8 +45,10 @@ echo '<!DOCTYPE html>
       name="keyword"
       content="ITM, ITM Africa, Jobs, empolyment, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
     />
-    <link href="../styles/general.css" rel="stylesheet" />
-    <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general.css" rel="stylesheet" />
+<link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -65,7 +67,7 @@ echo '<!DOCTYPE html>
       class="min-width-full flex-column flex-top flex-start margin-auto"
     >
       <div
-        class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
+        class="flex-row flex-start flex-middle w-100 padding-std margin-auto"
       >
         
         <nav class="flex-row flex-center white-bg" id="navigation">
@@ -131,25 +133,25 @@ if(isset($_POST['submitDel'])){
 echo ' <span class="error-text">'.$msg.'</span><section
 class="min-width-full v-100  flex-row flex-center"
 >
-<div class="w-40  padding-std flex-column flex-top flex-start  primary-bg white-text">
+<div class="w-40  padding-std flex-column flex-top flex-middle  primary-bg white-text">
 <p class="title">Professional Background</p><a class="button primary-bg border-white-all round-corner" href="profile.php">Close</a>
 
 
 </div>
 <div class="w-60 flex-column flex-start flex-top accent-bg dark-text padding-std">
-<form class="w-100 flex-column flex-start flex-top accent-bg dark-text padding-std" action="" method="POST">
+<form class="margin-auto w-80 flex-column flex-start flex-top accent-bg dark-text padding-std" action="" method="POST">
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="institution">Institution</label>
-<input type="text" name="institution" id="institution" placeholder="Institution" class="w-100 form-control padding-small" value="'.$work['institution'].'"/>
+<input type="text" name="institution" id="institution" placeholder="Institution" class="w-100  padding-small" value="'.$work['institution'].'"/>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="title">Title/Position</label>
-<input type="text" name="title" id="title" placeholder="Position"class="w-100 form-control padding-small" value="'.$work['title'].'"/>
+<input type="text" name="title" id="title" placeholder="Position"class="w-100  padding-small" value="'.$work['title'].'"/>
 </div>
 <div class="w-100 flex-row flex-start flex-middle">
 <div class="w-50 padding-small flex-column flex-start flex-top">
 <label for="month_start">Start Month</label>
-<select name="month_start" id="month_start" class=" form-control padding-small">';
+<select name="month_start" id="month_start" class="  padding-small">';
   foreach(DB::months() as $key=>$value){
     if($value == $work['month_start'])
     echo "<option selected value=".$value.">".$key."</option>";
@@ -161,7 +163,7 @@ echo '</select>
 </div>
 <div class="w-50 padding-small flex-column flex-start flex-top">
 <label for="year_start">Start Year</label>
-<select name="year_start" id="year_start" class="form-control padding-small">';
+<select name="year_start" id="year_start" class=" padding-small">';
 $year = date('Y');
 for($i=0;$i<40;$i++){
     $y = $year - $i;
@@ -178,7 +180,7 @@ echo '</select></div>
 <div class="w-100 flex-row flex-start flex-middle">
 <div class="w-50 padding-small flex-column flex-start flex-top">
 <label for="month_end">End Month</label>
-<select name="month_end" id="month_end" class="form-control padding-small">';
+<select name="month_end" id="month_end" class=" padding-small">';
   foreach(DB::months() as $key=>$value){
     if($value == $work['month_end'])
     echo "<option selected value=".$value.">".$key."</option>";
@@ -190,7 +192,7 @@ echo '</select>
 </div>
 <div class="w-50 padding-small flex-column flex-start flex-top">
 <label for="year_end">End Year</label>
-<select name="year_end" id="year_end" class="form-control padding-small">';
+<select name="year_end" id="year_end" class=" padding-small">';
 $year = date('Y');
 for($i=0;$i<40;$i++){
     $y = $year - $i;
@@ -203,14 +205,14 @@ for($i=0;$i<40;$i++){
 echo '</select></div>
 <div class="w-50 padding-small flex-column flex-start flex-top">
 <label for="current">Still Working</label>
-<input type="checkbox" '.$checked.' name="current" id="current" class="form-control padding-std" value="-1"/></div>
+<input type="checkbox" '.$checked.' name="current" id="current" class=" padding-std" value="-1"/></div>
 </div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="tasks">Major Tasks</label>
-<textarea name="tasks" id="tasks" class="w-100 form-control padding-small" rows="10">'.$work['tasks'].'</textarea></div>
+<textarea name="tasks" id="tasks" class="w-100  padding-small" rows="10">'.$work['tasks'].'</textarea></div>
 <div class="w-100 padding-small flex-column flex-start flex-top">
 <label for="country">Country</label>
-<select name="country" id="country" class="w-75 form-control padding-small">';
+<select name="country" id="country" class="w-75  padding-small">';
 $countries = DB::listCountries();
 foreach($countries as $code => $name){
   if($work['country'] == $code)
@@ -224,16 +226,16 @@ echo '</select></div>
 <div class="w-100 padding-small flex-column flex-start flex-top">';
 if($task == 'update') {
   echo'
-<input type="submit" name="submitUpdate" id="submitUpdate" value="UPDATE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>';
+<input type="submit" name="submitUpdate" id="submitUpdate" value="UPDATE" class="button round-corner primary-bg border-white-all white-text padding-small"/>';
 }
 else{
    if($task == 'delete') {
      echo'
-<input type="submit" name="submitDel" id="submitDel" value="DELETE" class="button round-corner alert-bg border-white-all white-text w-100 form-control padding-small"/>';
+<input type="submit" name="submitDel" id="submitDel" value="DELETE" class="button round-corner alert-bg border-white-all white-text padding-small"/>';
    }
 else {
    echo'
-<input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text w-100 form-control padding-small"/>';
+<input type="submit" name="submit" id="submit" value="SAVE" class="button round-corner primary-bg border-white-all white-text padding-small"/>';
 }
 }
 echo '</div></form>

@@ -1,6 +1,6 @@
 <?php
-session_start();
-ini_set("display_errors",1);
+@session_start();
+// ini_set("display_errors",1);
 require('../libs/manager.php');
 $fb = "You need to login to access this page!";
 $location = HEADER."/training/training_login.php?fb=".$fb;
@@ -28,6 +28,8 @@ echo '<!DOCTYPE html>
 />
 <link href="../styles/general.css" rel="stylesheet" />
 <link href="../styles/general_mobile.css" rel="stylesheet" />
+<link href="../styles/general_large.css" rel="stylesheet" />
+<link href="../styles/general_tablet.css" rel="stylesheet" />
 
 <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -47,13 +49,13 @@ echo '<!DOCTYPE html>
   class="min-width-full flex-column flex-top flex-start margin-auto"
 >
   <div
-    class="flex-row flex-end flex-middle w-100 padding-std margin-auto"
+    class="flex-row flex-start flex-middle w-100 padding-std margin-auto"
   >
   <nav class="flex-row flex-center white-bg" id="navigation">
   <a href="../training.php">Jobs</a>
   <a href="../admin/signout.php" >Signout</a>
 </nav>
-    <span id="menu"><i class="material-icons">menu</i></span>
+    <span id="menu2"><i class="material-icons">menu</i></span>
   </div>
   
 </header>';
@@ -65,7 +67,7 @@ echo '<!DOCTYPE html>
         if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
             $fb = "Please enter a valid e-mail address";
             $location = HEADER."/training/training_login.php?fb=".$fb;
-            header($location,true);
+            @header($location,true);
         }
         else{
             $data = array();
@@ -77,7 +79,7 @@ echo '<!DOCTYPE html>
                 if(!$action) {
                     $fb = "Could not find a matching record. Please signup first!";
                     $location = HEADER."/training/training_login.php?fb=".$fb;
-                    header($location,true);
+                    @header($location,true);
                 }
                 else {
                     $application = $action;
@@ -88,7 +90,7 @@ echo '<!DOCTYPE html>
             else {
                 $fb = "Please fill in mandatory fields!";
                 $location = HEADER."/training/training_login.php?fb=".$fb;
-                header($location,true);
+                @header($location,true);
             }
         }
     }
