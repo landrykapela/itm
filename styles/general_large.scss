@@ -53,6 +53,17 @@
     text-align: justify;
     color: $secondaryText;
   }
+  section#hr > p {
+    width: calc(80% - 2em);
+  }
+  section#section_contacts {
+    @include flex(row, space-evenly, flex-start);
+    width: 100%;
+    font-size: $mediumFont;
+  }
+  section#section_contacts > div {
+    @include flex(column, flex-start, flex-start);
+  }
   .summary-card {
     @include flex(row, flex-start, center);
 
@@ -101,8 +112,10 @@
     right: 0;
     cursor: pointer;
     text-align: right;
-    margin-top: -50px;
-    margin-left: calc(100% + 50px);
+    margin-top: -60px;
+    width: 40px;
+    // height: 40px;
+    margin-left: calc(100% + 30px);
     padding: 0.25em;
   }
   /* components */
@@ -118,6 +131,7 @@
   }
   #popup > form {
     margin-top: 140px;
+    width: 50%;
   }
   #popup > form input[type="text"],
   #popup > form input[type="email"] {
