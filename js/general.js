@@ -33,7 +33,9 @@ if (nav) {
           } else scrollToView(targetViewId);
           break;
         case "section_contacts":
-          scrollToView(targetViewId);
+          if (window.location.pathname !== "/index.html") {
+            window.location = window.location.origin + "/contacts.html";
+          } else scrollToView(targetViewId);
           break;
         case "section_about":
           window.location = window.location.origin + "/about.html";
@@ -205,10 +207,13 @@ if (backToTop) {
 }
 
 window.addEventListener("scroll", (e) => {
-  if (window.scrollY > 0.1 * window.innerHeight) {
-    document.getElementById("floating-header").classList.add("white-bg");
-  } else
-    document.getElementById("floating-header").classList.remove("white-bg");
+  // const floating_header = document.getElementById("floating-header");
+  // if (window.scrollY > 0.5 * window.innerHeight) {
+  //   floating_header.classList.remove("white-bg");
+  //   // floating_header.classList.add("white-bg-transparent");
+  // } else {
+  //   floating_header.classList.add("white-bg");
+  // }
   if (window.scrollY > 0.75 * window.innerHeight) {
     backToTop.classList.remove("hidden");
   } else backToTop.classList.add("hidden");
@@ -219,11 +224,14 @@ const nav2 = document.getElementById("navigation2");
 const menuButton2 = document.getElementById("menu2");
 if (menuButton) {
   menuButton.addEventListener("click", (event) => {
-    if (nav.style.display === "none") {
-      nav.style.display = "flex";
+    console.log("clicked, height: ", nav.offsetHeight);
+    if (nav.offsetHeight === 0) {
+      nav.classList.remove("pull_up");
+      nav.classList.add("pull_down");
       menuButton.innerHTML = '<i class="material-icons">close</i>';
     } else {
-      nav.style.display = "none";
+      nav.classList.add("pull_up");
+      nav.classList.remove("pull_down");
       menuButton.innerHTML = '<i class="material-icons">menu</i>';
     }
   });

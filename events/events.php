@@ -89,70 +89,92 @@ $html = '<!DOCTYPE html>
     <span class="vspacer"></span>
   </div>
   
-  <div
-  id="floating-header"
-  class="floating-header flex-row flex-between flex-top w-100-no-padding padding-std margin-auto"
->
-  <img src="../images/logo.png" class="logo" alt="ITM logo" />
-  <div class="flex-column flex-center flex-end">
-    <div class="flex-row flex-end margin-std-right no-mobile">
-      <img src="../images/tanzania.png" alt="ITM Tanzania" class="flag" />
-      <img
-        src="../images/rwanda.png"
-        alt="ITM Rwanda"
-        class="flag"
-        onclick="window.location=\'https://itmafrica.rw\';"
-      />
-      <img
-        src="../images/angola.png"
-        alt="ITM Angola"
-        class="flag"
-        onclick="window.location=\'https://itmafrica.ao\';"
-      />
-      <img
-        src="../images/drc.png"
-        alt="ITM Group"
-        class="flag"
-        onclick="window.location=\'https://itmafrica.com\';"
-      />
-      <img
-        src="../images/south_africa.png"
-        alt="ITM South Africa"
-        class="flag"
-        onclick="window.location=\'https://itmkatope.co.za\';"
-      />
-      <img
-        src="../images/germany.png"
-        alt="ITM Germany"
-        class="flag"
-        onclick="window.location=\'https://itmnexus.com\';"
-      />
-      <img
-        src="../images/nigeria.png"
-        alt="ITM Nigeria"
-        class="flag"
-        onclick="window.location=\'https://itmafrica.com.ng\';"
-      />
-    </div>
-    <nav class="flex-row flex-center margin-std-right" id="navigation">
-      <span id="home">Home</span>
-      <span id="about">About</span>
-      <span id="services">Services<span id="expandable" class="hidden flex-column flex-top flex-start" ><a href="../services.html#hr">Human Resources Solutions</a><a href="../services.html#sales">Sales and Distribution</a><a href="../services.html#industrial">Industrial Solutions</a><a href="../services.html#b2b">Business-2-Business</a></span></span>
-      <span id="jobs">Jobs</span>
-      <span id="training">Training</span>
-      <span id="news" class="active">News & Events</span>
-      <!-- <span id="contacts">Contacts</span> -->
+ <div id="floating-header" class="floating-header white-bg">
+    <div id="top-bar">
+      <img src="../images/logo.png" class="logo" alt="ITM logo" /> 
+      <div class="flex-row flex-end">
+          <div class="tip">
+            <img src="../images/tanzania.png" alt="ITM Tanzania" class="flag" />
+            <span class="tooltip">Tanzania</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/rwanda.png"
+              alt="ITM Rwanda"
+              class="flag"
+              onclick="window.location=\'https://itmafrica.rw\';"
+            />
+            <span class="tooltip">Rwanda</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/angola.png"
+              alt="ITM Angola"
+              class="flag"
+              onclick="window.location=\'https://itmafrica.ao\';"
+            /><span class="tooltip">Angola</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/drc.png"
+              alt="ITM Group"
+              class="flag"
+              onclick="window.location=\'https://itmafrica.com\';"
+            /><span class="tooltip">DR Congo</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/south_africa.png"
+              alt="ITM South Africa"
+              class="flag"
+              onclick="window.location=\'https://itmkatope.co.za\';"
+            /><span class="tooltip">South Africa</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/germany.png"
+              alt="ITM Germany"
+              class="flag"
+              onclick="window.location=\'https://itmnexus.com\';"
+            /><span class="tooltip">Germany</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/nigeria.png"
+              alt="ITM Nigeria"
+              class="flag"
+              onclick="window.location=\'https://itmafrica.com.ng\';"
+            /><span class="tooltip">Nigeria</span>
+          </div>
+       </div>
+        <span id="menu"><i class="material-icons">menu</i></span>
+    </div> 
+    <nav id="navigation">
+          <span id="home">Home</span>
+          <span id="about">About us</span> 
+          <div id="services">Services
+          <span 
+              id="expandable"
+              class="hidden flex-column flex-top flex-start"
+              ><a href="../services.html#hr">Human Resources Solutions</a
+              ><a href="training/training.php">Professional Training</a><a href="../services.html#sales">Sales Force Solutions</a
+              ><a href="../services.html#industrial">Logistics and Procurement</a
+              >
+              </span
+            ></span
+          ></div>
+          <span id="jobs">ITM Jobs</span>
+          <span id="news" class="active">Events</span>
+          <span id="contacts">Contacts</span>
     </nav>
-  </div>
-  <span id="menu"><i class="material-icons">menu</i></span>
-</div>
-
+</div> <span class="vspacer"></span>
+          <span class="vspacer"></span>
 <header
     id="header"
-    class="min-width-full  bg-img-header6 "
+    class=" bg-img-header6 "
   ><span class="padding-small error-text">'.$msg.'</span>
      
-        <div class="flex-column flex-start padding-std primary-bg-transparent margin-auto">
+        <div class="primary-bg-transparent margin-auto">
          
         <span class="vspacer"></span>
         <span class="vspacer"></span>
@@ -164,7 +186,7 @@ $html = '<!DOCTYPE html>
             </p>
             <span class="vspacer"></span>
             <span class="vspacer"></span>
-            <div class="text-left"><span id="btn-subscribe" class="button primary-bg round-corner border-white-all white-text">SUBSCRIBE NOW</span></div>
+            <p class="text-left"><span id="btn-subscribe" class="button primary-bg round-corner border-white-all white-text">SUBSCRIBE NOW</span></p>
             <span class="vspacer"></span>
             <span class="vspacer"></span>
             
@@ -174,20 +196,20 @@ $html = '<!DOCTYPE html>
     </header>
     <p class="title primary-text">Recent Events</p>
     <section class="w-100 flex-row flex-center margin-std ">';
-    $events = DB::getEvents();
-    if($events){
-      for($i=0;$i<sizeof($events);$i++){
-        $event = $events[$i];
-        $html .='
-        <div class="shadow margin-std news-card accent-bg w-40" >
-        <a href="event_detail.php?id='.$event['id'].'" class="plain-link">
-          <img src="snaps/'.$event['image'].'" class="w-100-no-padding"/>
+    // $events = DB::getEvents();
+    // if($events){
+    //   for($i=0;$i<sizeof($events);$i++){
+    //     $event = $events[$i];
+    //     $html .='
+    //     <div class="shadow margin-std news-card accent-bg w-40" >
+    //     <a href="event_detail.php?id='.$event['id'].'" class="plain-link">
+    //       <img src="snaps/'.$event['image'].'" class="w-100-no-padding"/>
           
-          <p class="dark-text text-left padding-small">'.$event['title'].'</p>    
-          </a>
-      </div> ';
-      }
-    }
+    //       <p class="dark-text text-left padding-small">'.$event['title'].'</p>    
+    //       </a>
+    //   </div> ';
+    //   }
+    // }
     
   $html .='</section>
    
@@ -195,7 +217,7 @@ $html = '<!DOCTYPE html>
     <a class="copyright" href="events_admin.php"
           >Events Admin</a
         >
-      <span class="copyright">2020 &copy;ITM Tanzania Ltd</span
+      <span class="copyright">2021 &copy;ITM Tanzania Ltd</span
       ><span class="copyright"
         >Developed and maintained by
         <a target="_blank" href="https://neelansoft.co.tz"

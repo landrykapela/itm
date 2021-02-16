@@ -11,23 +11,24 @@
   $mediumFont: medium;
   $smallFont: small;
   $minWidth: 1280px;
-  $maxWidth: 1600px;
+  // $maxWidth: 1600px;
   $stdPadding: 2.5em;
   $smPadding: 0.5em;
 
-  @mixin flex($dir, $jc, $ai) {
+  @mixin flex($dir, $jc, $ai, $wrap, $wd) {
     display: flex;
     flex-direction: $dir;
     justify-content: $jc;
     align-items: $ai;
-    max-width: $maxWidth;
-    flex-wrap: wrap;
+    @if $wrap == 1 {
+      flex-wrap: $wd;
+    }
   }
-  @mixin pill($bg, $bd, $t) {
+
+  @mixin navButton($bg, $bd, $t) {
     background-color: $bg;
     border: 1px solid $bd;
     color: $t !important;
-    border-radius: 25px;
   }
   html {
     scroll-behavior: smooth;
@@ -44,28 +45,50 @@
     font-size: 1em;
   }
   section .container {
-    @include flex(row, center, center);
+    @include flex(row, center, center, 1, wrap);
     // background-color: $secondaryText;
+  }
+  #contact-form,
+  #header p,
+  #slider1 p {
+    width: 60%;
+    margin: auto;
+  }
+  #contact-form {
+    padding: 2em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border: 1px solid $primaryColor;
   }
   section > p {
     margin: 0 auto;
     width: 60%;
     text-align: justify;
-    color: $secondaryText;
+    // color: $secondaryText;
   }
-  section#hr > p {
+  #industrial {
+    padding: 2em;
+  }
+  section#hr > p,
+  section#industrial p {
+    margin: 1em auto;
     width: calc(80% - 2em);
   }
   section#section_contacts {
-    @include flex(row, space-evenly, flex-start);
+    @include flex(row, space-evenly, flex-start, 0, "");
     width: 100%;
     font-size: $mediumFont;
+    color: $secondaryText;
+  }
+  #section_contacts a,
+  #section_contacts a:visited {
+    color: $secondaryText;
   }
   section#section_contacts > div {
-    @include flex(column, flex-start, flex-start);
+    @include flex(column, flex-start, flex-start, 0, "");
   }
   .summary-card {
-    @include flex(row, flex-start, center);
+    @include flex(row, flex-start, center, 0, "");
 
     width: calc(80% - 4em);
     padding: 1em;
@@ -265,11 +288,11 @@
   }
   /* logo */
   .logo {
-    width: 180px;
+    width: 10%;
+    margin: 5px;
   }
   /* menu bar */
-  .navigation {
-  }
+
   .shadow,
   .summary-card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -545,8 +568,13 @@
   .white-bg {
     background-color: $white;
   }
-  .white-bg a,
-  a:visited,
+
+  nav {
+    @include flex(row, flex-end, center, 0, nowrap);
+    margin: 0.5em auto;
+    width: calc(100% - 2em);
+    // border: 1px solid red;
+  }
   nav.white-bg a,
   nav.white-bg a:visited {
     color: $primaryColor;
@@ -559,26 +587,26 @@
     color: $white;
     text-decoration: none;
   }
-  nav.primary-bg span.active {
-    color: #6ff1e6;
-  }
+
   .accent-bg {
-    background-color: #6ff1e6;
+    background-color: $accentColor;
   }
   .accent-bg a,
   a:visited {
     color: $white;
     text-decoration: none;
   }
-  nav span {
-    @include pill($primaryColor, $white, $white);
-    padding: 0.5em 1em;
-    margin: 0.25em 0.5em;
-    min-width: 100px;
+  nav span,
+  nav div {
+    @include navButton($primaryColor, $white, $white);
+    padding: 0.25em 0.5em;
+    margin: 0.25em 0em;
+    min-width: 120px;
     cursor: pointer;
   }
-  nav span.active {
-    @include pill($accentColor, $accentColor, $primaryText);
+  nav span.active,
+  nav > div.active {
+    @include navButton($accentColor, $accentColor, $primaryColor);
   }
   a.button {
     text-decoration: none;
@@ -600,7 +628,7 @@
     color: $white;
   }
   .accent-text {
-    color: #6ff1e6;
+    color: $accentColor;
   }
   /* alignment */
   .text-center {
@@ -669,14 +697,15 @@
     color: $primaryColor;
     cursor: pointer;
   }
-  nav span:hover {
-    @include pill($accentColor, $accentColor, $primaryText);
+  nav span:hover,
+  nav div#services:hover {
+    @include navButton($accentColor, $accentColor, $primaryText);
   }
   nav a:hover {
     text-decoration: underline;
   }
 
-  nav span #services {
+  nav > div#services {
     position: relative;
   }
   .form-control {
@@ -687,27 +716,27 @@
     margin: 0.5em;
   }
   #expandable {
-    background-color: #6ff1e6;
+    background-color: $accentColor;
     text-align: left;
     position: absolute;
-    /* left: 0; */
-    right: 75px;
+    // left: 0;
     width: 300px;
-    padding: 1em 0.5em;
-    /* max-width: 300px; */
+    margin-top: 0em;
+    margin-left: -0.5em;
+    padding: 1em 0;
   }
   #expandable a,
   #expandable a:visited {
     color: $primaryColor;
     text-decoration: none;
-    width: 100%;
+    width: calc(100% - 1em);
     padding: 0.5em;
+    text-align: left;
   }
   #expandable a:hover {
     color: $white;
     background-color: $primaryColor;
     text-decoration: none;
-    margin-left: -0.5em;
   }
   /* layouts */
   .mobile-only {
@@ -745,7 +774,11 @@
     background-color: $primaryColor;
     opacity: 0.4;
   }
-  .box-list {
+  #box {
+    @include flex(row, space-evenly, flex-start, 1, wrap);
+  }
+  .box-list,
+  .box-list2 {
     margin: 1em;
     padding: 1em;
     min-width: calc(20% - 3em);
@@ -777,35 +810,43 @@
     top: 0;
   }
   footer {
+    @include flex(row, space-evenly, center, 1, wrap);
+    padding: 0 $stdPadding;
+    width: calc(100% - 5em);
     padding-left: 2.5em;
     padding-right: 2.5em;
   }
   .values {
-    @include flex(row, flex-start, center);
+    @include flex(row, flex-start, center, 1, nowrap);
     width: calc(50% - 5em);
-    border: 2px solid $primaryColor;
+    // border: 1px solid $primaryColor;
     border-radius: 50px;
     padding: 0.2em 0.2em;
-    flex-wrap: nowrap;
     margin: 2em;
   }
   .values div {
-    @include flex(column, center, flex-start);
+    @include flex(column, center, flex-start, 0, "");
     margin-left: 1em;
-    flex-grow: 2;
     font-size: $smallFont;
     text-align: left;
   }
+
   .floating-header {
-    @include flex(row, space-between, top);
+    @include flex(column, flex-start, flex-start, 1, wrap);
     position: fixed;
     top: 0;
-    z-index: 100000000;
+    z-index: 10000000000000000;
     margin: 0 auto;
-    // padding: 2.5em;
-    margin-right: 1em;
-    width: calc(100% - 2em);
+    padding: 0.25em;
+    width: calc(100% - 0.5em);
     /*margin-right: 400px;*/
+  }
+  .floating-header #top-bar {
+    @include flex(row, space-between, center, 0, nowrap);
+    width: calc(100% - 2em);
+    // border: 1px solid red;
+    box-sizing: border-box;
+    margin: 0 auto;
   }
   img.flag {
     width: 25px;
@@ -861,14 +902,22 @@
     /* height: calc(100vh - 10em); */
     margin: 0 auto;
   }
+  #consultation {
+    @include flex(column, center, flex-start, 0, "");
+    padding: 2em;
+  }
   #section_services div#slider {
-    @include flex(row, center, center);
+    @include flex(row, center, center, 0, "");
   }
   .title-tag {
     padding: 1em;
     display: block;
     /* background-image: url("../images/title_tag.png");
     background-size: cover; */
+  }
+  p > i.material-icons {
+    font-size: small;
+    align-self: center;
   }
   #slider1 {
     /*margin-left:-2.5em;*/

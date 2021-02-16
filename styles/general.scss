@@ -1,11 +1,11 @@
-@media only screen and (min-width: 769px) and (max-width: 1279px) {
+@media only screen and (min-width: 992px) and (max-width: 1279px) {
   $primaryColor: #132a86;
   $accentColor: #6ff1e6;
   $accentColorTrans: #6ff1e671;
   $primaryText: #000000;
   $secondaryText: #4e4e4e;
   $white: #ffffff;
-  $whiteTrans: rgba(255, 255, 25520.534);
+  $whiteTrans: rgba(255, 255, 255, 0.534);
   $primaryColorTrans: #132a865e;
   $largeFont: large;
   $mediumFont: medium;
@@ -15,19 +15,21 @@
   $stdPadding: 2em;
   $smPadding: 0.5em;
 
-  @mixin flex($dir, $jc, $ai) {
+  @mixin flex($dir, $jc, $ai, $wrap, $wd) {
     display: flex;
     flex-direction: $dir;
     justify-content: $jc;
     align-items: $ai;
-    max-width: $maxWidth;
-    flex-wrap: wrap;
+    @if $wrap == 1 {
+      max-width: $maxWidth;
+      flex-wrap: $wd;
+    }
   }
-  @mixin pill($bg, $bd, $t) {
+
+  @mixin navButton($bg, $bd, $t) {
     background-color: $bg;
     border: 1px solid $bd;
     color: $t !important;
-    border-radius: 25px;
   }
   html {
     scroll-behavior: smooth;
@@ -44,8 +46,28 @@
     font-size: 1em;
   }
   section .container {
-    @include flex(row, center, center);
+    @include flex(row, center, center, 0, no-wrap);
     // background-color: $secondaryText;
+  }
+
+  #contact-form,
+  #header p,
+  #slider1 p {
+    width: 60%;
+    margin: auto;
+  }
+
+  #contact-form {
+    padding: 2em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border: 1px solid $primaryColor;
+  }
+  section > p {
+    margin: 0 auto;
+    width: 60%;
+    text-align: justify;
+    // color: $secondaryText;
   }
   section > p {
     margin: 0 auto;
@@ -53,19 +75,28 @@
     text-align: justify;
     color: $secondaryText;
   }
-  section#hr > p {
+  #industrial {
+    padding: 2em;
+  }
+  section#hr > p,
+  section#industrial p {
+    margin: 1em auto;
     width: calc(80% - 2em);
   }
   section#section_contacts {
-    @include flex(row, flex-start, flex-start);
+    @include flex(row, space-evenly, flex-start, 0, "");
     width: 100%;
     font-size: $mediumFont;
   }
+  #section_contacts a,
+  #section_contacts a:visited {
+    color: $secondaryText;
+  }
   section#section_contacts > div {
-    @include flex(column, flex-start, flex-start);
+    @include flex(column, flex-start, flex-start, 0, "");
   }
   .summary-card {
-    @include flex(row, flex-start, center);
+    @include flex(row, flex-start, center, 0, "");
 
     width: calc(80% - 4em);
     padding: 1em;
@@ -112,10 +143,11 @@
     right: 0;
     cursor: pointer;
     text-align: right;
-    margin-top: -50px;
+    margin-top: -60px;
     width: 40px;
-    margin-left: calc(100% + 20px);
-    padding: 0.25em 0.2em;
+    // height: 40px;
+    margin-left: calc(100% + 30px);
+    padding: 0.25em;
   }
   /* components */
   #search-form input[type="text"],
@@ -128,7 +160,10 @@
     padding: 0.25em 0.5em;
     margin: 0.5em;
   }
-
+  #popup > form {
+    margin-top: 140px;
+    width: 50%;
+  }
   #popup > form input[type="text"],
   #popup > form input[type="email"] {
     width: 80%;
@@ -137,10 +172,8 @@
     padding: 0.25em 0.5em;
     margin: 0.5em;
   }
-  #popup > form,
   #popup2 > form {
     margin-top: 40px;
-    width: 60%;
   }
   #popup2 > form input[type="text"],
   #popup2 > form input[type="email"],
@@ -263,7 +296,9 @@
   }
   /* logo */
   .logo {
-    width: 120px;
+    width: 112px;
+    height: 56px;
+    margin: 5px;
   }
   /* menu bar */
 
@@ -542,6 +577,7 @@
   .white-bg {
     background-color: $white;
   }
+
   .white-bg a,
   a:visited,
   nav.white-bg a,
@@ -556,26 +592,33 @@
     color: $white;
     text-decoration: none;
   }
-  nav.primary-bg span.active {
-    color: #6ff1e6;
-  }
+
   .accent-bg {
-    background-color: #6ff1e6;
+    background-color: $accentColor;
   }
   .accent-bg a,
   a:visited {
     color: $white;
     text-decoration: none;
   }
-  nav span {
-    @include pill($primaryColor, $white, $white);
-    padding: 0.5em 0.75em;
-    margin: 0.25em 0.25em;
-    min-width: 50px;
+  nav {
+    @include flex(row, flex-end, center, 0, nowrap);
+    margin: 0.5em auto;
+    width: calc(100% - 2em);
+    // border: 1px solid red;
+  }
+  nav span,
+  nav div {
+    @include navButton($primaryColor, $white, $white);
+    padding: 0.5em 1em;
+    margin: 0.25em 0em;
+    min-width: 100px;
+    // max-width: 10%;
     cursor: pointer;
   }
-  nav span.active {
-    @include pill($accentColor, $accentColor, $primaryText);
+  nav span.active,
+  nav > div.active {
+    @include navButton($accentColor, $accentColor, $primaryColor);
   }
   a.button {
     text-decoration: none;
@@ -597,7 +640,7 @@
     color: $white;
   }
   .accent-text {
-    color: #6ff1e6;
+    color: $accentColor;
   }
   /* alignment */
   .text-center {
@@ -667,13 +710,13 @@
     cursor: pointer;
   }
   nav span:hover {
-    @include pill($accentColor, $accentColor, $primaryText);
+    @include navButton($accentColor, $accentColor, $primaryText);
   }
   nav a:hover {
     text-decoration: underline;
   }
 
-  nav span #services {
+  nav > div#services {
     position: relative;
   }
   .form-control {
@@ -684,27 +727,25 @@
     margin: 0.5em;
   }
   #expandable {
-    background-color: #6ff1e6;
+    background-color: $accentColor;
     text-align: left;
     position: absolute;
-    /* left: 0; */
-    right: 75px;
+    // left: 0;
     width: 300px;
-    padding: 1em 0.5em;
-    /* max-width: 300px; */
+    margin: 0.5em -1em;
+    padding: 1em 0;
   }
   #expandable a,
   #expandable a:visited {
     color: $primaryColor;
     text-decoration: none;
-    width: 100%;
+    width: calc(100% - 1em);
     padding: 0.5em;
   }
   #expandable a:hover {
     color: $white;
     background-color: $primaryColor;
     text-decoration: none;
-    margin-left: -0.5em;
   }
   /* layouts */
   .mobile-only {
@@ -743,11 +784,11 @@
     opacity: 0.4;
   }
   .box-list {
-    margin: 1em;
+    margin: 1em 2em;
     padding: 1em;
-    min-width: calc(40% - 2em);
-    max-width: calc(45% - 2em);
-    height: 400px;
+    min-width: calc(30% - 6em);
+    max-width: calc(35% - 6em);
+    height: 500px;
     cursor: pointer;
   }
   .box-list:hover {
@@ -774,35 +815,44 @@
     top: 0;
   }
   footer {
-    @include flex(row, space-between, center);
+    @include flex(row, space-evenly, center, 1, wrap);
     padding: 0 $stdPadding;
-    width: calc(100% - 4em);
+    width: calc(100% - 5em);
+    padding-left: 2.5em;
+    padding-right: 2.5em;
   }
   .values {
-    @include flex(row, flex-start, center);
+    @include flex(row, flex-start, center, 0, nowrap);
     width: calc(50% - 5em);
-    border: 2px solid $primaryColor;
+    // border: 1px solid $primaryColor;
     border-radius: 50px;
     padding: 0.2em 0.2em;
     flex-wrap: nowrap;
     margin: 2em;
   }
   .values div {
-    @include flex(column, center, flex-start);
+    @include flex(column, center, flex-start, 0, no-wrap);
     margin-left: 1em;
     flex-grow: 2;
     font-size: $smallFont;
     text-align: left;
   }
   .floating-header {
-    @include flex(row, space-between, top);
+    @include flex(column, flex-start, flex-start, 1, wrap);
     position: fixed;
     top: 0;
     z-index: 100000000;
     margin: 0 auto;
-    margin-right: 1em;
-    width: calc(100% - 4em);
+    padding: 0.25em;
+    width: calc(100% - 0.5em);
     /*margin-right: 400px;*/
+  }
+  .floating-header #top-bar {
+    @include flex(row, space-between, center, 0, nowrap);
+    width: calc(100% - 2em);
+    // border: 1px solid red;
+    box-sizing: border-box;
+    margin: 0 auto;
   }
   img.flag {
     width: 25px;
@@ -859,17 +909,22 @@
     margin: 0 auto;
   }
   #section_services div#slider {
-    @include flex(row, center, center);
+    @include flex(row, center, center, 1, wrap);
   }
+
   .title-tag {
     padding: 1em;
     display: block;
     /* background-image: url("../images/title_tag.png");
     background-size: cover; */
   }
-  #slider1 {
-    @include flex(row, center, center);
-    width: 100%;
+
+  p > i.material-icons {
+    font-size: small;
+    align-self: center;
+  }
+  #slider1 p {
+    width: 70%;
   }
   .can-go-right {
     overflow-x: hidden;
@@ -901,6 +956,7 @@
   .can-spin-horizontal:hover {
     animation: spinHorizontal 2000ms linear infinite;
   }
+
   @keyframes spinHorizontal {
     from {
       transform: rotate3d(0deg);
@@ -958,5 +1014,15 @@
       position: relative;
       left: 100%;
     }
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .box-list {
+    margin: 1em;
+    padding: 1em;
+    width: calc(50% - 4em);
+    height: 500px;
+    cursor: pointer;
   }
 }

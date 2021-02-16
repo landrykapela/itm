@@ -42,11 +42,11 @@
     <div id="form-feedback" class="hidden"></div>
     <div
     id="popup2"
-    class="padding-std min-width-full black-bg-transparent flex-column flex-center-flex-middle hidden"
+    class="black-bg-transparent hidden"
   >
     <span class="vspacer"></span>
     <form action="../admin/contact.php" method="POST"
-      class="margin-auto flex-column flex-middle flex-center w-50 primary-bg padding-std"
+      class="margin-auto primary-bg"
     >
       <span id="close-popup2" class="round white-bg flex-row flex-center"
         ><i class="material-icons">close</i></span
@@ -91,75 +91,100 @@
     <span class="vspacer"></span>
     <span class="vspacer"></span>
   </div>
-    <div
-    id="floating-header"
-    class="floating-header flex-row flex-between flex-top w-100-no-padding padding-std margin-auto"
-  >
-    <img src="images/logo.png" class="logo" alt="ITM logo" />
-    <div class="flex-column flex-center flex-end">
-      <div class="flex-row flex-end margin-std-right no-mobile">
-        <img src="images/tanzania.png" alt="ITM Tanzania" class="flag" />
-        <img
-          src="images/rwanda.png"
-          alt="ITM Rwanda"
-          class="flag"
-          onclick="window.location='https://itmafrica.rw';"
-        />
-        <img
-          src="images/angola.png"
-          alt="ITM Angola"
-          class="flag"
-          onclick="window.location='https://itmafrica.ao';"
-        />
-        <img
-          src="images/drc.png"
-          alt="ITM Group"
-          class="flag"
-          onclick="window.location='https://itmafrica.com';"
-        />
-        <img
-          src="images/south_africa.png"
-          alt="ITM South Africa"
-          class="flag"
-          onclick="window.location='https://itmkatope.co.za';"
-        />
-        <img
-          src="images/germany.png"
-          alt="ITM Germany"
-          class="flag"
-          onclick="window.location='https://itmnexus.com';"
-        />
-        <img
-          src="images/nigeria.png"
-          alt="ITM Nigeria"
-          class="flag"
-          onclick="window.location='https://itmafrica.com.ng';"
-        />
-      </div>
-      <nav class="flex-row flex-center margin-std-right" id="navigation">
-        <span id="home">Home</span>
-        <span id="about">About</span>
-        <span id="services" class="active">Services<span id="expandable" class="hidden flex-column flex-top flex-start" ><a href="../services.html#hr">Human Resources Solutions</a><a href="../services.html#sales">Sales and Distribution</a><a href="../services.html#industrial">Industrial Solutions</a><a href="../services.html#b2b">Business-2-Business</a></span></span>
-        <span id="jobs">Jobs</span>
-        <span id="training">Training</span>
-        <span id="news">News & Events</span>
-        <!-- <span id="contacts">Contacts</span> -->
-      </nav>
+   <div id="floating-header" class="floating-header white-bg"><div id="top-bar">
+       
+      <img src="images/logo.png" class="logo" alt="ITM logo" /> 
+      <div class="flex-row flex-end">
+          <div class="tip">
+            <img src="images/tanzania.png" alt="ITM Tanzania" class="flag" />
+            <span class="tooltip">Tanzania</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/rwanda.png"
+              alt="ITM Rwanda"
+              class="flag"
+              onclick="window.location='https://itmafrica.rw';"
+            />
+            <span class="tooltip">Rwanda</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/angola.png"
+              alt="ITM Angola"
+              class="flag"
+              onclick="window.location='https://itmafrica.ao';"
+            /><span class="tooltip">Angola</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/drc.png"
+              alt="ITM Group"
+              class="flag"
+              onclick="window.location='https://itmafrica.com';"
+            /><span class="tooltip">DR Congo</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/south_africa.png"
+              alt="ITM South Africa"
+              class="flag"
+              onclick="window.location='https://itmkatope.co.za';"
+            /><span class="tooltip">South Africa</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/germany.png"
+              alt="ITM Germany"
+              class="flag"
+              onclick="window.location='https://itmnexus.com';"
+            /><span class="tooltip">Germany</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/nigeria.png"
+              alt="ITM Nigeria"
+              class="flag"
+              onclick="window.location='https://itmafrica.com.ng';"
+            /><span class="tooltip">Nigeria</span>
+          </div>
+       </div>
+        <span id="menu"><i class="material-icons">menu</i></span>
+    </div> 
+    <nav id="navigation">
+          <span id="home">Home</span>
+          <span id="about">About us</span> 
+          <div id="services" class="active">Services
+          <span 
+              id="expandable"
+              class="hidden flex-column flex-top flex-start"
+              ><a href="../services.html#hr">Human Resources Solutions</a
+              ><a href="training/training.php">Professional Training</a><a href="../services.html#sales">Sales Force Solutions</a
+              ><a href="../services.html#industrial">Logistics and Procurement</a
+              >
+              </span
+            ></span
+          ></div>
+          <span id="jobs">ITM Jobs</span>
+          <span id="news">Events</span>
+          <span id="contacts">Contacts</span>
+    </nav>
+     
+     
     </div>
-    <span id="menu"><i class="material-icons">menu</i></span>
-  </div>
     <header
       id="header"
-      class="min-width-full bg-img-header4"
+      class=" bg-img-header4"
     >
      
       <div
-        class="min-width-full dark-bg-transparent flex-column flex-center margin-auto flex-middle v-100"
+        class="dark-bg-transparent margin-auto"
       ><span class="vspacer"></span>
       <span class="vspacer"></span>
       <span class="vspacer"></span><span class="vspacer"></span><span class="vspacer"></span>
+      <div>
         <p class="title white-text focus">Our Services</p>
-        <p class="w-75 white-text">We are committed to a perspective of dynamic satisfaction for our customersand we are actively involved in a progressive enhancement for the quality of our products and services. It is within this scope that we run on a customized solution-based approach to companies to assist our partners in solving their operational problems in a permanent, efficient and effectiveway</p><span class="vspacer"></span><span class="vspacer"></span><span id="btnContactUs" class="button round-corner primary-bg border-white-all white-text">Get in Touch</span><span class="vspacer"></span>
+        <p class="white-text">We are committed to a perspective of dynamic satisfaction for our customersand we are actively involved in a progressive enhancement for the quality of our products and services. It is within this scope that we run on a customized solution-based approach to companies to assist our partners in solving their operational problems in a permanent, efficient and effectiveway</p></div><span class="vspacer"></span><span class="vspacer"></span><span id="btnContactUs" class="button round-corner primary-bg border-white-all white-text">Get in Touch</span><span class="vspacer"></span>
       </div>
       
     </header>
@@ -227,7 +252,7 @@
          <span class="vspacer"></span>
 
     </section>
-    <section  class="primary-bg white-text padding-std" id="sales">
+    <section  class="primary-bg white-text" id="sales">
         
         <h2 class="title">Sales and Distribution</h2>
         <p class="white-text">As a business solution company, ITM AFRICA focuses on improving business processes. We identify
@@ -236,8 +261,8 @@
             and providing qualified and well-trained sales teams. ITM AFRICA carries out business survey, recruits,
             trains and places sales representatives on the field to sell services and products of our partners in order
             to increase their revenues and maximize their turnovers.</p>
-       
-       <p class="white-text">We supply adapted solutions such as :
+       <span class="vspacer"></span>
+       <!-- <p class="white-text acccent-bg">We supply adapted solutions such as :
            <ul>
                <li class="text-left">Prospection (Leads) potential clients</li>
                <li class="text-left">Segmenting and planning door to door sales</li>
@@ -250,33 +275,33 @@
                <li class="text-left">Promotions</li>
             </ul>
        </p>
-       
+        -->
        <span id="request_quote2" class="button round-corner border-white-all white-text margin-auto">Request a Quote</span>
        <span class="vspacer"></span>
       </section>
-      <section class="min-width-full bg-img-header8 white-text flex-column flex-middle flex-center " id="industrial">
+      <section class="bg-img-header8 white-text" id="industrial">
           
-        <div class=" flex-column flex-center flex-middle margin-std w-70">
+        <div class="white-text">
             <p class="title accent-text">Industry Solutions</p>
-            <p>This is a division of the ITM group of companies <a class="plain-link white-text" href="http://itmminingsolutions.com">(www.itmminingsolutions.com)</a>.
+            <p>This is a division of the ITM group of companies <a class="white-text" href="http://itmminingsolutions.com">(www.itmminingsolutions.com)</a>.
                 We have an in-house team of HSE, operations and management specialists, who are available to consult on projects and operations on a wide variety of topics and disciplines.</p>
                 <p>Our team of industry specialists has a extensive experience in managing operations and businesses of varying nature to assist our clients in streamlining their business units:</p>
 
      </div>
-     <div class="w-100 flex-row flex-space flex-top margin-std">
-         <div class="box-list w-100">
+     <div id="box">
+         <div class="box-list2">
             <p class="subtitle accent-text">Technical Solutions</p>
             <p class="text-small ">Consulting services, skill and capacity building and project management.</p>
          </div>
-         <div class="box-list w-100">
+         <div class="box-list2">
             <p class="subtitle accent-text">Engineered Solutions</p>
             <p class="text-small ">Fire detection/suppression system, facilities compliance management, milling & plants/components</p>
          </div>
-         <div class="box-list w-100">
+         <div class="box-list2">
             <p class="subtitle accent-text">Support Services</p>
             <p class="text-small "> Supply chain management, site based support, environmental services, exploration and construction phase support.</p>
          </div>
-         <div class="box-list w-100">
+         <div class="box-list2">
             <p class="subtitle accent-text">Innovation and Digital Services</p>
             <p class="text-small ">E-platforms, digital media and engineered innovations.</p>
          </div>
@@ -284,47 +309,48 @@
        <span  id="request_quote3" class="button round-corner primary-bg border-white-all white-text margin-auto">Request a Quote</span>
        <span class="vspacer"></span>
     </section>
-    <section  class="padding-std " id="b2b">
+    <section id="b2b">
      
         <h2 class="title ">Business to Business (B2B)</h2>
         <p>
         As a business solution company, ITM Tanzania focuses on improving business processes. We identify obstacles related to SALES FORCE mechanisms of our partners and offer a support as partner by identifying the most appropriate sales patterns for their products and setting up strategies, action plans and providing qualified and well-trained sales teams. ITM Tanzania carries out business survey, recruits, trains and places sales representatives on the field to sell services and products of our partners in order to increase their revenues and maximize their turnovers. </p>
         </div>
        
-      <div class="w-60 flex-column flex-start flex-top margin-std">
+      <span class="vspacer"></span>
+      
         <p class="text-left subtitle">Sales Force Support</p>
-          <ul>
-              <li class="text-left">Acquisition and development of the sale of companies' products and services</li>
-              <li class="text-left">Income growth and turnover</li>
-              <li class="text-left">Make the business profitable</li>
-              <li class="text-left">Commercial development of your activity</li>
-              <li class="text-left">Prospecting and development of turnover for B2B and B2C customers</li>
+        <p>
+          <!-- <ul> -->
+              <p class="text-left"><i class="material-icons">arrow_forward</i>Acquisition and development of the sale of companies' products and services</p>
+              <p class="text-left"><i class="material-icons">arrow_forward</i>Income growth and turnover</p>
+              <p class="text-left"><i class="material-icons">arrow_forward</i>Make the business profitable</p>
+              <p class="text-left"><i class="material-icons">arrow_forward</i>Commercial development of your activity</p>
+              <p class="text-left"><i class="material-icons">arrow_forward</i>Prospecting and development of turnover for B2B and B2C customers</p>
               
-           </ul>
-          
-
-      </div>
-      <div class="w-60 flex-column flex-start flex-top margin-std">
+           <!-- </ul> -->
+          </p>
+      <span class="vspacer"></span>
         <p class="text-left subtitle">Our Business Areas</p>
-        <ul>
-          <li class="text-left">Telecommunication</li>
-          <li class="text-left">Banking</li>
-          <li class="text-left">Manufacturing</li>
-          <li class="text-left">FMCGS</li>
-          <li class="text-left">E-Commerce</li>
-          <li class="text-left">Distributions</li>
-       </ul>
-      </div>
+        
+          <p class="text-left"><i class="material-icons">arrow_forward</i>Telecommunication</p>
+          <p class="text-left"><i class="material-icons">arrow_forward</i>Banking</p>
+          <p class="text-left"><i class="material-icons">arrow_forward</i>Manufacturing</p>
+          <p class="text-left"><i class="material-icons">arrow_forward</i>FMCGS</p>
+          <p class="text-left"><i class="material-icons">arrow_forward</i>E-Commerce</p>
+          <p class="text-left"><i class="material-icons">arrow_forward</i>Distributions</p>
+       
+      
       <span class="vspacer"></span>
        <span  id="request_quote4" class="button round-corner primary-bg border-white-all white-text margin-auto">Request a Quote</span>
     </section>
-    <section  class="margin-auto padding-std bg-img-header9 " id="consultation">
+    <section  class="margin-auto bg-img-header9 " id="consultation">
      
-        <p class="title primary-text ">Schedule A Free Consultation</p>
         
-        <div class="w-100 flex-column flex-space flex-start margin-std">
-          <p class="subtitle text-center">Call us: +255743 271 447</p>
-          <p class="subtitle text-center">E-mail us: info@itmafrica.com</p>
+        
+        <div class="">
+          <p class="title primary-text text-left">Schedule A Free Consultation</p>
+          <p class="subtitle">Call us: +255 766 261 252</p>
+          <p class="subtitle">E-mail us: info@itmafrica.com</p>
           </div>
           <span class="vspacer"></span>
           <span class="vspacer"></span>

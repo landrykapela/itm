@@ -20,7 +20,7 @@
       content="ITM, ITM Africa, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement, B2B, Business solutions"
     />
     <link href="styles/general.css" rel="stylesheet" />
-    <!-- <link href="styles/general_tablet.css" rel="stylesheet" /> -->
+    <link href="styles/general_tablet.css" rel="stylesheet" />
     <link href="styles/general_mobile.css" rel="stylesheet" />
     <link href="styles/general_large.css" rel="stylesheet" />
     <link
@@ -144,10 +144,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         />
       </form>
     </div>
-    <div id="floating-header" class="floating-header padding-std margin-auto">
-      <img src="images/logo.png" class="logo" alt="ITM logo" />
-      <div class="flex-column flex-center flex-end">
-        <div class="flex-row flex-end margin-std-right no-mobile">
+    <div id="floating-header" class="floating-header white-bg"><div id="top-bar">
+       
+      <img src="images/logo.png" class="logo" alt="ITM logo" /> 
+      <div class="flex-row flex-end">
           <div class="tip">
             <img src="images/tanzania.png" alt="ITM Tanzania" class="flag" />
             <span class="tooltip">Tanzania</span>
@@ -201,25 +201,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               onclick="window.location='https://itmafrica.com.ng';"
             /><span class="tooltip">Nigeria</span>
           </div>
-        </div>
-        <nav class="flex-row flex-center margin-std-right" id="navigation">
+       </div>
+        <span id="menu"><i class="material-icons">menu</i></span>
+    </div> 
+    <nav id="navigation">
           <span id="home" class="active">Home</span>
-          <span id="about">About</span>
-          <span id="services">Services</span>
-          <span id="jobs">Jobs</span>
-          <span id="training">Training</span>
-          <span id="news">News & Events</span>
-          <!-- <span id="contacts">Contacts</span> -->
-        </nav>
-      </div>
-      <span id="menu"><i class="material-icons">menu</i></span>
+          <span id="about">About us</span> 
+          <div id="services">Services
+          <span 
+              id="expandable"
+              class="hidden flex-column flex-top flex-start"
+              ><a href="../services.html#hr">Human Resources Solutions</a
+              ><a href="training/training.php">Professional Training</a><a href="../services.html#sales">Sales Force Solutions</a
+              ><a href="../services.html#industrial">Logistics and Procurement</a
+              >
+              </span
+            ></span
+          ></div>
+          <span id="jobs">ITM Jobs</span>
+          <span id="news">Events</span>
+          <span id="contacts">Contacts</span>
+    </nav>
+     
+     
     </div>
-
+<span class="vspacer"></span>
+          <span class="vspacer"></span>
     <div id="slider1">
       <!-- slide 1 -->
       <div class="margin-auto flex-row v-100 bg-img-header1">
         <div
-          class="dark-bg-transparent padding-std margin-auto flex-column flex-center flex-middle v-100 min-width-full"
+          class="dark-bg-transparent padding-std margin-auto flex-column flex-center flex-middle v-100"
         >
           <span class="vspacer no-mobile"></span>
           <span class="vspacer no-mobile"></span>
@@ -418,7 +430,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- <span class="vspacer"></span> -->
     <!-- <main class="padding-std dark-bg"> -->
-    <section id="section_services" class="dark-bg padding-std">
+    <section id="section_services" class="dark-bg">
       <h2 class="title white-text">Our Services</h2>
       <div class="padding-std margin-auto" id="slider">
         <!-- slide 1 -->
@@ -522,11 +534,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span>Victoria Area, New Bagamoyo Road,</span>
         <span>Dar Es Salaam, Tanzania</span>
         <span>E-mail: infotanzania@itmafrica.com</span>
-        <span>Phone: +255 737 100 025</span>
+        <span>Phone: +255 766 261 252 </span>
       </div>
       <div class="padding-std" id="footer-impact">
-        <h3>Our Impact</h3>
-        <span>Outsourced Staff: <b>3,200</b></span>
+        <h3>Our Reach</h3>
+        <!-- <span>Outsourced Staff: <b>3,200</b></span>
         <span>Recruitments: <b>10,000</b></span>
         <span>Partners: <b>50</b></span>
         <span>People Trained: <b>2,000</b></span>
@@ -540,7 +552,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               title="Page visitors"
               alt="Page visitors"
           /></a>
-        </span>
+        </span> -->
+
+    <div class="elfsight-app-6e0a569c-4ada-4eb1-8be0-d01bf0fd5983"></div>
       </div>
       <div class="padding-std">
         <h3>Stay Connected</h3>
@@ -579,7 +593,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <script type="text/javascript" src="slick/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="slick/jquery-migrate-1.2.js"></script>
-
+ <script src="https://apps.elfsight.com/p/platform.js" defer></script>
     <script src="js/general.js"></script>
     <script type="text/javascript" src="slick/slick.min.js"></script>
     <script>

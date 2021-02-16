@@ -3,9 +3,11 @@
   <head>
     <meta name="author" content="Landry Kapela" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
+   <meta
       name="description"
-      content="ITM Tanzania Ltd is the East African division of the ITM AFRICA Group of companies, a respected, multi-faceted service provider to different sectors throughout Africa."
+      content="ITM AFRICA was founded since 2011 by Mr. Sylva MONGA. The company
+            started basically as a training and staff management provider
+            corporate under the name International Training & Motivation Sarl"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="ITM Tanzania" />
@@ -16,7 +18,7 @@
     />
     <meta
       name="keyword"
-      content="ITM, ITM Africa, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement"
+      content="ITM, ITM Africa, ITM Tanzania, Career Development,Career, Professional Training, Training, recruitment,achievement,history of ITM, founder of ITM Africa, Sylva Monga, International Training and Motivation Sarl"
     />
     <link href="styles/general.css" rel="stylesheet" />
     <link href="styles/general_mobile.css" rel="stylesheet" />
@@ -35,87 +37,99 @@
     />
     <link rel="icon" href="images/favicon.png" />
 
-    <title>ITM Tanzania</title>
+    <title>About ITM Tanzania</title>
   </head>
   <body>
-    <div
-      id="floating-header"
-      class="floating-header flex-row flex-between flex-top w-100-no-padding padding-std margin-auto"
-    >
-      <img src="images/logo.png" class="logo" alt="ITM logo" />
-      <div class="flex-column flex-center flex-end">
-        <div class="flex-row flex-end margin-std-right no-mobile">
-          <img src="images/tanzania.png" alt="ITM Tanzania" class="flag" />
-          <img
-            src="images/rwanda.png"
-            alt="ITM Rwanda"
-            class="flag"
-            onclick="window.location='https://itmafrica.rw';"
-          />
-          <img
-            src="images/angola.png"
-            alt="ITM Angola"
-            class="flag"
-            onclick="window.location='https://itmafrica.ao';"
-          />
-          <img
-            src="images/drc.png"
-            alt="ITM Group"
-            class="flag"
-            onclick="window.location='https://itmafrica.com';"
-          />
-          <img
-            src="images/south_africa.png"
-            alt="ITM South Africa"
-            class="flag"
-            onclick="window.location='https://itmkatope.co.za';"
-          />
-          <img
-            src="images/germany.png"
-            alt="ITM Germany"
-            class="flag"
-            onclick="window.location='https://itmnexus.com';"
-          />
-          <img
-            src="images/nigeria.png"
-            alt="ITM Nigeria"
-            class="flag"
-            onclick="window.location='https://itmafrica.com.ng';"
-          />
-        </div>
-        <nav class="flex-row flex-center margin-std-right" id="navigation">
-          <span id="home">Home</span>
-          <span id="about" class="active">About</span>
-          <span id="services"
-            >Services<span
+    <div id="floating-header" class="floating-header white-bg"><div id="top-bar">
+       
+      <img src="images/logo.png" class="logo" alt="ITM logo" /> 
+      <div class="flex-row flex-end">
+          <div class="tip">
+            <img src="images/tanzania.png" alt="ITM Tanzania" class="flag" />
+            <span class="tooltip">Tanzania</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/rwanda.png"
+              alt="ITM Rwanda"
+              class="flag"
+              onclick="window.location='https://itmafrica.rw';"
+            />
+            <span class="tooltip">Rwanda</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/angola.png"
+              alt="ITM Angola"
+              class="flag"
+              onclick="window.location='https://itmafrica.ao';"
+            /><span class="tooltip">Angola</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/drc.png"
+              alt="ITM Group"
+              class="flag"
+              onclick="window.location='https://itmafrica.com';"
+            /><span class="tooltip">DR Congo</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/south_africa.png"
+              alt="ITM South Africa"
+              class="flag"
+              onclick="window.location='https://itmkatope.co.za';"
+            /><span class="tooltip">South Africa</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/germany.png"
+              alt="ITM Germany"
+              class="flag"
+              onclick="window.location='https://itmnexus.com';"
+            /><span class="tooltip">Germany</span>
+          </div>
+          <div class="tip">
+            <img
+              src="images/nigeria.png"
+              alt="ITM Nigeria"
+              class="flag"
+              onclick="window.location='https://itmafrica.com.ng';"
+            /><span class="tooltip">Nigeria</span>
+          </div>
+       </div>
+        <span id="menu"><i class="material-icons">menu</i></span>
+    </div> 
+    <nav id="navigation">
+          <span id="home" >Home</span>
+          <span id="about" class="active">About us</span> 
+          <div id="services">Services
+          <span 
               id="expandable"
               class="hidden flex-column flex-top flex-start"
               ><a href="../services.html#hr">Human Resources Solutions</a
-              ><a href="../services.html#sales">Sales and Distribution</a
-              ><a href="../services.html#industrial">Industrial Solutions</a
-              ><a href="../services.html#b2b">Business-2-Business</a></span
+              ><a href="training/training.php">Professional Training</a><a href="../services.html#sales">Sales Force Solutions</a
+              ><a href="../services.html#industrial">Logistics and Procurement</a
+              >
+              </span
             ></span
-          >
-          <span id="jobs">Jobs</span>
-          <span id="training">Training</span>
-          <span id="news">News & Events</span>
-          <!-- <span id="contacts">Contacts</span> -->
-        </nav>
-      </div>
-      <span id="menu"><i class="material-icons">menu</i></span>
+          ></div>
+          <span id="jobs">ITM Jobs</span>
+          <span id="news">Events</span>
+          <span id="contacts">Contacts</span>
+    </nav>
+     
     </div>
-    <header id="header" class="min-width-full bg-img-header7">
+    <header id="header" class="bg-img-header7">
       <div
-        class="min-width-full dark-bg-transparent flex-column flex-top flex-center margin-auto v-100"
+        class="dark-bg-transparent flex-column flex-top flex-center margin-auto v-100"
       >
+        
         <span class="vspacer"></span><span class="vspacer"></span
-        ><span class="vspacer"></span><span class="vspacer"></span
-        ><span class="vspacer"></span><span class="vspacer"></span
         ><span class="vspacer"></span>
         <p class="title white-text margin-std focus">About ITM Africa</p>
         <span class="vspacer"></span><span class="vspacer"></span
-        ><span class="vspacer"></span><span class="vspacer"></span
-        ><span class="vspacer"></span>
+        >
       </div>
     </header>
     <section>
@@ -148,12 +162,12 @@
         </div>
         <img
           src="images/Mr_Sylva_Monga2.jpg"
-          class="w-50"
+          class="w-50 no-mobile"
           alt="Mr. Sylva Monga"
         />
       </div>
     </section>
-    <section class="padding-std">
+    <section class="padding-std" id="vision">
       <h2 class="large-text primary-text">What Drives Us</h2>
       <div class="container">
         <div class="values">
