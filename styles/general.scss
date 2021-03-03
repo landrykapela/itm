@@ -319,6 +319,14 @@
   .alert-bg {
     background-color: red;
   }
+  #feedback {
+    color: $white;
+    width: calc(100% - 0.5em);
+    text-align: center;
+    margin: 0 auto;
+    padding: 0.25em;
+    background-color: red;
+  }
   .border-dark-bottom {
     border-bottom: 1px solid black;
   }
@@ -839,13 +847,12 @@
   }
   .floating-header {
     @include flex(column, flex-start, flex-start, 1, wrap);
-    position: fixed;
+    position: sticky;
+    position: -webkit-sticky;
     top: 0;
     z-index: 100000000;
     margin: 0 auto;
-    padding: 0.25em;
-    width: calc(100% - 0.5em);
-    /*margin-right: 400px;*/
+    width: calc(100%);
   }
   .floating-header #top-bar {
     @include flex(row, space-between, center, 0, nowrap);

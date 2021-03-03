@@ -223,7 +223,8 @@ class DB{
 
     static function resetPassword($email){
         $sql = "select * from user where email = '".$email."' order by id asc limit 1";
-        $query = mysqli_query(self::connect(),$sql);
+        $con = self::connect();
+        $query = mysqli_query($con,$sql);
         if(mysqli_num_rows($query) > 0){
             $password = self::randomPassword();
             
@@ -231,6 +232,7 @@ class DB{
             $sql2 = "update user set password ='".$hash."' where email='".$email."'";
             $query2 = mysqli_query(self::connect(),$sql2);
             if($query2){
+                
                 $headers ="From: ITM Tanzania\r\nReply-To: noreply@itmafrica.co.tz\r\n";
                 mail($email,"Password Reset","Your password has been reset. Please use ".$password." next time you login",$headers);
                 return true;

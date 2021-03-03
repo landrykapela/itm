@@ -365,3 +365,9 @@ if (btnRequestQuote4) {
     contactPopup.classList.remove("hidden");
   });
 }
+
+// const feedback = document.getElementById("feedback");
+// if (feedback) {
+//   if (feedback.textContent == "") feedback.style.visibility = "hidden";
+//   else feedback.style.visibility = "visible";
+// }

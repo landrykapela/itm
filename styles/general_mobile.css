@@ -283,6 +283,15 @@ form select {
     background-color: red;
   }
 
+  #feedback {
+    color: #ffffff;
+    width: calc(100% - 0.5em);
+    text-align: center;
+    margin: 0 auto;
+    padding: 0.25em;
+    background-color: red;
+  }
+
   .border-dark-bottom {
     border-bottom: 1px solid black;
   }
@@ -949,7 +958,8 @@ nav span:hover {
     align-items: flex-start;
     max-width: 768px;
     flex-wrap: wrap;
-    position: fixed;
+    position: sticky;
+    position: -webkit-sticky;
     top: 0;
     overflow-x: hidden;
     z-index: 100000000;

@@ -343,6 +343,15 @@ form select {
     background-color: red;
   }
 
+  #feedback {
+    color: #ffffff;
+    width: calc(100% - 0.5em);
+    text-align: center;
+    margin: 0 auto;
+    padding: 0.25em;
+    background-color: red;
+  }
+
   .border-dark-bottom {
     border-bottom: 1px solid black;
   }
@@ -996,12 +1005,13 @@ nav div#services:hover {
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
-    position: fixed;
+    position: sticky;
+    position: -webkit-sticky;
     top: 0;
     z-index: 10000000000000000;
     margin: 0 auto;
-    padding: 0.25em;
-    width: calc(100% - 0.5em);
+    padding: 0;
+    width: calc(100%);
     /*margin-right: 400px;*/
   }
 
