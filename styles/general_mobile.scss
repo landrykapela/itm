@@ -194,11 +194,11 @@
     /*padding-left:2.5em;*/
     /*padding-right:2.5em;*/
   }
-  // .w-100 {
-  //   width: calc(100%);
-  //   max-width: 100%;
-  //   /*padding: 2em;*/
-  // }
+  .w-100 {
+    width: calc(100%);
+    max-width: 100%;
+    /*padding: 2em;*/
+  }
   // .w-80 {
   //   width: calc(80% - 8em);
   //   max-width: 80%;
@@ -249,11 +249,30 @@
   .padding-small {
     padding: $smPadding;
   }
+
+  .padding-small-left {
+    padding-left: $smPadding;
+  }
+  .padding-small-right {
+    padding-right: $smPadding;
+  }
+  .padding-small-top {
+    padding-top: $smPadding;
+  }
+  .padding-small-bottom {
+    padding-bottom: $smPadding;
+  }
   .padding-std-left {
-    margin-left: 2em;
+    padding-left: 2em;
   }
   .padding-std-right {
-    margin-right: 2em;
+    padding-right: 2em;
+  }
+  .padding-std-top {
+    padding-top: 2em;
+  }
+  .padding-std-bottom {
+    padding-bottom: 2em;
   }
   .margin-auto {
     margin: 0 auto;
@@ -777,12 +796,28 @@
     margin: 5px;
   }
   .news-card {
-    min-width: 280px;
+    width: 80%;
     cursor: pointer;
   }
   .news-card:hover {
     background-color: $primaryColor;
-    opacity: 0.4;
+    // opacity: 0.4;
+    color: $white;
+  }
+  .news-card:hover > span {
+    background-color: $accentColor;
+    color: $primaryText;
+  }
+  .news-card > p {
+    margin: $stdPadding;
+    text-align: justify;
+    font-size: $smallFont;
+  }
+  .news-card:hover > p,
+  .news-card:hover > a,
+  .news-card:hover > a:visited,
+  .news-card:hover > a:hover {
+    color: $white;
   }
   .box-list,
   .box-list2 {
@@ -990,6 +1025,18 @@
     animation-delay: 0s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+  }
+
+  #confirm_apply_form {
+    width: 80%;
+    margin: 1em auto;
+  }
+  #confirm_apply_form > div.form-group {
+    margin: auto;
+    @include flex(column, flex-start, flex-start);
+    padding: 1em;
+    text-align: center;
+    width: 100%;
   }
   @keyframes spinHorizontal {
     from {

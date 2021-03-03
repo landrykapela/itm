@@ -304,10 +304,11 @@
     </div>
     <script>
       window.addEventListener("load", () => {
-        let query = window.location.search;
-        if (query.length > 0) {
+        let query = window.location.href.split("=")[1];
+          console.log("decoding feedback messge...",window.location.href.split("=")[1]);
+        if (query.length) {
           const errorHolder = document.getElementById("feedback");
-          let feedback = decodeURI(query.split("=")[1]);
+          let feedback = decodeURI(query);
           errorHolder.classList.remove("hidden");
           errorHolder.textContent = feedback;
         }

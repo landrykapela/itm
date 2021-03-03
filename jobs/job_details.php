@@ -3,15 +3,19 @@ session_start();
 // ini_set("display_errors",1);
 require('../libs/manager.php');
 $location = "Location: ".(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS'])=="on" ? "https://":"http://");
-$location .= $_SERVER['HTTP_HOST']."/jobs/signup.html#login";
-if(!isset($_SESSION['user'])) header($location);
+$location .= $_SERVER['HTTP_HOST'];//."/jobs/signup.html#login";
+$readonly = 'readonly';
+$job_id = $_GET['jid'];
+$job = DB::getJobById($job_id);
+$admin = false;
+if(!isset($job_id)) die("oops: ".$job_id);//header($location."/jobs/job_listings.php");
+if(isset($_SESSION['user'])){
 $admin = DB::isAdmin($_SESSION['user']);
 
     $user = DB::getUser($_SESSION['user']);
-    $job_id = $_GET['jid'];
-    $job = DB::getJobById($job_id);
-    $readonly = $admin ? '':'readonly';
     
+    $readonly = $admin ? '':'readonly';
+}
 echo '<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,13 +121,16 @@ echo'  <a class="round-corner text-center button border-white-all primary-bg whi
     href="edit_job.php?jid='.$job['id'].'"
     >EDIT</a>';
 }
+else{
+echo '<a class="plain-link text-center primary-text" href="apply.php?cid='.$user['id'].'&jid='.$job_id.'">APPLY</a>';
+}
  $back = $admin ? '<a
     href="../admin/admin.php"
     class="plain-link text-center primary-text"
     >CLOSE</a>' : '<a
     href="job_listings.php"
     class="plain-link text-center primary-text"
-    >CLOSE</a><a class="plain-link text-center primary-text" href="apply.php?cid='.$user['id'].'&jid='.$job_id.'">APPLY</a>';
+    >CLOSE</a>';
 echo $back .'</div>
 <span class="vspacer"></span>
 </div>';

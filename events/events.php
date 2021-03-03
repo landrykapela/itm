@@ -1,6 +1,6 @@
 <?php
 
-// ini_set("display_errors",1);
+ini_set("display_errors",1);
 require("../libs/manager.php");
 $msg = "";
 if(isset($_GET['fb'])){
@@ -45,7 +45,7 @@ $html = '<!DOCTYPE html>
   <body>
     <div
     id="popup"
-    class="padding-std min-width-full black-bg-transparent flex-column flex-center-flex-middle hidden"
+    class="padding-std black-bg-transparent flex-column flex-center-flex-middle hidden"
   >
     <span class="vspacer"></span>
     <form action="../admin/subscribe.php" method="POST"
@@ -83,10 +83,7 @@ $html = '<!DOCTYPE html>
       />
     </form>
 
-    <span class="vspacer"></span>
-    <span class="vspacer"></span>
-    <span class="vspacer"></span>
-    <span class="vspacer"></span>
+   
   </div>
   
  <div id="floating-header" class="floating-header white-bg">
@@ -178,8 +175,6 @@ $html = '<!DOCTYPE html>
          
         <span class="vspacer"></span>
         <span class="vspacer"></span>
-        <span class="vspacer"></span>
-        <span class="vspacer"></span>
             <p class="white-text title focus text-left">News and Events</p>
             <p class="white-text text-left">
                Stay updated with news and events around ITM
@@ -196,20 +191,20 @@ $html = '<!DOCTYPE html>
     </header>
     <p class="title primary-text">Recent Events</p>
     <section class="w-100 flex-row flex-center margin-std ">';
-    // $events = DB::getEvents();
-    // if($events){
-    //   for($i=0;$i<sizeof($events);$i++){
-    //     $event = $events[$i];
-    //     $html .='
-    //     <div class="shadow margin-std news-card accent-bg w-40" >
-    //     <a href="event_detail.php?id='.$event['id'].'" class="plain-link">
-    //       <img src="snaps/'.$event['image'].'" class="w-100-no-padding"/>
+    $events = DB::getEvents();
+    if($events){
+      for($i=0;$i<sizeof($events);$i++){
+        $event = $events[$i];
+        $html .='
+        <div class="shadow margin-std news-card accent-bg w-40" >
+        <a href="event_detail.php?id='.$event['id'].'" class="plain-link">
+          <img src="snaps/'.$event['image'].'" class="w-100-no-padding"/>
           
-    //       <p class="dark-text text-left padding-small">'.$event['title'].'</p>    
-    //       </a>
-    //   </div> ';
-    //   }
-    // }
+          <p class="dark-text text-left padding-small">'.$event['title'].'</p>    
+          </a>
+      </div> ';
+      }
+    }
     
   $html .='</section>
    

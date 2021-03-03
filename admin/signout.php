@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 $_SESSION = array();
 
@@ -7,7 +8,10 @@ if(isset($_COOKIE[session_name()])){
 }
 session_destroy();
 
-$location = "Location: ".($_SERVER['HTTPS'] ? "https://":"http://");
+if(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == "on"){
+    $location = "https://";
+} 
+else $location = "http://";
 $location .= $_SERVER['HTTP_HOST']."/jobs/signup.html#login";
-header($location,true);
+header("Location: ".$location,true);
 ?>

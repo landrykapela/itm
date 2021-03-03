@@ -83,7 +83,7 @@ class="min-width-full v-100  flex-row flex-center"
 
 
 </div>
-<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">
+<div class="w-50 flex-column flex-start flex-top border-primary-all dark-text padding-std">
 
 <p>'.$profile['name'].'</p>
 <p>'.$profile['email'].'</p>
@@ -102,7 +102,7 @@ class="min-width-full v-100  flex-row flex-center"
 
 </div>';
 $education = DB::getEducationProfile($profile['email']);
-echo '<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">';
+echo '<div class="w-50 flex-column flex-start flex-top border-primary-all dark-text padding-std">';
 if(!$education){
   echo '<p class="subtitle">Nothing to show</p>';
 }
@@ -130,7 +130,7 @@ class="min-width-full v-100  flex-row flex-center"
 </div>';
 $work = DB::getWorkProfile($profile['email']);
 // echo "work: ".json_encode($work);
-echo '<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">';
+echo '<div class="w-50 flex-column flex-start flex-top border-primary-all dark-text padding-std">';
 if(!$work) echo '<p class="subtitle">Nothing to show</p>';
 else{
   for($i=0; $i<sizeof($work);$i++){
@@ -160,7 +160,7 @@ class="min-width-full v-100  flex-row flex-center"
 </div>';
 $reference = DB::getReferenceProfile($profile['email']);
 
-echo '<div class="w-50 flex-column flex-start flex-top accent-bg dark-text padding-std">';
+echo '<div class="w-50 flex-column flex-start flex-top border-primary-all dark-text padding-std">';
 if(!$reference) echo '<p class="subtitle">Nothing to show</p>';
 else{
   for($i=0; $i<sizeof($reference);$i++){

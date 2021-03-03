@@ -47,31 +47,30 @@ $html = '<!DOCTYPE html>
 <body width="100%">
 <h2>Curriculum Vitae</h2>
  <section
-class="min-width-full v-100  flex-row flex-center"
+class="flex-column flex-start flex-start w-75"
 >
-<div class="w-25  padding-std flex-column flex-top flex-middle  primary-bg white-text">
+<div class="small-std primary-bg white-text">
 <p class="subtitle">Personal Info</p>
 </div>
-<div class="w-75 flex-column flex-start flex-top accent-bg dark-text padding-std">
+<div class="flex-column flex-start flex-top border-primary-all dark-text padding-std">
 
-<p>'.$user['name'].'</p>
-<p>'.$user['email'].'</p>
-<p>'.$user['phone'].'</p>';
+<p>Full name: '.$user['name'].'</p>
+<p>E-mail Address: '.$user['email'].'</p>
+<p>Mobile: '.$user['phone'].'</p>';
 $cities = DB::getTanzaniaCities();
 $location = in_array($user['location'],$cities) ? $user['location'] : DB::getCountry($user['location']);
 
-$html .= '<p>'.$location.'</p>
+$html .= '<p>Location: '.$location.'</p>
 </div>
 </section> <span class="vspacer-small"></span><section
-class="min-width-full v-100  flex-row flex-center"
+class="flex-column flex-start flex-start w-75"
 >
-<div class="w-25  padding-std flex-column flex-top flex-middle  primary-bg white-text">
+<div class="small-std primary-bg white-text">
 <p class="subtitle">Education Background</p>
-
-
-</div>';
+</div>
+<div class="flex-column flex-start flex-top border-primary-all dark-text padding-std">';
 $education = DB::getEducationProfile($user['email']);
-$html .='<div class="w-75 flex-column flex-start flex-top accent-bg dark-text padding-std">';
+$html .='<div class="flex-column flex-start flex-top dark-text padding-std">';
 if(!$education){
   $html .='<p class="subtitle">Nothing to show</p>';
 }
@@ -85,16 +84,15 @@ else{
 }
 
 $html .= '</section><span class="vspacer-small"></span><section
-class="min-width-full v-100  flex-row flex-center"
+class="flex-column flex-start flex-start w-75"
 >
-<div class="w-25  padding-std flex-column flex-top flex-middle  primary-bg white-text">
+<div class="small-std primary-bg white-text">
 <p class="subtitle">Professional Experience</p>
-
-
-</div>';
+</div>
+<div class="flex-column flex-start flex-top border-primary-all dark-text padding-std">';
 $work = DB::getWorkProfile($user['email']);
 // $html .="work: ".json_encode($work);
-$html .= '<div class="w-75 flex-column flex-start flex-top accent-bg dark-text padding-std">';
+$html .= '<div class="flex-column flex-start flex-top dark-text padding-std">';
 if(!$work) $html .='<p class="subtitle">Nothing to show</p>';
 else{
   for($i=0; $i<sizeof($work);$i++){
@@ -117,13 +115,15 @@ $html .='</div>
 </section>';
 
 $html .=' <span class="vspacer-small"></span><section
-class="min-width-full v-100  flex-row flex-center"
+class="flex-column flex-start flex-start w-75"
 >
-<div class="w-25  padding-std flex-column flex-top flex-middle  primary-bg white-text">
-<p class="subtitle">Reference</p></div>';
+<div class="small-std primary-bg white-text">
+<p class="subtitle">Reference</p>
+</div>
+<div class="flex-column flex-start flex-top border-primary-all dark-text padding-std">';
 $reference = DB::getReferenceProfile($user['email']);
 
-$html .='<div class="w-75 flex-column flex-start flex-top accent-bg dark-text padding-std">';
+$html .='<div class="flex-column flex-start flex-top dark-text padding-std">';
 if(!$reference) $html .='<p class="subtitle">Nothing to show</p>';
 else{
   for($i=0; $i<sizeof($reference);$i++){

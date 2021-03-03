@@ -127,15 +127,15 @@ echo '<!DOCTYPE html>
 </div>  
     <header
       id="header"
-      class="min-width-full bg-img-header5 "
+      class="bg-img-header5 "
     >
-        <div class="flex-column flex-start padding-std primary-bg-transparent margin-auto">
+        <div class=" padding-std primary-bg-transparent margin-auto">
          <span class="vspacer"></span> <span class="vspacer"></span> <span class="vspacer"></span>
             <p class="white-text title focus">Jobs Portal</p>
             <p class="white-text">
                Get matched with the best employers and land your dream job
             </p>
-            <span class="vspacer"></span>
+            
             <span class="vspacer"></span>';
             $open_signup =  "window.location=window.location.origin+'/jobs/signup.html'";
             $open_signin =  "window.location=window.location.origin+'/jobs/signup.html#login'";
@@ -146,42 +146,32 @@ echo '<!DOCTYPE html>
             
         </div>
     </header>';
+    echo '<section class="margin-std ">
+        <p class="title primary-text text-center">Recent Listings</p>';
     require('../libs/manager.php');
           $jobs = DB::getJobListings();
-    echo '<section class="w-100 margin-std ">
-        <p class="title primary-text">Recent Listings</p>
-        <table class="w-100 margin-auto text-left no-mobile">
-          <thead class="primary-bg white-text"><tr><td>Title</td><td>Description</td><td>Date uploaded</td><td>Deadline</td></tr></thead>
-          <tbody>';
+    
+        echo '<div class="w-100 margin-auto flex-row flex-center flex-top">';
               
           if(!$jobs){
-            echo '<tr><td colspan=4 class="text-center">No job openings</td></tr>';
+            echo '<p class="text-center">No job openings</p>';
           }
            else{
              for($i=0; $i<sizeof($jobs);$i++){
                $job = $jobs[$i];
-               echo '<tr><td><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.$job['position'].'</a></td><td><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.(strlen($job['description']) > 160 ? substr($job['description'],0,160)."...":$job['description']).'</a></td><td><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['date_created']).'</a></td><td><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['deadline']).'</a></td></tr>';
+              echo '<div class="shadow margin-std news-card flex-column flex-between flex-middle w-40" >
+        <a href="job_details.php?jid='.$job['id'].'" class="plain-link">
+          
+          <p class="dark-text text-center padding-small">'.$job['position'].'</p>    
+          </a>
+          <p class="dark-text">'.(strlen($job['description']) > 255 ? substr($job['description'],0,255) : $job['description']).'...</p>
+          <span class="w-100 primary-bg padding-small-top padding-small-bottom white-text">Deadline: '.date('d M Y',$job['deadline']).'</span>
+      </div> ';
              }
            }   
-  echo '</tbody>
-      </table>';
-echo '<div class="flex-column flex-center flex-middle mobile-only">';
-if(!$jobs){
-  echo '<p class="text-center">No job openings</p>';
-}
-else {
-  for($i=0; $i<sizeof($jobs);$i++){
-    $job = $jobs[$i];
-    echo '<div class="w-100 flex-column flex-center flex-middle margin-std-top"><span class="primary-bg w-100 padding-small white-text">'.$job['position'].'</span>
-    <p>'.date('d M Y',$job['deadline']).'</p>
-    <p>'.(strlen($job['description']) > 72 ? substr($job['description'],0,72):$job['description']).'</p>
-    <a href="../jobs/job_details.php?jid='.$job['id'].'"><p class="button primary-bg white-text round-corner border-white-all"> View Job</p></a></div>';
-}
-}
-echo '</div>';
-echo '</section>
+  echo '</div></section>
    
-    <footer class="flex-row flex-space dark-bg white-text min-width-full ">
+    <footer class="flex-row flex-space dark-bg white-text ">
       <span class="copyright">2021 &copy;ITM Tanzania Ltd</span
       ><span class="copyright"
         >Developed and maintained by

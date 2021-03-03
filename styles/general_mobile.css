@@ -203,6 +203,12 @@ form select {
     /*padding-right:2.5em;*/
   }
 
+  .w-100 {
+    width: calc(100%);
+    max-width: 100%;
+    /*padding: 2em;*/
+  }
+
   .padding-std {
     padding: 1em;
   }
@@ -211,12 +217,36 @@ form select {
     padding: 0.5em;
   }
 
+  .padding-small-left {
+    padding-left: 0.5em;
+  }
+
+  .padding-small-right {
+    padding-right: 0.5em;
+  }
+
+  .padding-small-top {
+    padding-top: 0.5em;
+  }
+
+  .padding-small-bottom {
+    padding-bottom: 0.5em;
+  }
+
   .padding-std-left {
-    margin-left: 2em;
+    padding-left: 2em;
   }
 
   .padding-std-right {
-    margin-right: 2em;
+    padding-right: 2em;
+  }
+
+  .padding-std-top {
+    padding-top: 2em;
+  }
+
+  .padding-std-bottom {
+    padding-bottom: 2em;
   }
 
   .margin-auto {
@@ -852,13 +882,31 @@ nav span:hover {
   }
 
   .news-card {
-    min-width: 280px;
+    width: 80%;
     cursor: pointer;
   }
 
   .news-card:hover {
     background-color: #132a86;
-    opacity: 0.4;
+    color: #ffffff;
+  }
+
+  .news-card:hover > span {
+    background-color: #6ff1e6;
+    color: #000000;
+  }
+
+  .news-card > p {
+    margin: 1em;
+    text-align: justify;
+    font-size: small;
+  }
+
+  .news-card:hover > p,
+.news-card:hover > a,
+.news-card:hover > a:visited,
+.news-card:hover > a:hover {
+    color: #ffffff;
   }
 
   .box-list,
@@ -1130,6 +1178,24 @@ section {
     animation-delay: 0s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+  }
+
+  #confirm_apply_form {
+    width: 80%;
+    margin: 1em auto;
+  }
+
+  #confirm_apply_form > div.form-group {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-width: 768px;
+    flex-wrap: wrap;
+    padding: 1em;
+    text-align: center;
+    width: 100%;
   }
 
   @keyframes spinHorizontal {

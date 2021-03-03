@@ -4,11 +4,14 @@ ini_set("display_errors",1);
 require('../libs/manager.php');
 $location = "Location: ".(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS'])=="on" ? "https://":"http://");
 $location .= $_SERVER['HTTP_HOST']."/jobs/signup.html#login";
-if(!isset($_SESSION['user'])) header($location);
+$user = false;
+$admin = false;
+if(isset($_SESSION['user'])){
 $admin = DB::isAdmin($_SESSION['user']);
 
     $user = DB::getUser($_SESSION['user']);
-    
+}
+
 echo '<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,18 +70,34 @@ echo '<!DOCTYPE html>
 </header>';
 
 $message = "";
+$attachment = array();
 if(isset($_POST['btnSubmit'])){
     $cid = $_POST['cid'];
     $jid = $_POST['jid'];
+    $attachment['cv'] =$_FILES['cv'];
+    $attachment['letter'] = $_FILES['cover-letter'] ;
     $job = DB::getJobById($jid);
-    if(!DB::jobAppExists($cid,$jid)){
-        $application = DB::applyJob($cid,$jid);
-    
-       
-        if($application) $message = "Congratulations! Your application is well received.";
-        else $message = "Sorry! Could not process your application. Please try again later!";
+    if($cid == "new"){
+      $email = filter_var($_POST['email'],FILTER_SANITIZE_STRING);
+      $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
+      $name = filter_var($_POST['fullname'],FILTER_SANITIZE_STRING);
+      $password = DB::randomPassword();
+      $action = DB::createUser($email,$name,$phone,$password,0);
+      if($action) {
+        $user = DB::getUser($email);
+        $application = DB::applyJob($user['id'],$jid,$attachment);
+        $message = ($application['status']) ? "Congratulations! Your application is well received.": $application['message'];
+      }
     }
-    else $message = "You have already applied. Your application is being processed and you will be notified of any progress!";
+    else{
+        if(!DB::jobAppExists($cid,$jid)){
+            $application = DB::applyJob($cid,$jid,$attachment);
+            if($application['status']) $message = "Congratulations! Your application is well received.";
+            else $message = "Sorry! Could not process your application. Please try again later!";
+        }
+        else $message = "You have already applied. Your application is being processed and you will be notified of any progress!";
+    }
+    
 }
 
     echo '

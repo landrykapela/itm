@@ -271,12 +271,36 @@ form select {
     padding: 0.5em;
   }
 
+  .padding-small-left {
+    padding-left: 0.5em;
+  }
+
+  .padding-small-right {
+    padding-right: 0.5em;
+  }
+
+  .padding-small-top {
+    padding-top: 0.5em;
+  }
+
+  .padding-small-bottom {
+    padding-bottom: 0.5em;
+  }
+
   .padding-std-left {
-    margin-left: 2em;
+    padding-left: 2em;
   }
 
   .padding-std-right {
-    margin-right: 2em;
+    padding-right: 2em;
+  }
+
+  .padding-std-top {
+    padding-top: 2em;
+  }
+
+  .padding-std-bottom {
+    padding-bottom: 2em;
   }
 
   .margin-auto {
@@ -916,7 +940,25 @@ nav div#services:hover {
 
   .news-card:hover {
     background-color: #132a86;
-    opacity: 0.4;
+    color: #ffffff;
+  }
+
+  .news-card:hover > span {
+    background-color: #6ff1e6;
+    color: #000000;
+  }
+
+  .news-card > p {
+    margin: 2.5em;
+    text-align: justify;
+    font-size: small;
+  }
+
+  .news-card:hover > p,
+.news-card:hover > a,
+.news-card:hover > a:visited,
+.news-card:hover > a:hover {
+    color: #ffffff;
   }
 
   #box {
@@ -1148,6 +1190,22 @@ section {
 
   .can-spin-horizontal:hover {
     animation: spinHorizontal 2000ms linear infinite;
+  }
+
+  #confirm_apply_form {
+    width: 80%;
+    margin: 1em auto;
+  }
+
+  #confirm_apply_form > div.form-group {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1em;
+    text-align: center;
+    width: 80%;
   }
 
   @keyframes spinHorizontal {

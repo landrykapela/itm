@@ -7,7 +7,7 @@ if(isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == "on"){
     $location = "https://";
 } 
 else $location = "http://";
-$location .= $_SERVER['HTTP_HOST']."/signup.html#login";
+$location .= $_SERVER['HTTP_HOST']."/jobs/signup.html#login";
 if(!isset($_SESSION['user'])) header("Location: ".$location);
 $admin = DB::isAdmin($_SESSION['user']);
 if(!$admin){

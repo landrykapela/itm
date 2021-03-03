@@ -82,23 +82,22 @@ echo '
     
 </section>';
 echo '
-<section class="no-mobile min-width-full margin-auto flex-row flex-start flex-middle primary-bg">
+<section class="no-mobile flex-row flex-center flex-middle primary-bg">
 
-    <div class="margin-auto flex-row flex-start flex-middle padding-small">
-        <span id="btn-candidates" class="button accent-bg white-text padding-std margin-std">Candidates</span>
-    </div>
-    <div class="margin-auto flex-row flex-start flex-middle padding-small">
-        <span id="btn-search" class="button primary-bg white-text padding-std margin-std">Search Candidate</span></div>
-    <div class="margin-auto flex-row flex-end flex-middle padding-small">
-        <span id="btn-listings" class="button primary-bg white-text padding-std margin-std">Jobs</span>
-    </div>
-    <div class="margin-auto flex-row flex-end flex-middle padding-small">
-        <span id="btn-applications" class="button primary-bg white-text padding-std margin-std">Applications</span>
-    </div>
+        <span id="btn-candidates" class="button accent-bg white-text padding-std">Candidates</span>
+   
+        <span id="btn-search" class="button primary-bg white-text padding-std">Search Candidate</span>
+        <span id="btn-listings" class="button primary-bg white-text padding-std">Jobs</span>
+    
+        <span id="btn-applications" class="button primary-bg white-text padding-std">Applications</span>
+   
 </section>';
-
-echo '<section class="w-100 margin-std hidden" id="listings">
-<span class="flex-row flex-space flex-middle w-100"><p class="title primary-text">Listings</p><div class="text-center"><span class="vspacer"><a href="../jobs/add_job.php" class="white-text button primary-bg round-corner border-white-all">Add Job</a></span></div></span>
+echo '<span class="vspacer"></span>';
+echo '<section class="w-100 margin-auto hidden" id="listings">
+<div class="flex-row flex-space flex-middle w-100">
+<p class="title primary-text">Listings</p>
+<span class="text-center"><a href="../jobs/add_job.php" class="white-text button primary-bg round-corner ">Add Job</a></span>
+</div>
 <table class="w-100 margin-auto text-left" >
     <thead class="no-mobile primary-bg white-text">
     <tr><td>Title</td><td>Description</td><td>Date uploaded</td><td>Deadline</td></tr></thead>
@@ -111,16 +110,16 @@ echo '<section class="w-100 margin-std hidden" id="listings">
      else{
        for($i=0; $i<sizeof($jobs);$i++){
          $job = $jobs[$i];
-         echo '<tr class="no-mobile"><td valign="top"><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.$job['position'].'</a></td><td valign="top" class="border-primary-bottom"><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.str_replace("\r\n","<br />",$job['description']).'</a></td><td valign="top"><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['date_created']).'</a></td><td valign="top"><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['deadline']).'</a></td></tr>';
+         echo '<tr class="no-mobile"><td valign="top"><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.$job['position'].'</a></td><td valign="top" class="border-primary-bottom"><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.str_replace("\r\n","<br />",(strlen($job['description']) > 360 ? substr($job['description'],0,360)."...":$job['description'])).'</a></td><td valign="top"><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['date_created']).'</a></td><td valign="top"><a href="../jobs/job_details.php?jid='.$job['id'].'" class="plain-link">'.date('d M Y',$job['deadline']).'</a></td></tr>';
          
-         echo '<tr class="mobile-only"><td class="border-primary-all padding-small">'.$job['position'].'<p>'.str_replace("\r\n","<br/>",(strlen($job['description']) > 160 ? substr($job['description'],0,160)."...":$job['description'])).'</p><p>'.date('d M Y',$job['date_created']).'</p><p class="text-right"><a class="button primary-bg white-text round-corner" href="../jobs/job_details.php?jid='.$job['id'].'">View Job</a></p></td></tr>';
+         echo '<tr class="mobile-only"><td class="border-primary-all padding-small">'.$job['position'].'<p>'.str_replace("\r\n","<br/>",(strlen($job['description']) > 360 ? substr($job['description'],0,360)."...":$job['description'])).'</p><p>'.date('d M Y',$job['date_created']).'</p><p class="text-right"><a class="button primary-bg white-text round-corner" href="../jobs/job_details.php?jid='.$job['id'].'">View Job</a></p></td></tr>';
        }
      }   
     echo '</tbody>
 </table>
 </section>';
 echo '<section class="w-100 margin-auto" id="candidates">
-<p class="title primary-text">Candidate Profiles</p>
+<p class="title primary-text text-center">Candidate Profiles</p>
 <table class="margin-auto text-left">
     <thead class="primary-bg white-text">
     <tr class="no-mobile"><td>Name</td><td>Qualification</td><td>Career</td><td>Recent Employer</td></tr>
@@ -141,7 +140,7 @@ for($i=0;$i<sizeof($candidates);$i++){
 </table>
 </section>';
 echo '<section class="w-100 margin-std hidden" id="applications">
-<p class="title primary-text">Job Applications</p>
+<p class="title primary-text text-center">Job Applications</p>
 <table class="w-100 margin-auto text-left">
     <thead class="no-mobile primary-bg white-text"><tr><td>Applicant Name</td><td>Qualification</td><td>Profession</td><td>Position</td><td>Date Applied</td><td>Status</td></tr></thead>
     

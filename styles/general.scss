@@ -261,11 +261,29 @@
   .padding-small {
     padding: $smPadding;
   }
+  .padding-small-left {
+    padding-left: $smPadding;
+  }
+  .padding-small-right {
+    padding-right: $smPadding;
+  }
+  .padding-small-top {
+    padding-top: $smPadding;
+  }
+  .padding-small-bottom {
+    padding-bottom: $smPadding;
+  }
   .padding-std-left {
-    margin-left: 2em;
+    padding-left: 2em;
   }
   .padding-std-right {
-    margin-right: 2em;
+    padding-right: 2em;
+  }
+  .padding-std-top {
+    padding-top: 2em;
+  }
+  .padding-std-bottom {
+    padding-bottom: 2em;
   }
   .margin-auto {
     margin: 0 auto;
@@ -789,7 +807,16 @@
   }
   .news-card:hover {
     background-color: $primaryColor;
-    opacity: 0.4;
+    // opacity: 0.4;
+    color: $white;
+  }
+  .news-card:hover > span {
+    background-color: $accentColor;
+    color: $primaryText;
+  }
+  .news-card:hover > a,
+  .news-card:hover > a:hover {
+    color: $white;
   }
   .box-list {
     margin: 1em 2em;
@@ -964,6 +991,17 @@
     animation: spinHorizontal 2000ms linear infinite;
   }
 
+  #confirm_apply_form {
+    width: 80%;
+    margin: 1em auto;
+  }
+  #confirm_apply_form > div.form-group {
+    margin: auto;
+    @include flex(column, flex-start, flex-start, 0, nowrap);
+    padding: 1em;
+    text-align: center;
+    width: 80%;
+  }
   @keyframes spinHorizontal {
     from {
       transform: rotate3d(0deg);

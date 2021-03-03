@@ -58,79 +58,101 @@ $html = '<!DOCTYPE html>
     <title>ITM Tanzania - News and Events</title>
   </head>
   <body>
-  <div
-  id="floating-header"
-  class="floating-header flex-row flex-between flex-top w-100-no-padding padding-std margin-auto"
->
-  <img src="../images/logo.png" class="logo" alt="ITM logo" />
-  <div class="flex-column flex-center flex-end">
-    <div class="flex-row flex-end margin-std-right no-mobile">
-      <img src="../images/tanzania.png" alt="ITM Tanzania" class="flag" />
-      <img
-        src="../images/rwanda.png"
-        alt="ITM Rwanda"
-        class="flag"
-        onclick="window.location=\'https://itmafrica.rw\';"
-      />
-      <img
-        src="../images/angola.png"
-        alt="ITM Angola"
-        class="flag"
-        onclick="window.location=\'https://itmafrica.ao\';"
-      />
-      <img
-        src="../images/drc.png"
-        alt="ITM Group"
-        class="flag"
-        onclick="window.location=\'https://itmafrica.com\';"
-      />
-      <img
-        src="../images/south_africa.png"
-        alt="ITM South Africa"
-        class="flag"
-        onclick="window.location=\'https://itmkatope.co.za\';"
-      />
-      <img
-        src="../images/germany.png"
-        alt="ITM Germany"
-        class="flag"
-        onclick="window.location=\'https://itmnexus.com\';"
-      />
-      <img
-        src="../images/nigeria.png"
-        alt="ITM Nigeria"
-        class="flag"
-        onclick="window.location=\'https://itmafrica.com.ng\';"
-      />
-    </div>
-    <nav class="flex-row flex-center margin-std-right" id="navigation">
-      <span id="home">Home</span>
-      <span id="about">About</span>
-      <span id="services">Services<span id="expandable" class="hidden flex-column flex-top flex-start" ><a href="../services.html#hr">Human Resources Solutions</a><a href="../services.html#sales">Sales and Distribution</a><a href="../services.html#industrial">Industrial Solutions</a><a href="../services.html#b2b">Business-2-Business</a></span></span>
-      <span id="jobs">Jobs</span>
-      <span id="training">Training</span>
-      <span id="news" class="active">News & Events</span>
-      <!-- <span id="contacts">Contacts</span> -->
+<div id="floating-header" class="floating-header white-bg">
+    <div id="top-bar">
+      <img src="../images/logo.png" class="logo" alt="ITM logo" /> 
+      <div class="flex-row flex-end">
+          <div class="tip">
+            <img src="../images/tanzania.png" alt="ITM Tanzania" class="flag" />
+            <span class="tooltip">Tanzania</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/rwanda.png"
+              alt="ITM Rwanda"
+              class="flag"
+              onclick="window.location=\'https://itmafrica.rw\';"
+            />
+            <span class="tooltip">Rwanda</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/angola.png"
+              alt="ITM Angola"
+              class="flag"
+              onclick="window.location=\'https://itmafrica.ao\';"
+            /><span class="tooltip">Angola</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/drc.png"
+              alt="ITM Group"
+              class="flag"
+              onclick="window.location=\'https://itmafrica.com\';"
+            /><span class="tooltip">DR Congo</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/south_africa.png"
+              alt="ITM South Africa"
+              class="flag"
+              onclick="window.location=\'https://itmkatope.co.za\';"
+            /><span class="tooltip">South Africa</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/germany.png"
+              alt="ITM Germany"
+              class="flag"
+              onclick="window.location=\'https://itmnexus.com\';"
+            /><span class="tooltip">Germany</span>
+          </div>
+          <div class="tip">
+            <img
+              src="../images/nigeria.png"
+              alt="ITM Nigeria"
+              class="flag"
+              onclick="window.location=\'https://itmafrica.com.ng\';"
+            /><span class="tooltip">Nigeria</span>
+          </div>
+       </div>
+        <span id="menu"><i class="material-icons">menu</i></span>
+    </div> 
+    <nav id="navigation">
+          <span id="home">Home</span>
+          <span id="about">About us</span> 
+          <div id="services">Services
+          <span 
+              id="expandable"
+              class="hidden flex-column flex-top flex-start"
+              ><a href="../services.html#hr">Human Resources Solutions</a
+              ><a href="training/training.php">Professional Training</a><a href="../services.html#sales">Sales Force Solutions</a
+              ><a href="../services.html#industrial">Logistics and Procurement</a
+              >
+              </span
+            ></span
+          ></div>
+          <span id="jobs">ITM Jobs</span>
+          <span id="news" class="active">Events</span>
+          <span id="contacts">Contacts</span>
     </nav>
-  </div>
-  <span id="menu"><i class="material-icons">menu</i></span>
-</div>
+</div> 
 
     <header
       id="header"
-      class="min-width-full flex-column flex-top flex-start margin-auto"';
+      class="flex-column flex-top flex-start margin-auto"';
       $background = "background-image:url('snaps/".$event['image']."');background-size:cover;";
       $html .=' style="'.$background.'" >
-        <div class="w-100-no-padding flex-column flex-start padding-std primary-bg-transparent">
+        <div class="w-100 flex-column flex-start primary-bg-transparent">
          <span class="vspacer"></span><span class="vspacer"></span><span class="vspacer"></span><span class="vspacer"></span>
-            <p class="white-text title focus text-left">'.$event['title'].'</p>
-            <p class="white-text text-left">
+            <span class="white-text title focus text-left padding-small-left">'.$event['title'].'</span>
+            <span class="white-text text-left padding-std-left">
                '.$event['caption'].'
-            </p>
-            <span class="white-text text-left">'.date('d M Y',$event['event_date']).' '.@$event['location'].'</span>
+            </span>
+            <span class="white-text text-left padding-std-left">'.date('d M Y',$event['event_date']).' '.@$event['location'].'</span>
             <span class="vspacer"></span>';
             if(!empty($event['link'])){
-              $html .='<div class="text-left"><a href="'.$event['link'].'" target="_blank" class="button primary-bg round-corner border-white-all white-text">'.$event['link_text'].'</a></div>';
+              $html .='<div class="text-left margin-std-left"><a href="'.$event['link'].'" target="_blank" class="button primary-bg round-corner border-white-all white-text">'.$event['link_text'].'</a></div>';
             }
             
             $html .='<span class="vspacer"></span>
@@ -146,9 +168,10 @@ $html = '<!DOCTYPE html>
    }
    $html .='</div>';
 
-            $html .= '<section class="w-100 flex-row flex-start flex-top margin-auto">
-            <div class="w-75">
-            <p class="subtitle primary-text">'.$event['title'].'</p>';
+            $html .= '<section class="w-100 flex-column flex-start flex-top margin-auto"><h2 class="subtitle primary-text text-left padding-std-left">'.$event['title'].'</h2>
+            <div class="flex-row flex-start flex-top">
+            <div class="w-75 padding-std-left">
+            ';
             $para = explode("\n",$event['content']);
             for($i=0;$i<sizeof($para);$i++){
                 $html .= '<p class="dark-text text-left padding-small">'.$para[$i].'</p>';
@@ -166,17 +189,9 @@ $html = '<!DOCTYPE html>
                }
            }
             
-            
-            
-            
-            $html .='</div>
-           </div>
-              
-                                     
-              
-            </section>
+            $html .='</div></div></section>
            
-            <footer class="flex-row flex-space dark-bg white-text min-width-full ">';
+            <footer class="flex-row flex-space dark-bg white-text">';
             if($isAdmin){
                 $html .= '<a class="copyright" href="events_admin.php"
                 >Events Admin</a

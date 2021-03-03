@@ -1046,7 +1046,7 @@ class DB{
     static function getJobListings(){
         $result = array();
         $deadline = time();
-        $sql = "select * from jobs where status=0 and deadline >= ".$deadline." order by date_created desc";
+        $sql = "select * from jobs where status=0 order by date_created desc";
         $query = mysqli_query(self::connect(),$sql);
         if($query){
             while($r=mysqli_fetch_row($query)){
@@ -1097,13 +1097,62 @@ class DB{
         else return false;
     }
     //create job application
-    static function applyJob($candidate_id,$job_id){
+    static function applyJob($candidate_id,$job_id,$attachment){
+        $result = array();
+        $con = self::connect();
         $date_created = time();
         $sql = 'insert into job_applications (job_id,candidate_id,date_created) values('.$job_id.','.$candidate_id.','.$date_created.')';
-        $query = mysqli_query(self::connect(),$sql);
-        if($query) return true;
-        else return false;
+        $query = mysqli_query($con,$sql);
+        if($query){
+            $app = self::getApplicationWithId($con->insert_id);
+$cv_path = "cvs/";
+        $cover_letter_path = "cover_letters/";
+        $allowedFiles = array("pdf","doc","docx");
+        if(array_key_exists("cv",$attachment)){
+            $ext = pathinfo($attachment['cv']['name'],PATHINFO_EXTENSION);
+            $result = self::validateUploadedFile($attachment['cv'],array("extensions"=>$allowedFiles,"max_size"=>2048000));
+            if(!$result['status']) return $result;
+            $filename ="_".time().".".$ext;
+            
+            $target = $cv_path.$filename;
+            if(!move_uploaded_file($attachment['cv']['tmp_name'],$target)){
+                $result['status'] = false;
+                $result['message'] = "Could not upload your CV file!";
+            } 
+            else{
+                $cvSql = "update job_applications set cv='".$target."' where id=".$app['id'];
+                $q = $con->query($cvSql);
+                if(!$q) {
+                    $result['status'] = false;
+                    $result['message'] = "Could not update CV information";
+                    unlink($target);
+                }
+            }
+        }
+        //verify and upload cover letter
+         if(array_key_exists("letter",$attachment)){
+            $ext = pathinfo($attachment['letter']['name'],PATHINFO_EXTENSION);
+            $result = self::validateUploadedFile($attachment['letter'],array("extensions"=>$allowedFiles,"max_size"=>2048000));
+            if(!$result['status']) return $result;
+                $filename ="_".time().".".$ext;
+                $target = $cover_letter_path.$filename;
+            if(!move_uploaded_file($attachment['letter']['tmp_name'],$target)){
+                $result['status'] = false;
+                $result['message'] = "Could not upload your cover letter file!";
+            } 
+            else{
+                $clSql = "update job_applications set letter='".$target."' where id=".$app['id'];
+                $q = $con->query($clSql);
+                if(!$q) {
+                    $result['status'] = false;
+                    $result['message'] = "Could not update cover letter information";
+                    unlink($target);
+                }
+            }
+        }
+        return $result;
     }
+}
 
     //get list of job applications
     static function getJobApplications($job_id){
@@ -1465,7 +1514,7 @@ static function searchApplications($options){
 
 //start of events
     static function getEvents(){
-        $sql = "select * from events where status = 0 order by id desc";
+        $sql = "select * from events where status >0 order by id desc";
         $query = mysqli_query(self::connect(),$sql);
         $result = array();
         if($query){
